@@ -1,26 +1,21 @@
 //
-//  HomeTableViewController.swift
+//  CourseDetailTableViewController.swift
 //  ClassGuide
 //
-//  Created by Jesse Chen on 3/22/16.
+//  Created by Jesse Chen on 3/24/16.
 //  Copyright © 2016 Jesse Chen. All rights reserved.
 //
 
 import UIKit
 
-class HomeTableViewController: UITableViewController {
+class CourseDetailTableViewController: UITableViewController {
     
-    var courses: [Course]!
+    var course: Course!
+    let infoCount: Int = 11 //number of pieces of information per course to display
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        let dataManager = DataManager.init()
-        dataManager.fetchCourses() { () in
-            self.courses = dataManager.courseArray
-            self.tableView.reloadData()
-        }
-        tableView.registerNib(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
-        addRevealVCButton()
+        tableView.registerNib(UINib(nibName: "DetailCourseTableViewCell", bundle: nil), forCellReuseIdentifier: "detailCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,34 +26,79 @@ class HomeTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return infoCount
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if let _ = courses { return courses.count } else { return 0 }
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionText: String
+        switch (section) {
+        case 0:
+            sectionText = "Subject"
+        case 1:
+            sectionText = "Course Number"
+        case 2:
+            sectionText = "Distribution Requirement"
+        case 3:
+            sectionText = "Consent"
+        case 4:
+            sectionText = "Short Title"
+        case 5:
+            sectionText = "Full Title"
+        case 6:
+            sectionText = "Course ID"
+        case 7:
+            sectionText = "Dsecription"
+        case 8:
+            sectionText = "Prerequisites"
+        case 9:
+            sectionText = "Special"
+        case 10:
+            sectionText = "Status"
+        default:
+            sectionText = ""
+        }
+        
+        return sectionText
     }
 
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("HomeCell", forIndexPath: indexPath) as! HomeTableViewCell
-        let thisCourse = courses[indexPath.row]
-        print(thisCourse.courseNumber)
-        cell.courseCodeLabel.text = thisCourse.subject.rawValue + "\(thisCourse.courseNumber)"
-        cell.courseTitleLabel.text = thisCourse.titleShort
+        let cell = tableView.dequeueReusableCellWithIdentifier("detailCell", forIndexPath: indexPath) as! DetailCourseTableViewCell
+        let infoText: String
+        switch (indexPath.section) {
+        case 0:
+            infoText = course.subject.rawValue
+        case 1:
+            infoText = "\(course.courseNumber)"
+        case 2:
+            infoText = course.distributionRequirement.rawValue
+        case 3:
+            infoText = course.consent.rawValue
+        case 4:
+            infoText = course.titleShort
+        case 5:
+            infoText = course.titleLong
+        case 6:
+            infoText = "\(course.courseID)"
+        case 7:
+            infoText = course.description
+        case 8:
+            infoText = course.prerequisites
+        case 9:
+            infoText = course.special.rawValue
+        case 10:
+            infoText = course.status.rawValue
+        default:
+            infoText = ""
+        }
+        cell.infoLabel.text = infoText
         return cell
     }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let detailVC = CourseDetailTableViewController()
-        detailVC.course = courses[indexPath.row]
-        navigationController?.pushViewController(detailVC, animated: true)
-    }
-    
-    func saveData() {
-        
-    }
-
+ 
 
     /*
     // Override to support conditional editing of the table view.

@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import CoreData
 
 public enum Subject: String {
     case CS =         "CS"
@@ -32,6 +33,19 @@ public enum Consent : String {
     case Instr =     "Instructor consent required"
 }
 
+public enum Special: String {
+    case Practicum =    "Practicum"
+    case Project =      "Project"
+    case Core =         "Core"
+    case None =         "None"
+}
+
+public enum Status: String {
+    case Taken =    "Taken"
+    case PlanTo =   "Plan to Take"
+    case None =     "None"
+}
+
 public enum APIKey : String {
     case Subject =       "subject"
     case CourseNumber =  "catalogNbr"
@@ -45,6 +59,10 @@ public enum APIKey : String {
     case Prerequisites = "catalogPrereqCoreq"
 }
 
+//All the project courses that are not practicums (practicums are a subset)
+public let nonPracticumProjectsCourseNumbers: [Int] = [4758, 5150, 5152, 5412, 5414, 5431, 5625, 5643, 6670]
+public let coreCourseNumbers: [Int] = [2800, 3110, 3410, 4410, 4820]
+
 public class Course {
     public let subject: Subject
     public let courseNumber: Int
@@ -56,6 +74,8 @@ public class Course {
     public let courseID: Int
     public let description: String
     public let prerequisites: String //Should technically be a [Course], need to parse it somehow
+    public let special: Special
+    public let status: Status
     
     internal init(json: JSON) {
         subject = Subject(rawValue: json[APIKey.Subject.rawValue].stringValue) ?? .Other
@@ -67,9 +87,39 @@ public class Course {
         courseID = json[APIKey.CourseID.rawValue].intValue
         description = json[APIKey.Description.rawValue].stringValue
         prerequisites = json[APIKey.Prerequisites.rawValue].stringValue
+        status = .None //initially nothing is taken
+        //appending instructor objects
         for instructorJSON in json[APIKey.Instructors.rawValue].arrayValue {
             instructors.append(Instructor(json: instructorJSON))
         }
+        //determining the "special" field
+        if courseNumber % 10 == 1 {
+            special = .Practicum
+        } else if nonPracticumProjectsCourseNumbers.contains(courseNumber) {
+            special = .Project
+        } else if coreCourseNumbers.contains(courseNumber) {
+            special = .Core
+        } else {
+            special = .None
+        }
     }
+    
+    internal init(savedCourse: NSManagedObject) {
+        subject = Subject(rawValue: savedCourse.valueForKey("subject") as! String) ?? .Other
+        courseNumber = savedCourse.valueForKey("courseNumber") as! Int
+        distributionRequirement = Distribution(rawValue: savedCourse.valueForKey("distributionRequirement") as! String) ?? .None
+        consent = Consent(rawValue: savedCourse.valueForKey("consent") as! String) ?? .None
+        titleShort = savedCourse.valueForKey("titleShort") as! String
+        titleLong = savedCourse.valueForKey("titleLong") as! String
+        courseID =  savedCourse.valueForKey("courseID") as! Int
+        description = savedCourse.valueForKey("descr") as! String
+        prerequisites = savedCourse.valueForKey("prerequisites") as! String
+        status = Status(rawValue: savedCourse.valueForKey("status") as! String) ?? .None
+        instructors = [] //decide if we really need an entire Instructor object, or whether names are good enough
+        special = Special(rawValue: savedCourse.valueForKey("special") as! String) ?? .None
+        
+    }
+    
+  
 }
 
