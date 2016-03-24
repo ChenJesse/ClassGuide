@@ -6,7 +6,6 @@
 //  Copyright © 2016 Jesse Chen. All rights reserved.
 //
 
-
 import Foundation
 import Alamofire
 import SwiftyJSON
@@ -34,22 +33,18 @@ public class DataManager: NSObject {
     public static let sharedInstance = DataManager()
     var courseArray: [Course] = []
     
-    public func fetchCourses() {
+    public func fetchCourses(completionHandler: () -> ()) {
         let _ = Alamofire.request(.GET, Router.Classes, parameters: ["roster": "SP16", "subject": "CS"])
             .responseJSON { response in
                 switch response.result {
                 case .Success(let data):
                     print("success")
                     self.createCourses(JSON(data))
+                    completionHandler()
                 case .Failure(let error):
-                    print("failure")
                     print(error)
                 }
         }
-    }
-    
-    public func getCourses() -> [Course] {
-        return courseArray
     }
     
     internal func createCourses(json: JSON) {

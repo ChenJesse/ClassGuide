@@ -9,18 +9,21 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDelegate {
 
     var window: UIWindow?
-
+    let revealVC = SWRevealViewController()
+    let navigationController = UINavigationController()
+    let sidebarVC = SidebarTableViewController()
+    let homeVC = HomeTableViewController()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        navigationController.navigationBarHidden = false
+        UINavigationBar.appearance().barStyle = .Black
+        revealVCSetup()
         
-        var mainViewController = HomeTableViewController(nibName: "HomeTableViewController", bundle: nil)
-        
-        window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()
         return true
     }
@@ -45,6 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func revealVCSetup() {
+        navigationController.setViewControllers([homeVC], animated: false)
+        revealVC.setFrontViewController(navigationController, animated: false)
+        revealVC.setRearViewController(sidebarVC, animated: true)
+        window?.rootViewController = revealVC
     }
 
 

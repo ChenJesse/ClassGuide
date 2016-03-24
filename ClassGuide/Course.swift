@@ -10,10 +10,10 @@ import Foundation
 import SwiftyJSON
 
 public enum Subject: String {
-    case ComputerScience =      "CS"
-    case Physics =              "PHYS"
-    case Economics =            "ECON"
-    case Other =                "Other"
+    case CS =         "CS"
+    case Physics =    "PHYS"
+    case Economics =  "ECON"
+    case Other =      "Other"
 }
 
 public enum Distribution : String {
