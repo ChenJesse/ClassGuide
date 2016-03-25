@@ -12,7 +12,7 @@ class CourseDetailTableViewController: UITableViewController {
     
     var course: Course!
     let infoCount: Int = 11 //number of pieces of information per course to display
-    let rowHeight = CGFloat(60)
+    let rowHeight = CGFloat(40)
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,7 +107,7 @@ class CourseDetailTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let height = (indexPath.section == 7 || indexPath.row == 8) ? rowHeight * 2 : rowHeight
+        let height = (indexPath.section == 7 || indexPath.row == 8) ? rowHeight * 3 : rowHeight
         return height
     }
     

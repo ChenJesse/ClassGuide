@@ -14,7 +14,7 @@ class SidebarTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.separatorStyle = .SingleLine
-        tableView.backgroundColor = UIColor.cornellRed
+        tableView.backgroundColor = .blackColor()
         tableView.registerNib(UINib(nibName: "SidebarTableViewCell", bundle: nil), forCellReuseIdentifier: "sidebarCell")
     }
 

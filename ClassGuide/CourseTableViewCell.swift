@@ -12,11 +12,12 @@ class CourseTableViewCell: UITableViewCell {
 
     @IBOutlet weak var courseCodeLabel: UILabel!
     @IBOutlet weak var courseTitleLabel: UILabel!
+    @IBOutlet weak var statusImageView: UIImageView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = .Default
+        selectionStyle = .None
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

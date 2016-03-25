@@ -46,6 +46,16 @@ public enum Status: String {
     case None =     "None"
 }
 
+public enum Semester: String {
+    case FA14 = "FA14"
+    case SP14 = "SP14"
+    case FA15 = "FA15"
+    case SP15 = "SP15"
+    case FA16 = "FA16"
+    case SP16 = "SP16"
+    case Other = "Other"
+}
+
 public enum APIKey : String {
     case Subject =       "subject"
     case CourseNumber =  "catalogNbr"
@@ -64,6 +74,7 @@ public let nonPracticumProjectsCourseNumbers: [Int] = [4758, 5150, 5152, 5412, 5
 public let coreCourseNumbers: [Int] = [2800, 3110, 3410, 4410, 4820]
 
 public class Course {
+    public let semester: Semester
     public let subject: Subject
     public let courseNumber: Int
     public var instructors: [Instructor] = []
@@ -73,11 +84,12 @@ public class Course {
     public let titleLong: String
     public let courseID: Int
     public let description: String
-    public let prerequisites: String //Should technically be a [Course], need to parse it somehow
+    public var prerequisites: String //Should technically be a [Course], need to parse it somehow
     public let special: Special
     public let status: Status
     
-    internal init(json: JSON) {
+    internal init(json: JSON, sem: String) {
+        semester = Semester(rawValue: sem) ?? .Other
         subject = Subject(rawValue: json[APIKey.Subject.rawValue].stringValue) ?? .Other
         courseNumber = json[APIKey.CourseNumber.rawValue].intValue
         distributionRequirement = Distribution(rawValue: json[APIKey.Distribution.rawValue].stringValue) ?? .None
@@ -86,7 +98,7 @@ public class Course {
         titleLong = json[APIKey.TitleLong.rawValue].stringValue
         courseID = json[APIKey.CourseID.rawValue].intValue
         description = json[APIKey.Description.rawValue].stringValue
-        prerequisites = json[APIKey.Prerequisites.rawValue].stringValue
+        prerequisites = (json[APIKey.Prerequisites.rawValue].stringValue != "") ? json[APIKey.Prerequisites.rawValue].stringValue : "None"
         status = .None //initially nothing is taken
         //appending instructor objects
         for instructorJSON in json[APIKey.Instructors.rawValue].arrayValue {
@@ -105,6 +117,7 @@ public class Course {
     }
     
     internal init(savedCourse: NSManagedObject) {
+        semester = Semester(rawValue: savedCourse.valueForKey("semester") as! String) ?? .Other
         subject = Subject(rawValue: savedCourse.valueForKey("subject") as! String) ?? .Other
         courseNumber = savedCourse.valueForKey("courseNumber") as! Int
         distributionRequirement = Distribution(rawValue: savedCourse.valueForKey("distributionRequirement") as! String) ?? .None
@@ -117,9 +130,7 @@ public class Course {
         status = Status(rawValue: savedCourse.valueForKey("status") as! String) ?? .None
         instructors = [] //decide if we really need an entire Instructor object, or whether names are good enough
         special = Special(rawValue: savedCourse.valueForKey("special") as! String) ?? .None
-        
     }
-    
   
 }
 
