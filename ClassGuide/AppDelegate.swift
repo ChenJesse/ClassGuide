@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     let revealVC = SWRevealViewController()
     let navigationController = UINavigationController()
     let sidebarVC = SidebarTableViewController()
-    let homeVC = HomeTableViewController()
+    let homeVC = CourseTableViewController()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.

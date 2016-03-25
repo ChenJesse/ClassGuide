@@ -1,5 +1,5 @@
 //
-//  HomeTableViewController.swift
+//  CourseTableViewController.swift
 //  ClassGuide
 //
 //  Created by Jesse Chen on 3/22/16.
@@ -9,12 +9,21 @@
 import UIKit
 import CoreData
 
-class HomeTableViewController: UITableViewController {
+public enum Season {
+    case Fall
+    case Spring
+}
+
+class CourseTableViewController: UITableViewController {
     
     var courses: [Course] = []
     var savedCourses: [NSManagedObject]!
+    var takenCourses: [Course] = []
+    var plannedCourses: [Course] = []
     var appDelegate: AppDelegate!
     var managedContext: NSManagedObjectContext!
+    var seasonToggle: UIButton?
+    var season: Season = .Fall
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +38,12 @@ class HomeTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         } else { print("Didn't have to fetch") }
+        processCourses()
         tableView.backgroundColor = .blackColor()
-        tableView.registerNib(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
+        tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
         addRevealVCButton()
+        setupSegmentedControl()
+        setupSeasonToggle()
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,18 +53,16 @@ class HomeTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return courses.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("HomeCell", forIndexPath: indexPath) as! HomeTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("HomeCell", forIndexPath: indexPath) as! CourseTableViewCell
         let thisCourse = courses[indexPath.row]
         cell.courseCodeLabel.text = thisCourse.subject.rawValue + "\(thisCourse.courseNumber)"
         cell.courseTitleLabel.text = thisCourse.titleShort
@@ -112,49 +122,37 @@ class HomeTableViewController: UITableViewController {
         }
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    func processCourses() {
+        takenCourses = courses.filter({ (c) -> Bool in
+            return c.status == .Taken
+        })
+        plannedCourses = courses.filter({ (c) -> Bool in
+            return c.status == .PlanTo
+        })
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
+    func setupSegmentedControl() {
+        let yearSelector = UISegmentedControl(frame: CGRectMake(20, 20, 150, 30))
+        yearSelector.backgroundColor = UIColor.cornellRed
+        yearSelector.tintColor = .blackColor()
+        let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        yearSelector.setTitleTextAttributes(attributes, forState: .Normal)
+        yearSelector.insertSegmentWithTitle("14", atIndex: 0, animated: true)
+        yearSelector.insertSegmentWithTitle("15", atIndex: 1, animated: true)
+        yearSelector.insertSegmentWithTitle("16", atIndex: 2, animated: true)
+        navigationItem.titleView = yearSelector
+    }
+    
+    func setupSeasonToggle() {
+        seasonToggle = UIButton(frame: CGRectMake(20, 20, 30, 30))
+        seasonToggle?.addTarget(self, action: #selector(CourseTableViewController.toggleSeason(_:)), forControlEvents: .TouchUpInside)
+        seasonToggle!.setImage(UIImage(named: "fallIcon"), forState: .Normal)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: seasonToggle!)
+    }
+    
+    func toggleSeason(sender: UIButton) {
+        let iconName = (season == .Fall) ? "springIcon" : "fallIcon"
+        season = (season == .Fall) ? .Spring : .Fall
+        seasonToggle!.setImage(UIImage(named: iconName), forState: .Normal)
+    }
 }

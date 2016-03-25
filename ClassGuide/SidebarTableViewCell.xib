@@ -16,13 +16,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lUZ-dt-TxB">
-                        <rect key="frame" x="26" y="20" width="42" height="41"/>
+                        <rect key="frame" x="33" y="20" width="35" height="41"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="42" id="bQ3-zi-Sxd"/>
+                            <constraint firstAttribute="width" constant="35" id="J0M-pP-ahK"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SS2-E5-BKn">
-                        <rect key="frame" x="83" y="20" width="129" height="41"/>
+                        <rect key="frame" x="84" y="20" width="129" height="41"/>
                         <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="15"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -31,12 +31,12 @@
                 <color key="backgroundColor" red="0.61176470589999998" green="0.1960784314" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                 <color key="tintColor" red="0.61176470589999998" green="0.1960784314" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="18" id="1HQ-c0-5PH"/>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="12" id="3pk-RF-QPE"/>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6OV-hy-lBG"/>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="top" secondItem="SS2-E5-BKn" secondAttribute="top" id="UF7-RH-0Qw"/>
-                    <constraint firstItem="SS2-E5-BKn" firstAttribute="leading" secondItem="lUZ-dt-TxB" secondAttribute="trailing" constant="15" id="Yxh-hT-SKO"/>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="bottom" secondItem="SS2-E5-BKn" secondAttribute="bottom" id="xeb-np-V1t"/>
+                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="12" id="22D-xT-I6z"/>
+                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="bottom" secondItem="SS2-E5-BKn" secondAttribute="bottom" id="RTE-5I-PVy"/>
+                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aep-2i-WH6"/>
+                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="25" id="geV-Mb-AfJ"/>
+                    <constraint firstItem="SS2-E5-BKn" firstAttribute="leading" secondItem="lUZ-dt-TxB" secondAttribute="trailing" constant="16" id="peP-yd-wSK"/>
+                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="top" secondItem="SS2-E5-BKn" secondAttribute="top" id="vC6-It-sL4"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

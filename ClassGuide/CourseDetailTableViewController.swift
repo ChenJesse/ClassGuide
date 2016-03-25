@@ -20,7 +20,7 @@ class CourseDetailTableViewController: UITableViewController {
         tableView.backgroundColor = .blackColor()
         tableView.separatorStyle = .None
         tableView.allowsSelection = false
-        tableView.registerNib(UINib(nibName: "DetailCourseTableViewCell", bundle: nil), forCellReuseIdentifier: "detailCell")
+        tableView.registerNib(UINib(nibName: "CourseDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "detailCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,7 +72,7 @@ class CourseDetailTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("detailCell", forIndexPath: indexPath) as! DetailCourseTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("detailCell", forIndexPath: indexPath) as! CourseDetailTableViewCell
         let infoText: String
         switch (indexPath.section) {
         case 0:
