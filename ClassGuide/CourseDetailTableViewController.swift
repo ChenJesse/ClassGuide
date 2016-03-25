@@ -12,10 +12,15 @@ class CourseDetailTableViewController: UITableViewController {
     
     var course: Course!
     let infoCount: Int = 11 //number of pieces of information per course to display
+    let rowHeight = CGFloat(60)
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerNib(UINib(nibName: "DetailCourseTableViewCell", bundle: nil), forCellReuseIdentifier: "detailCell")
+        tableView.delegate = self
+        tableView.backgroundColor = .blackColor()
+        tableView.separatorStyle = .None
+        tableView.allowsSelection = false
+        tableView.registerNib(UINib(nibName: "CourseDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "detailCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,7 +72,7 @@ class CourseDetailTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("detailCell", forIndexPath: indexPath) as! DetailCourseTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("detailCell", forIndexPath: indexPath) as! CourseDetailTableViewCell
         let infoText: String
         switch (indexPath.section) {
         case 0:
@@ -86,8 +91,10 @@ class CourseDetailTableViewController: UITableViewController {
             infoText = "\(course.courseID)"
         case 7:
             infoText = course.description
+            cell.infoLabel.sizeToFit()
         case 8:
             infoText = course.prerequisites
+            cell.infoLabel.sizeToFit()
         case 9:
             infoText = course.special.rawValue
         case 10:
@@ -98,6 +105,24 @@ class CourseDetailTableViewController: UITableViewController {
         cell.infoLabel.text = infoText
         return cell
     }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let height = (indexPath.section == 7 || indexPath.row == 8) ? rowHeight * 2 : rowHeight
+        return height
+    }
+    
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.contentView.backgroundColor = .blackColor()
+        header.alpha = 1.0 //make the header transparent
+        header.textLabel!.textColor = .whiteColor()
+        header.textLabel!.font = .systemFontOfSize(15, weight: UIFontWeightThin)
+    }
+    
+
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView(frame: CGRectMake(CGFloat(0), CGFloat(0), self.tableView.bounds.size.width, CGFloat(30.0)))
+//    }
  
 
     /*

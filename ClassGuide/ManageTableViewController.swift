@@ -1,64 +1,45 @@
 //
-//  HomeTableViewController.swift
+//  ManageTableViewController.swift
 //  ClassGuide
 //
-//  Created by Jesse Chen on 3/22/16.
+//  Created by Jesse Chen on 3/25/16.
 //  Copyright © 2016 Jesse Chen. All rights reserved.
 //
 
 import UIKit
 
-class HomeTableViewController: UITableViewController {
-    
-    var courses: [Course]!
+class ManageTableViewController: UITableViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        let dataManager = DataManager.init()
-        dataManager.fetchCourses() { () in
-            self.courses = dataManager.courseArray
-            self.tableView.reloadData()
-        }
-        tableView.registerNib(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
-        addRevealVCButton()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if let _ = courses { return courses.count } else { return 0 }
+        return 0
     }
 
-    
+    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("HomeCell", forIndexPath: indexPath) as! HomeTableViewCell
-        let thisCourse = courses[indexPath.row]
-        print(thisCourse.courseNumber)
-        cell.courseCodeLabel.text = thisCourse.subject.rawValue + "\(thisCourse.courseNumber)"
-        cell.courseTitleLabel.text = thisCourse.titleShort
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+
+        // Configure the cell...
+
         return cell
     }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let detailVC = CourseDetailTableViewController()
-        detailVC.course = courses[indexPath.row]
-        navigationController?.pushViewController(detailVC, animated: true)
-    }
-    
-    func saveData() {
-        
-    }
-
+    */
 
     /*
     // Override to support conditional editing of the table view.

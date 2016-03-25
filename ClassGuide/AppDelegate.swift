@@ -16,12 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     let revealVC = SWRevealViewController()
     let navigationController = UINavigationController()
     let sidebarVC = SidebarTableViewController()
-    let homeVC = HomeTableViewController()
+    let homeVC = CourseTableViewController()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         navigationController.navigationBarHidden = false
+        UINavigationBar.appearance().translucent = false
         UINavigationBar.appearance().barStyle = .Black
         revealVCSetup()
         
@@ -37,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        homeVC.saveCoreData()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -49,12 +51,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        homeVC.saveCoreData()
     }
     
     func revealVCSetup() {
         navigationController.setViewControllers([homeVC], animated: false)
         revealVC.setFrontViewController(navigationController, animated: false)
         revealVC.setRearViewController(sidebarVC, animated: true)
+        
         window?.rootViewController = revealVC
     }
     
@@ -68,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("CoreDataSample", withExtension: "momd")!
+        let modelURL = NSBundle.mainBundle().URLForResource("Model", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
     
