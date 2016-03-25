@@ -1,26 +1,27 @@
 //
-//  HomeTableViewCell.swift
+//  SidebarTableViewCell.swift
 //  ClassGuide
 //
-//  Created by Jesse Chen on 3/22/16.
+//  Created by Jesse Chen on 3/24/16.
 //  Copyright © 2016 Jesse Chen. All rights reserved.
 //
 
 import UIKit
 
-class HomeTableViewCell: UITableViewCell {
+class SidebarTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var courseCodeLabel: UILabel!
-    @IBOutlet weak var courseTitleLabel: UILabel!
-    
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var categoryLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = .Default
+        // Initialization code
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
     }
     
 }

@@ -7,18 +7,29 @@
 //
 
 import UIKit
+import CoreData
 
 class HomeTableViewController: UITableViewController {
     
-    var courses: [Course]!
-        
+    var courses: [Course] = []
+    var savedCourses: [NSManagedObject]!
+    var appDelegate: AppDelegate!
+    var managedContext: NSManagedObjectContext!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        managedContext = appDelegate.managedObjectContext
         let dataManager = DataManager.init()
-        dataManager.fetchCourses() { () in
-            self.courses = dataManager.courseArray
-            self.tableView.reloadData()
-        }
+        fetchCoreData()
+        if savedCourses.count == 0 {
+            print("Have to fetch courses from API")
+            dataManager.fetchCourses() { () in
+                self.courses = dataManager.courseArray
+                self.tableView.reloadData()
+            }
+        } else { print("Didn't have to fetch") }
+        tableView.backgroundColor = .blackColor()
         tableView.registerNib(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
         addRevealVCButton()
     }
@@ -36,14 +47,13 @@ class HomeTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if let _ = courses { return courses.count } else { return 0 }
+        return courses.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("HomeCell", forIndexPath: indexPath) as! HomeTableViewCell
         let thisCourse = courses[indexPath.row]
-        print(thisCourse.courseNumber)
         cell.courseCodeLabel.text = thisCourse.subject.rawValue + "\(thisCourse.courseNumber)"
         cell.courseTitleLabel.text = thisCourse.titleShort
         return cell
@@ -55,10 +65,52 @@ class HomeTableViewController: UITableViewController {
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
-    func saveData() {
-        
+    func fetchCoreData() {
+        print("Attempting to fetch")
+        let fetchRequest = NSFetchRequest(entityName: "Course")
+        do {
+            let results =
+                try managedContext.executeFetchRequest(fetchRequest)
+            if let savedCourses = results as? [NSManagedObject] {
+                self.savedCourses = savedCourses.sort { ($0.valueForKey("courseNumber") as! Int) < ($1.valueForKey("courseNumber") as! Int)}
+                for course in self.savedCourses {
+                    courses.append(Course(savedCourse: course))
+                }
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
     }
-
+    
+    func saveCoreData() {
+        print("Attempting to save")
+        if savedCourses.count == 0 { //initial save preparation
+            for course in courses {
+                let entity = NSEntityDescription.entityForName("Course", inManagedObjectContext: managedContext)
+                let courseEntity = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+                courseEntity.setValue(course.subject.rawValue, forKey: "subject")
+                courseEntity.setValue(course.courseNumber, forKey: "courseNumber")
+                courseEntity.setValue(course.distributionRequirement.rawValue, forKey: "distributionRequirement")
+                courseEntity.setValue(course.consent.rawValue, forKey: "consent")
+                courseEntity.setValue(course.titleShort, forKey: "titleShort")
+                courseEntity.setValue(course.titleLong, forKey: "titleLong")
+                courseEntity.setValue(course.courseID, forKey: "courseID")
+                courseEntity.setValue(course.description, forKey: "descr")
+                courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
+                courseEntity.setValue(course.status.rawValue, forKey: "status")
+                courseEntity.setValue(course.special.rawValue, forKey: "special")
+                savedCourses.append(courseEntity)
+                print("saving")
+            }
+        } else { //update the current objects
+        }
+        //save
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.
