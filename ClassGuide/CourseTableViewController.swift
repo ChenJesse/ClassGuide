@@ -101,7 +101,10 @@ class CourseTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let detailVC = CourseDetailTableViewController()
+//        let detailVC = CourseDetailTableViewController()
+//        detailVC.course = selectedSemesterCourses[indexPath.row]
+//        navigationController?.pushViewController(detailVC, animated: true)
+        let detailVC = DetailViewController()
         detailVC.course = selectedSemesterCourses[indexPath.row]
         navigationController?.pushViewController(detailVC, animated: true)
     }
@@ -145,6 +148,7 @@ class CourseTableViewController: UITableViewController {
                 courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
                 courseEntity.setValue(course.status.rawValue, forKey: "status")
                 courseEntity.setValue(course.special.rawValue, forKey: "special")
+                courseEntity.setValue(course.instructors, forKey: "instructors")
                 savedCourses.append(courseEntity)
                 print("saving")
             }

@@ -6,6 +6,7 @@
         <attribute name="courseNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="descr" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="distributionRequirement" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="instructors" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="prerequisites" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="semester" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="special" optional="YES" attributeType="String" syncable="YES"/>
@@ -15,6 +16,6 @@
         <attribute name="titleShort" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Course" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="Course" positionX="-63" positionY="-18" width="128" height="240"/>
     </elements>
 </model>

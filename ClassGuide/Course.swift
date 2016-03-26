@@ -18,12 +18,12 @@ public enum Subject: String {
 }
 
 public enum Distribution : String {
-    case PBS =      "PBS"
-    case MQR =      "MQR"
-    case HA  =      "HA-AS"
-    case KCM =      "KCM"
-    case LA  =      "LA-AS"
-    case SBA =      "SBA"
+    case PBS =      "(PBS)"
+    case MQR =      "(MQR)"
+    case HA  =      "(HA-AS)"
+    case KCM =      "(KCM)"
+    case LA  =      "(LA-AS)"
+    case SBA =      "(SBA)"
     case None =     "None"
 }
 
@@ -77,7 +77,7 @@ public class Course {
     public let semester: Semester
     public let subject: Subject
     public let courseNumber: Int
-    public var instructors: [Instructor] = []
+    public var instructors: String = ""
     public let distributionRequirement: Distribution
     public let consent: Consent
     public let titleShort: String
@@ -101,10 +101,15 @@ public class Course {
         prerequisites = (json[APIKey.Prerequisites.rawValue].stringValue != "") ? json[APIKey.Prerequisites.rawValue].stringValue : "None"
         status = .None //initially nothing is taken
         //appending instructor objects
-        for instructorJSON in json[APIKey.Instructors.rawValue].arrayValue {
-            instructors.append(Instructor(json: instructorJSON))
-        }
+        //for instructorJSON in json[APIKey.Instructors.rawValue].arrayValue {
+        //    instructors.append(Instructor(json: instructorJSON))
+        //}
         //determining the "special" field
+        for instructorJSON in json["enrollGroups"][0]["classSections"][0]["meetings"][0]["instructors"].arrayValue {
+            instructors += "\(instructorJSON["firstName"].stringValue) \(instructorJSON["lastName"].stringValue), "
+        }
+        instructors = String(instructors.characters.dropLast())
+        print(instructors)
         if courseNumber % 10 == 1 {
             special = .Practicum
         } else if nonPracticumProjectsCourseNumbers.contains(courseNumber) {
@@ -128,7 +133,7 @@ public class Course {
         description = savedCourse.valueForKey("descr") as! String
         prerequisites = savedCourse.valueForKey("prerequisites") as! String
         status = Status(rawValue: savedCourse.valueForKey("status") as! String) ?? .None
-        instructors = [] //decide if we really need an entire Instructor object, or whether names are good enough
+        instructors = savedCourse.valueForKey("instructors") as! String 
         special = Special(rawValue: savedCourse.valueForKey("special") as! String) ?? .None
     }
   

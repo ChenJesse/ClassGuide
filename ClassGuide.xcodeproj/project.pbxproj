@@ -31,6 +31,8 @@
 		60B7C6261CA1D86E00B9D190 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B7C6251CA1D86E00B9D190 /* Course.swift */; };
 		60B7C6281CA1DD6000B9D190 /* Instructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B7C6271CA1DD6000B9D190 /* Instructor.swift */; };
 		60B7C62B1CA20DD400B9D190 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60B7C6291CA20DD400B9D190 /* Model.xcdatamodeld */; };
+		60C76A9E1CA5F0EF0030A7B4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C76A9C1CA5F0EF0030A7B4 /* DetailViewController.swift */; };
+		60C76A9F1CA5F0EF0030A7B4 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60C76A9D1CA5F0EF0030A7B4 /* DetailViewController.xib */; };
 		60DE62D81CA4CC5900AAFB32 /* SidebarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DE62D61CA4CC5900AAFB32 /* SidebarTableViewCell.swift */; };
 		60DE62D91CA4CC5900AAFB32 /* SidebarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60DE62D71CA4CC5900AAFB32 /* SidebarTableViewCell.xib */; };
 		60DE62DB1CA4D7D800AAFB32 /* StyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DE62DA1CA4D7D800AAFB32 /* StyleExtension.swift */; };
@@ -88,6 +90,8 @@
 		60B7C6251CA1D86E00B9D190 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		60B7C6271CA1DD6000B9D190 /* Instructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instructor.swift; sourceTree = "<group>"; };
 		60B7C62A1CA20DD400B9D190 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		60C76A9C1CA5F0EF0030A7B4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		60C76A9D1CA5F0EF0030A7B4 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		60DE62D61CA4CC5900AAFB32 /* SidebarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarTableViewCell.swift; sourceTree = "<group>"; };
 		60DE62D71CA4CC5900AAFB32 /* SidebarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SidebarTableViewCell.xib; sourceTree = "<group>"; };
 		60DE62DA1CA4D7D800AAFB32 /* StyleExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleExtension.swift; sourceTree = "<group>"; };
@@ -168,6 +172,8 @@
 		60A109B91CA3C51100E6D2E8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				60C76A9C1CA5F0EF0030A7B4 /* DetailViewController.swift */,
+				60C76A9D1CA5F0EF0030A7B4 /* DetailViewController.xib */,
 				60B7C6191CA1CC4F00B9D190 /* CourseTableViewController.swift */,
 				60B7C61A1CA1CC4F00B9D190 /* CourseTableViewController.xib */,
 				60A109B21CA3C21200E6D2E8 /* SidebarTableViewController.swift */,
@@ -386,6 +392,7 @@
 				6036A44C1CA4790300C8C113 /* CourseDetailTableViewController.xib in Resources */,
 				60B7C6201CA1CD9D00B9D190 /* CourseTableViewCell.xib in Resources */,
 				60DE62D91CA4CC5900AAFB32 /* SidebarTableViewCell.xib in Resources */,
+				60C76A9F1CA5F0EF0030A7B4 /* DetailViewController.xib in Resources */,
 				60608E751CA5895E00D7C9D7 /* ManageTableViewController.xib in Resources */,
 				60A985D11CA1C8D6006024CA /* Assets.xcassets in Resources */,
 			);
@@ -461,6 +468,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60B7C61F1CA1CD9D00B9D190 /* CourseTableViewCell.swift in Sources */,
+				60C76A9E1CA5F0EF0030A7B4 /* DetailViewController.swift in Sources */,
 				60B7C6221CA1CF3300B9D190 /* DataManager.swift in Sources */,
 				60B7C6261CA1D86E00B9D190 /* Course.swift in Sources */,
 				60A109A81CA3B7D200E6D2E8 /* SWRevealViewController.m in Sources */,
