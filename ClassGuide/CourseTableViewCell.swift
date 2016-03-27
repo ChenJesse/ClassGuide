@@ -14,7 +14,6 @@ class CourseTableViewCell: UITableViewCell {
     @IBOutlet weak var courseTitleLabel: UILabel!
     @IBOutlet weak var statusImageView: UIImageView!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .None

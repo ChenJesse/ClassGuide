@@ -31,8 +31,8 @@ internal enum Router: URLStringConvertible {
 public class DataManager: NSObject {
     
     public static let sharedInstance = DataManager()
-    var courseArray: [Course] = []
     public let semesters = ["FA14", "SP14", "FA15", "SP15", "FA16", "SP16"]
+    var courseArray: [Course] = []
     
     public func fetchCourses(completionHandler: () -> ()) {
         for semester in semesters {
@@ -56,5 +56,4 @@ public class DataManager: NSObject {
             courseArray.append(Course(json: c, sem: semester))
         }
     }
-
 }

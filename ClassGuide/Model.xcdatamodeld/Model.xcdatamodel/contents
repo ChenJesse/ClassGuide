@@ -10,7 +10,7 @@
         <attribute name="prerequisites" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="semester" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="special" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="titleLong" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="titleShort" optional="YES" attributeType="String" syncable="YES"/>

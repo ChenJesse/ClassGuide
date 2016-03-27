@@ -28,8 +28,10 @@ class CourseTableViewController: UITableViewController {
     
     var initialLoad = true
     var savedCourses: [NSManagedObject]!
-    var takenCourses: [Course] = []
-    var plannedCourses: [Course] = []
+//    var takenCourses: [Course] = []
+    var takenCourses: NSMutableSet!
+    //var plannedCourses: [Course] = []
+    var plannedCourses: NSMutableSet!
     var appDelegate: AppDelegate!
     var managedContext: NSManagedObjectContext!
     var seasonToggle: UIButton?
@@ -40,6 +42,8 @@ class CourseTableViewController: UITableViewController {
         super.viewDidLoad()
         if (initialLoad) {
             initialLoad = false
+            takenCourses = NSMutableSet()
+            plannedCourses = NSMutableSet()
             appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             managedContext = appDelegate.managedObjectContext
             let dataManager = DataManager.init()
@@ -64,6 +68,10 @@ class CourseTableViewController: UITableViewController {
             processCourses()
         }
         setCourseArray()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,20 +100,24 @@ class CourseTableViewController: UITableViewController {
         case .None:
             image = UIImage(named: "questionmarkIcon")!
         case .PlanTo:
-            break;
-        default:
-            image = UIImage(named: "questionmarkIcon")!
+            image = UIImage(named: "planIcon")
+        case .Taken:
+            image = UIImage(named: "checkIcon")
         }
         cell.statusImageView.image = image!
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        let detailVC = CourseDetailTableViewController()
-//        detailVC.course = selectedSemesterCourses[indexPath.row]
-//        navigationController?.pushViewController(detailVC, animated: true)
         let detailVC = DetailViewController()
         detailVC.course = selectedSemesterCourses[indexPath.row]
+        detailVC.takenCourses = takenCourses
+        detailVC.plannedCourses = plannedCourses
+        let backButton = UIBarButtonItem(title: "Courses", style: .Plain, target: nil, action: nil)
+        backButton.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
+        navigationItem.backBarButtonItem = backButton
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        navigationController?.navigationBar.tintColor = UIColor.cornellRed
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -130,29 +142,35 @@ class CourseTableViewController: UITableViewController {
         }
     }
     
+    func updateCoreData() {
+        //TODO: fetch core data, and 
+        //Create completely new savedCourses objects with the previous status information, by taking the
+        //old courses, put all the status in dict key=subject + courseNumber+semester:value: status.rawValue,
+        //delete old core data.
+    }
+    
     func saveCoreData() {
         print("Attempting to save")
-        if savedCourses.count == 0 { //initial save preparation
-            for course in courses {
-                let entity = NSEntityDescription.entityForName("Course", inManagedObjectContext: managedContext)
-                let courseEntity = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-                courseEntity.setValue(course.semester.rawValue, forKey: "semester")
-                courseEntity.setValue(course.subject.rawValue, forKey: "subject")
-                courseEntity.setValue(course.courseNumber, forKey: "courseNumber")
-                courseEntity.setValue(course.distributionRequirement.rawValue, forKey: "distributionRequirement")
-                courseEntity.setValue(course.consent.rawValue, forKey: "consent")
-                courseEntity.setValue(course.titleShort, forKey: "titleShort")
-                courseEntity.setValue(course.titleLong, forKey: "titleLong")
-                courseEntity.setValue(course.courseID, forKey: "courseID")
-                courseEntity.setValue(course.description, forKey: "descr")
-                courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
-                courseEntity.setValue(course.status.rawValue, forKey: "status")
-                courseEntity.setValue(course.special.rawValue, forKey: "special")
-                courseEntity.setValue(course.instructors, forKey: "instructors")
-                savedCourses.append(courseEntity)
-                print("saving")
-            }
-        } else { //update the current objects
+        for course in savedCourses {
+            managedContext.deleteObject(course)
+        }
+        for course in courses {
+            let entity = NSEntityDescription.entityForName("Course", inManagedObjectContext: managedContext)
+            let courseEntity = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+            courseEntity.setValue(course.semester.rawValue, forKey: "semester")
+            courseEntity.setValue(course.subject.rawValue, forKey: "subject")
+            courseEntity.setValue(course.courseNumber, forKey: "courseNumber")
+            courseEntity.setValue(course.distributionRequirement.rawValue, forKey: "distributionRequirement")
+            courseEntity.setValue(course.consent.rawValue, forKey: "consent")
+            courseEntity.setValue(course.titleShort, forKey: "titleShort")
+            courseEntity.setValue(course.titleLong, forKey: "titleLong")
+            courseEntity.setValue(course.courseID, forKey: "courseID")
+            courseEntity.setValue(course.description, forKey: "descr")
+            courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
+            courseEntity.setValue(course.status.rawValue, forKey: "status")
+            courseEntity.setValue(course.instructors, forKey: "instructors")
+            savedCourses.append(courseEntity)
+            print("saving")
         }
         //save
         do {
@@ -163,12 +181,13 @@ class CourseTableViewController: UITableViewController {
     }
 
     func processCourses() {
-        takenCourses = courses.filter({ (c) -> Bool in
-            return c.status == .Taken
-        })
-        plannedCourses = courses.filter({ (c) -> Bool in
-            return c.status == .PlanTo
-        })
+        for course in courses {
+            if course.status == .Taken {
+                takenCourses.addObject(course)
+            } else if course.status == .None {
+                plannedCourses.addObject(course)
+            }
+        }
         FA14courses = courses.filter({ (c) -> Bool in
             return c.semester == .FA14
         })
@@ -219,7 +238,6 @@ class CourseTableViewController: UITableViewController {
     }
     
     func switchSemester(sender: UISegmentedControl) {
-        print("switching")
         yearIndex = sender.selectedSegmentIndex
         setCourseArray()
         print(yearIndex)
@@ -227,7 +245,6 @@ class CourseTableViewController: UITableViewController {
     }
     
     func setCourseArray() {
-        print("setting course")
         switch (yearIndex) {
         case 0:
             selectedSemesterCourses = (season == .Fall) ? FA14courses : SP14courses

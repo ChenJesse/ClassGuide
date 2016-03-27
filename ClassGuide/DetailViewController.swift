@@ -11,6 +11,8 @@ import UIKit
 class DetailViewController: UIViewController {
     
     var course: Course!
+    var takenCourses: NSMutableSet!
+    var plannedCourses: NSMutableSet!
 
     @IBOutlet weak var courseStatusSelector: UISegmentedControl!
     @IBOutlet weak var courseTitle: UILabel!
@@ -21,7 +23,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var special: UILabel!
     @IBOutlet weak var consent: UILabel!
     @IBOutlet weak var prerequisites: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var descriptionView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,30 +36,31 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func setup() {
+    internal func setup() {
         courseTitle.text = course.titleShort
         courseSubjectNumber.text = "\(course.subject)\(course.courseNumber)"
         fullTitle.text = "Full title: \(course.titleLong)"
         professors.text = "Instructors: \(course.instructors)"
-        distribution.text = "Distribution requirement \(course.distributionRequirement.rawValue)"
-        special.text = "Special requirement: " + String(course.special)
+        distribution.text = "Distribution requirement: \(course.distributionRequirement.rawValue)"
+        special.text = "Special requirement: " + printSpecialAttributes(course).chopSuffix(2)
         consent.text = "Consent: \(course.consent.rawValue)"
         prerequisites.text = "Prerequisites: \(course.prerequisites)"
-        descriptionLabel.text = "Description: \(course.description)"
+        descriptionView.text = "Description: \(course.description)"
         courseTitle.sizeToFit()
         courseSubjectNumber.sizeToFit()
         fullTitle.sizeToFit()
-        descriptionLabel.sizeToFit()
+        courseStatusSelector.selectedSegmentIndex = course.status.rawValue
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    
+    @IBAction func statusChanged(sender: UISegmentedControl) {
+        if course.status == .PlanTo {
+            plannedCourses.removeObject(course)
+        } else if course.status == .Taken {
+            plannedCourses.removeObject(course)
+        }
+        course.status = Status(rawValue: sender.selectedSegmentIndex)!
+        print(course.status.rawValue)
     }
-    */
 
 }
