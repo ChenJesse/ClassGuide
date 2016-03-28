@@ -18,12 +18,12 @@ public enum Subject: String {
 }
 
 public enum Distribution : String {
-    case PBS =      "PBS"
-    case MQR =      "MQR"
-    case HA  =      "HA-AS"
-    case KCM =      "KCM"
-    case LA  =      "LA-AS"
-    case SBA =      "SBA"
+    case PBS =      "(PBS)"
+    case MQR =      "(MQR)"
+    case HA  =      "(HA-AS)"
+    case KCM =      "(KCM)"
+    case LA  =      "(LA-AS)"
+    case SBA =      "(SBA)"
     case None =     "None"
 }
 
@@ -33,17 +33,20 @@ public enum Consent : String {
     case Instr =     "Instructor consent required"
 }
 
-public enum Special: String {
-    case Practicum =    "Practicum"
-    case Project =      "Project"
-    case Core =         "Core"
-    case None =         "None"
+public enum Status: Int {
+    case Taken =    2
+    case PlanTo =   1
+    case None =     0
 }
 
-public enum Status: String {
-    case Taken =    "Taken"
-    case PlanTo =   "Plan to Take"
-    case None =     "None"
+public enum Semester: String {
+    case FA14 = "FA14"
+    case SP14 = "SP14"
+    case FA15 = "FA15"
+    case SP15 = "SP15"
+    case FA16 = "FA16"
+    case SP16 = "SP16"
+    case Other = "Other"
 }
 
 public enum APIKey : String {
@@ -59,52 +62,43 @@ public enum APIKey : String {
     case Prerequisites = "catalogPrereqCoreq"
 }
 
-//All the project courses that are not practicums (practicums are a subset)
-public let nonPracticumProjectsCourseNumbers: [Int] = [4758, 5150, 5152, 5412, 5414, 5431, 5625, 5643, 6670]
-public let coreCourseNumbers: [Int] = [2800, 3110, 3410, 4410, 4820]
-
 public class Course {
+    public let semester: Semester
     public let subject: Subject
     public let courseNumber: Int
-    public var instructors: [Instructor] = []
+    public var instructors: String = ""
     public let distributionRequirement: Distribution
     public let consent: Consent
     public let titleShort: String
     public let titleLong: String
     public let courseID: Int
     public let description: String
-    public let prerequisites: String //Should technically be a [Course], need to parse it somehow
-    public let special: Special
-    public let status: Status
+    public var prerequisites: String //Should technically be a [Course], need to parse it somehow
+    public var status: Status
     
-    internal init(json: JSON) {
+    internal init(json: JSON, sem: String, stat: Status) {
+        semester = Semester(rawValue: sem) ?? .Other
         subject = Subject(rawValue: json[APIKey.Subject.rawValue].stringValue) ?? .Other
         courseNumber = json[APIKey.CourseNumber.rawValue].intValue
         distributionRequirement = Distribution(rawValue: json[APIKey.Distribution.rawValue].stringValue) ?? .None
         consent = Consent(rawValue: json[APIKey.Consent.rawValue].stringValue) ?? .None
         titleShort = json[APIKey.TitleShort.rawValue].stringValue
         titleLong = json[APIKey.TitleLong.rawValue].stringValue
+        //TODO: Get courseID working again
         courseID = json[APIKey.CourseID.rawValue].intValue
         description = json[APIKey.Description.rawValue].stringValue
-        prerequisites = json[APIKey.Prerequisites.rawValue].stringValue
-        status = .None //initially nothing is taken
-        //appending instructor objects
-        for instructorJSON in json[APIKey.Instructors.rawValue].arrayValue {
-            instructors.append(Instructor(json: instructorJSON))
-        }
-        //determining the "special" field
-        if courseNumber % 10 == 1 {
-            special = .Practicum
-        } else if nonPracticumProjectsCourseNumbers.contains(courseNumber) {
-            special = .Project
-        } else if coreCourseNumbers.contains(courseNumber) {
-            special = .Core
-        } else {
-            special = .None
-        }
+        prerequisites = (json[APIKey.Prerequisites.rawValue].stringValue != "") ? json[APIKey.Prerequisites.rawValue].stringValue : "None"
+        status = stat //initially nothing is taken
+        processInstructors(json)
+        instructors = instructors.chopSuffix(2) //remove last two characters
+    }
+    
+    convenience init(json: JSON, sem: String) {
+        self.init(json: json, sem: sem, stat: .None)
     }
     
     internal init(savedCourse: NSManagedObject) {
+        semester = Semester(rawValue: savedCourse.valueForKey("semester") as! String) ?? .Other
         subject = Subject(rawValue: savedCourse.valueForKey("subject") as! String) ?? .Other
         courseNumber = savedCourse.valueForKey("courseNumber") as! Int
         distributionRequirement = Distribution(rawValue: savedCourse.valueForKey("distributionRequirement") as! String) ?? .None
@@ -114,12 +108,15 @@ public class Course {
         courseID =  savedCourse.valueForKey("courseID") as! Int
         description = savedCourse.valueForKey("descr") as! String
         prerequisites = savedCourse.valueForKey("prerequisites") as! String
-        status = Status(rawValue: savedCourse.valueForKey("status") as! String) ?? .None
-        instructors = [] //decide if we really need an entire Instructor object, or whether names are good enough
-        special = Special(rawValue: savedCourse.valueForKey("special") as! String) ?? .None
-        
+        status = Status(rawValue: savedCourse.valueForKey("status") as! Int) ?? .None
+        instructors = savedCourse.valueForKey("instructors") as! String
     }
     
+    func processInstructors(json: JSON) {
+        for instructorJSON in json["enrollGroups"][0]["classSections"][0]["meetings"][0]["instructors"].arrayValue {
+            instructors += "\(instructorJSON["firstName"].stringValue) \(instructorJSON["lastName"].stringValue), "
+        }
+    }
   
 }
 

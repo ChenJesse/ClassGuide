@@ -12,7 +12,7 @@ class CourseDetailTableViewController: UITableViewController {
     
     var course: Course!
     let infoCount: Int = 11 //number of pieces of information per course to display
-    let rowHeight = CGFloat(60)
+    let rowHeight = CGFloat(40)
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +30,10 @@ class CourseDetailTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return infoCount
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 1
     }
     
@@ -96,9 +94,9 @@ class CourseDetailTableViewController: UITableViewController {
             infoText = course.prerequisites
             cell.infoLabel.sizeToFit()
         case 9:
-            infoText = course.special.rawValue
+            infoText = printSpecialAttributes(course)
         case 10:
-            infoText = course.status.rawValue
+            infoText = "\(course.status)"
         default:
             infoText = ""
         }
@@ -107,7 +105,7 @@ class CourseDetailTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let height = (indexPath.section == 7 || indexPath.row == 8) ? rowHeight * 2 : rowHeight
+        let height = (indexPath.section == 7 || indexPath.row == 8) ? rowHeight * 3 : rowHeight
         return height
     }
     
@@ -117,57 +115,5 @@ class CourseDetailTableViewController: UITableViewController {
         header.alpha = 1.0 //make the header transparent
         header.textLabel!.textColor = .whiteColor()
         header.textLabel!.font = .systemFontOfSize(15, weight: UIFontWeightThin)
-    }
-    
-
-//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = UIView(frame: CGRectMake(CGFloat(0), CGFloat(0), self.tableView.bounds.size.width, CGFloat(30.0)))
-//    }
- 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
+    }    
 }

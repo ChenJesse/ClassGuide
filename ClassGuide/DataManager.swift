@@ -31,27 +31,29 @@ internal enum Router: URLStringConvertible {
 public class DataManager: NSObject {
     
     public static let sharedInstance = DataManager()
+    public let semesters = ["FA14", "SP14", "FA15", "SP15", "FA16", "SP16"]
     var courseArray: [Course] = []
     
     public func fetchCourses(completionHandler: () -> ()) {
-        let _ = Alamofire.request(.GET, Router.Classes, parameters: ["roster": "SP16", "subject": "CS"])
-            .responseJSON { response in
-                switch response.result {
-                case .Success(let data):
-                    print("success")
-                    self.createCourses(JSON(data))
-                    completionHandler()
-                case .Failure(let error):
-                    print(error)
-                }
+        for semester in semesters {
+            let _ = Alamofire.request(.GET, Router.Classes, parameters: ["roster": semester, "subject": "CS"])
+                .responseJSON { response in
+                    switch response.result {
+                    case .Success(let data):
+                        print("success")
+                        self.createCourses(JSON(data), semester: semester)
+                        completionHandler()
+                    case .Failure(let error):
+                        print(error)
+                    }
+            }
         }
     }
     
-    internal func createCourses(json: JSON) {
+    internal func createCourses(json: JSON, semester: String) {
         let courseJSON = json["data"]["classes"].arrayValue
         for c in courseJSON {
-            courseArray.append(Course(json: c))
+            courseArray.append(Course(json: c, sem: semester))
         }
     }
-
 }
