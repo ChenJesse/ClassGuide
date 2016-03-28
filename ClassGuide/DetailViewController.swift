@@ -11,8 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
     
     var course: Course!
-    var takenCourses: NSMutableSet!
-    var plannedCourses: NSMutableSet!
+    var delegate: CoreDataDelegate!
 
     @IBOutlet weak var courseStatusSelector: UISegmentedControl!
     @IBOutlet weak var courseTitle: UILabel!
@@ -54,13 +53,7 @@ class DetailViewController: UIViewController {
     
     
     @IBAction func statusChanged(sender: UISegmentedControl) {
-        if course.status == .PlanTo {
-            plannedCourses.removeObject(course)
-        } else if course.status == .Taken {
-            plannedCourses.removeObject(course)
-        }
-        course.status = Status(rawValue: sender.selectedSegmentIndex)!
-        print(course.status.rawValue)
+        delegate.handleChangedCourse(course, status: Status(rawValue: sender.selectedSegmentIndex)!)
     }
 
 }

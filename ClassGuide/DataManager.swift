@@ -42,7 +42,9 @@ public class DataManager: NSObject {
                     case .Success(let data):
                         print("success")
                         self.createCourses(JSON(data), semester: semester)
-                        completionHandler()
+                        if semester == self.semesters[self.semesters.count - 1] {
+                            completionHandler()
+                        }
                     case .Failure(let error):
                         print(error)
                     }

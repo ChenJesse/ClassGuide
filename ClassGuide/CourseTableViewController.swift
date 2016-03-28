@@ -14,9 +14,14 @@ public enum Season {
     case Spring
 }
 
-class CourseTableViewController: UITableViewController {
+protocol CoreDataDelegate {
+    func handleChangedCourse(course: Course, status: Status)
+}
+
+class CourseTableViewController: UITableViewController, CoreDataDelegate {
     
     var courses: [Course] = []
+    var courseToNSManagedObject: [Course: NSManagedObject] = [:]
     
     var selectedSemesterCourses: [Course] = []
     var FA14courses: [Course] = []
@@ -28,9 +33,7 @@ class CourseTableViewController: UITableViewController {
     
     var initialLoad = true
     var savedCourses: [NSManagedObject]!
-//    var takenCourses: [Course] = []
     var takenCourses: NSMutableSet!
-    //var plannedCourses: [Course] = []
     var plannedCourses: NSMutableSet!
     var appDelegate: AppDelegate!
     var managedContext: NSManagedObjectContext!
@@ -53,6 +56,7 @@ class CourseTableViewController: UITableViewController {
                 dataManager.fetchCourses() { () in
                     self.courses = dataManager.courseArray
                     self.processCourses()
+                    self.saveCoreData()
                     self.setCourseArray()
                     self.tableView.reloadData()
                 }
@@ -111,8 +115,7 @@ class CourseTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailVC = DetailViewController()
         detailVC.course = selectedSemesterCourses[indexPath.row]
-        detailVC.takenCourses = takenCourses
-        detailVC.plannedCourses = plannedCourses
+        detailVC.delegate = self
         let backButton = UIBarButtonItem(title: "Courses", style: .Plain, target: nil, action: nil)
         backButton.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
         navigationItem.backBarButtonItem = backButton
@@ -134,7 +137,9 @@ class CourseTableViewController: UITableViewController {
             if let savedCourses = results as? [NSManagedObject] {
                 self.savedCourses = savedCourses.sort { ($0.valueForKey("courseNumber") as! Int) < ($1.valueForKey("courseNumber") as! Int)}
                 for course in self.savedCourses {
-                    courses.append(Course(savedCourse: course))
+                    let newCourse = Course(savedCourse: course)
+                    courses.append(newCourse)
+                    courseToNSManagedObject[newCourse] = course
                 }
             }
         } catch let error as NSError {
@@ -151,26 +156,10 @@ class CourseTableViewController: UITableViewController {
     
     func saveCoreData() {
         print("Attempting to save")
-        for course in savedCourses {
-            managedContext.deleteObject(course)
-        }
-        for course in courses {
-            let entity = NSEntityDescription.entityForName("Course", inManagedObjectContext: managedContext)
-            let courseEntity = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-            courseEntity.setValue(course.semester.rawValue, forKey: "semester")
-            courseEntity.setValue(course.subject.rawValue, forKey: "subject")
-            courseEntity.setValue(course.courseNumber, forKey: "courseNumber")
-            courseEntity.setValue(course.distributionRequirement.rawValue, forKey: "distributionRequirement")
-            courseEntity.setValue(course.consent.rawValue, forKey: "consent")
-            courseEntity.setValue(course.titleShort, forKey: "titleShort")
-            courseEntity.setValue(course.titleLong, forKey: "titleLong")
-            courseEntity.setValue(course.courseID, forKey: "courseID")
-            courseEntity.setValue(course.description, forKey: "descr")
-            courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
-            courseEntity.setValue(course.status.rawValue, forKey: "status")
-            courseEntity.setValue(course.instructors, forKey: "instructors")
-            savedCourses.append(courseEntity)
-            print("saving")
+        if savedCourses.count == 0 {
+            for course in courses {
+                createCourseEntity(course)
+            }
         }
         //save
         do {
@@ -178,6 +167,25 @@ class CourseTableViewController: UITableViewController {
         } catch let error as NSError {
             print("Could not save \(error), \(error.userInfo)")
         }
+    }
+    
+    func createCourseEntity(course: Course) {
+        let entity = NSEntityDescription.entityForName("Course", inManagedObjectContext: managedContext)
+        let courseEntity = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        courseEntity.setValue(course.semester.rawValue, forKey: "semester")
+        courseEntity.setValue(course.subject.rawValue, forKey: "subject")
+        courseEntity.setValue(course.courseNumber, forKey: "courseNumber")
+        courseEntity.setValue(course.distributionRequirement.rawValue, forKey: "distributionRequirement")
+        courseEntity.setValue(course.consent.rawValue, forKey: "consent")
+        courseEntity.setValue(course.titleShort, forKey: "titleShort")
+        courseEntity.setValue(course.titleLong, forKey: "titleLong")
+        courseEntity.setValue(course.courseID, forKey: "courseID")
+        courseEntity.setValue(course.description, forKey: "descr")
+        courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
+        courseEntity.setValue(course.status.rawValue, forKey: "status")
+        courseEntity.setValue(course.instructors, forKey: "instructors")
+        savedCourses.append(courseEntity)
+        courseToNSManagedObject[course] = courseEntity
     }
 
     func processCourses() {
@@ -255,5 +263,16 @@ class CourseTableViewController: UITableViewController {
         default:
             selectedSemesterCourses = FA16courses
         }
+    }
+    
+    func handleChangedCourse(course: Course, status: Status) {
+        if course.status == .PlanTo {
+            plannedCourses.removeObject(course)
+        } else if course.status == .Taken {
+            plannedCourses.removeObject(course)
+        }
+        course.status = status
+        managedContext.deleteObject(courseToNSManagedObject[course]!) //delete the old entity
+        createCourseEntity(course)
     }
 }
