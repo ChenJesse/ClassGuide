@@ -13,10 +13,13 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDelegate {
 
     var window: UIWindow?
-    let revealVC = SWRevealViewController()
     let navigationController = UINavigationController()
+    var appDelegate: AppDelegate!
+    var managedContext: NSManagedObjectContext!
+    let revealVC = SWRevealViewController()
     let sidebarVC = SidebarTableViewController()
     let homeVC = CourseTableViewController()
+    let manageVC = ManageTableViewController()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -24,6 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         navigationController.navigationBarHidden = false
         UINavigationBar.appearance().translucent = false
         UINavigationBar.appearance().barStyle = .Black
+        appDelegate = self
+        managedContext = appDelegate.managedObjectContext
+        viewControllerSetup()
         revealVCSetup()
         
         window?.makeKeyAndVisible()
@@ -54,11 +60,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         homeVC.saveCoreData()
     }
     
+    func viewControllerSetup() {
+        homeVC.appDelegate = appDelegate
+        homeVC.managedContext = managedContext
+        
+        manageVC.managedContext = managedContext
+        
+        sidebarVC.revealVC = revealVC
+        sidebarVC.homeVC = homeVC
+        sidebarVC.manageVC = manageVC
+        sidebarVC.navController = navigationController
+    }
+    
     func revealVCSetup() {
         navigationController.setViewControllers([homeVC], animated: false)
         revealVC.setFrontViewController(navigationController, animated: false)
         revealVC.setRearViewController(sidebarVC, animated: true)
-        
         window?.rootViewController = revealVC
     }
     
@@ -124,6 +141,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
             }
         }
     }
+    
+    
 
 
 

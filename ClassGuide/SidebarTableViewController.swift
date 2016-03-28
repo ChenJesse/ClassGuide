@@ -9,7 +9,12 @@
 import UIKit
 
 class SidebarTableViewController: UITableViewController {
-        
+    
+    var homeVC: CourseTableViewController!
+    var manageVC: ManageTableViewController!
+    var revealVC: SWRevealViewController!
+    var navController: UINavigationController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -55,4 +60,35 @@ class SidebarTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return CGFloat(75)
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let desiredVC: UIViewController
+        switch (indexPath.row) {
+        case 0:
+            desiredVC = homeVC
+        case 1:
+            desiredVC = manageVC
+            manageVC.takenCourses = homeVC.takenCourses
+            manageVC.plannedCourses = homeVC.plannedCourses
+            manageVC.savedCourses = homeVC.savedCourses
+            manageVC.courseToNSManagedObject = homeVC.courseToNSManagedObject
+        default:
+            desiredVC = homeVC
+        }
+        selectionHandler(desiredVC)
+    }
+    
+    func selectionHandler(desiredVC: UIViewController) {
+        if let front = self.revealVC.frontViewController {
+            if desiredVC == front {
+                self.revealVC.setFrontViewPosition(.Left, animated: true)
+                print("going into base case")
+                return
+            }
+        }
+        if desiredVC == manageVC { print("We have manageVC") }
+        navController.setViewControllers([desiredVC], animated: false)
+        revealVC.setFrontViewPosition(.Left, animated: true)
+    }
+    
 }

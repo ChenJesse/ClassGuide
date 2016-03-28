@@ -47,8 +47,6 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate {
             initialLoad = false
             takenCourses = NSMutableSet()
             plannedCourses = NSMutableSet()
-            appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            managedContext = appDelegate.managedObjectContext
             let dataManager = DataManager.init()
             fetchCoreData()
             if savedCourses.count == 0 {
@@ -147,13 +145,6 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate {
         }
     }
     
-    func updateCoreData() {
-        //TODO: fetch core data, and 
-        //Create completely new savedCourses objects with the previous status information, by taking the
-        //old courses, put all the status in dict key=subject + courseNumber+semester:value: status.rawValue,
-        //delete old core data.
-    }
-    
     func saveCoreData() {
         print("Attempting to save")
         if savedCourses.count == 0 {
@@ -192,7 +183,7 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate {
         for course in courses {
             if course.status == .Taken {
                 takenCourses.addObject(course)
-            } else if course.status == .None {
+            } else if course.status == .PlanTo {
                 plannedCourses.addObject(course)
             }
         }
