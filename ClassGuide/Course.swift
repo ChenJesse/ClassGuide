@@ -62,7 +62,11 @@ public enum APIKey : String {
     case Prerequisites = "catalogPrereqCoreq"
 }
 
-public class Course {
+public func ==(lhs: Course, rhs: Course) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
+public class Course: Hashable {
     public let semester: Semester
     public let subject: Subject
     public let courseNumber: Int
@@ -75,6 +79,12 @@ public class Course {
     public let description: String
     public var prerequisites: String //Should technically be a [Course], need to parse it somehow
     public var status: Status
+    
+    public var hashValue: Int {
+        get {
+            return (subject.rawValue + "\(courseNumber) \(semester.rawValue)").hashValue
+        }
+    }
     
     internal init(json: JSON, sem: String, stat: Status) {
         semester = Semester(rawValue: sem) ?? .Other
@@ -117,6 +127,5 @@ public class Course {
             instructors += "\(instructorJSON["firstName"].stringValue) \(instructorJSON["lastName"].stringValue), "
         }
     }
-  
 }
 
