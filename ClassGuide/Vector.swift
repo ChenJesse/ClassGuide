@@ -8,16 +8,21 @@
 
 import Foundation
 
-protocol Vector {
+protocol Requirement {
     var requiredCourses: Int { get }
     var completed: Bool { get set }
-    func updateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet)
+    func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet)
+    func analyzeCourse(course: Course)
+    func checkCompletion()
     func resetProgress()
+    func printProgress() -> [(String, Float)]
 }
 
-class Renaissance: Vector {
+class Renaissance: Requirement {
     let requiredCourses = 4
     var completed: Bool
+    let FxxxRequirement = 4
+    let differentHundredthsRequirement = 2
     
     //requires 4 Fxxx courses
     var FxxxCourses = 0
@@ -27,30 +32,21 @@ class Renaissance: Vector {
     var hundredthsIs2or8 = false
     var seenHundredths: [Int] = []
     
-    internal init() {
+    internal init(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
         completed = false
+        calculateProgress(takenCourses, plannedCourses: plannedCourses)
     }
     
-    func updateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
+    func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
         resetProgress()
         var relevantCourses: [Course] = []
         relevantCourses.appendContentsOf(takenCourses.allObjects as! [Course])
         relevantCourses.appendContentsOf(plannedCourses.allObjects as! [Course])
         for course in relevantCourses {
-            let courseIsFXXX = isFXXX(course)
-            if courseIsFXXX { FxxxCourses += 1 }
-            if courseIsFXXX && !seenHundredths.contains(getHundredthsDigit(course)) {
-                seenHundredths.append(getHundredthsDigit(course))
-                differentHundredths += 1
-            }
-            if getHundredthsDigit(course) == 2 || getHundredthsDigit(course) == 8 {
-                hundredthsIs2or8 = true
-            }
+            analyzeCourse(course)
         }
         
-        if FxxxCourses >= 4 && differentHundredths >= 2 && hundredthsIs2or8 {
-            completed = true
-        }
+        checkCompletion()
     }
     
     func resetProgress() {
@@ -59,9 +55,33 @@ class Renaissance: Vector {
         hundredthsIs2or8 = false
         seenHundredths = []
     }
+    
+    func analyzeCourse(course: Course) {
+        let courseIsFXXX = isFXXX(course)
+        if courseIsFXXX { FxxxCourses += 1 }
+        if courseIsFXXX && !seenHundredths.contains(getHundredthsDigit(course)) {
+            seenHundredths.append(getHundredthsDigit(course))
+            differentHundredths += 1
+        }
+        if getHundredthsDigit(course) == 2 || getHundredthsDigit(course) == 8 {
+            hundredthsIs2or8 = true
+        }
+    }
+    
+    func checkCompletion() {
+        completed = FxxxCourses >= FxxxRequirement && differentHundredths >= differentHundredthsRequirement && hundredthsIs2or8
+    }
+    
+    func printProgress() -> [(String, Float)] {
+        var progress: [(String, Float)] = []
+        progress.append(("Taken 4 Fxxx courses?", Float(FxxxCourses) / Float(FxxxRequirement)))
+        progress.append(("Taken 2 different hundredths digits (Fxxx courses)?", Float(hundredthsIs2or8) / Float(differentHundredthsRequirement)))
+        progress.append(("At least 1 onf the Fxxx courses have a 2 or 8 as the hundredths digit?", hundredthsIs2or8 ? 1 : 0))
+        return progress
+    }
 }
 
-class AI: Vector {
+class AI: Requirement {
     let requiredCourses = 4
     var completed: Bool
     var takenCS4700 = false
@@ -69,20 +89,20 @@ class AI: Vector {
     var takenF78xOrF75x = false
     var takenF7xxOr4300orF67xor5846 = false
     
-    internal init() {
+    internal init(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
         completed = false
+        calculateProgress(takenCourses, plannedCourses: plannedCourses)
     }
     
-    func updateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
+    func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
         var relevantCourses: [Course] = []
         relevantCourses.appendContentsOf(takenCourses.allObjects as! [Course])
         relevantCourses.appendContentsOf(plannedCourses.allObjects as! [Course])
         for course in relevantCourses {
-            if course.courseNumber == 4700 { takenCS4700 = true }
-            if course.courseNumber == 4701 { takenCS4701 = true }
-            if checkF78xOrF75x(course) { takenF78xOrF75x = true }
-            if checkF7xxor4300orF67xor5846(course) { takenF7xxOr4300orF67xor5846 = true }
+            analyzeCourse(course)
         }
+        
+        checkCompletion()
     }
     
     func resetProgress() {
@@ -103,6 +123,26 @@ class AI: Vector {
             (isFXXX(course) && getHundredthsDigit(course) == 6 && getTenthsDigit(course) == 7) ||
             course.courseNumber == 5846
         )
+    }
+    
+    func analyzeCourse(course: Course) {
+        if course.courseNumber == 4700 { takenCS4700 = true }
+        if course.courseNumber == 4701 { takenCS4701 = true }
+        if checkF78xOrF75x(course) { takenF78xOrF75x = true }
+        if checkF7xxor4300orF67xor5846(course) { takenF7xxOr4300orF67xor5846 = true }
+    }
+    
+    func checkCompletion() {
+        completed = takenCS4700 && takenCS4701 && takenF78xOrF75x && takenF7xxOr4300orF67xor5846
+    }
+    
+    func printProgress() -> [(String, Float)] {
+        var progress: [(String, Float)] = []
+        progress.append(("Taken CS4700?", takenCS4700 ? 1 : 0))
+        progress.append(("Taken CS4701?", takenCS4701 ? 1 : 0))
+        progress.append(("Taken either F78x or F75x?", takenF78xOrF75x ? 1 : 0))
+        progress.append(("Taken any one of these: F7xx, 44300, F67x, 5846?", takenF7xxOr4300orF67xor5846 ? 1 : 0))
+        return progress
     }
 }
 

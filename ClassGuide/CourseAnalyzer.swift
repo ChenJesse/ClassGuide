@@ -44,6 +44,10 @@ public func isFXXX(course: Course) -> Bool {
     return course.courseNumber >= 4000 && course.courseNumber != 4820 && course.courseNumber != 4999
 }
 
+public func getThousandsDigit(course: Course) -> Int {
+    return course.courseNumber / 1000
+}
+
 public func getHundredthsDigit(course: Course) -> Int {
     return ((course.courseNumber % 100) / 10)
 }
