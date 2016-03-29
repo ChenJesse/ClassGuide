@@ -39,3 +39,15 @@ public func printSpecialAttributes(course: Course) -> String {
     //remove range
     return specialString
 }
+
+public func isFXXX(course: Course) -> Bool {
+    return course.courseNumber >= 4000 && course.courseNumber != 4820 && course.courseNumber != 4999
+}
+
+public func getHundredthsDigit(course: Course) -> Int {
+    return ((course.courseNumber % 100) / 10)
+}
+
+public func getTenthsDigit(course: Course) -> Int {
+    return (course.courseNumber % 10)
+}
