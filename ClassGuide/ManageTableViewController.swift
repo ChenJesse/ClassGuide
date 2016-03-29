@@ -83,11 +83,6 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
     
     func saveCoreData() {
         print("Attempting to save")
-//        if savedCourses.count == 0 {
-//            for course in courses {
-//                createCourseEntity(course)
-//            }
-//        }
         //save
         do {
             try managedContext.save()

@@ -18,18 +18,12 @@ protocol CoreDataDelegate {
     func handleChangedCourse(course: Course, status: Status)
 }
 
-class CourseTableViewController: UITableViewController, CoreDataDelegate {
+class CourseTableViewController: UITableViewController, CoreDataDelegate, UISearchBarDelegate {
     
     var courses: [Course] = []
     var courseToNSManagedObject: [Course: NSManagedObject] = [:]
     
-    var selectedSemesterCourses: [Course] = []
-    var FA14courses: [Course] = []
-    var SP14courses: [Course] = []
-    var FA15courses: [Course] = []
-    var SP15courses: [Course] = []
-    var FA16courses: [Course] = []
-    var SP16courses: [Course] = []
+    var desiredCourses: [Course] = []
     
     var initialLoad = true
     var savedCourses: [NSManagedObject]!
@@ -38,38 +32,19 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate {
     var appDelegate: AppDelegate!
     var managedContext: NSManagedObjectContext!
     var seasonToggle: UIButton?
+    var searchBar: UISearchBar!
+    var searchQuery = ""
     var yearIndex = 2
     var season: Season = .Fall
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if (initialLoad) {
-            initialLoad = false
-            takenCourses = NSMutableSet()
-            plannedCourses = NSMutableSet()
-            let dataManager = DataManager.init()
-            fetchCoreData()
-            if savedCourses.count == 0 {
-                print("Have to fetch courses from API")
-                dataManager.fetchCourses() { () in
-                    self.courses = dataManager.courseArray
-                    self.processCourses()
-                    self.saveCoreData()
-                    self.setCourseArray()
-                    self.tableView.reloadData()
-                }
-            } else {
-                print("Didn't have to fetch")
-            }
-            
-            tableView.backgroundColor = .blackColor()
-            tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
-            addRevealVCButton()
-            setupSegmentedControl()
-            setupSeasonToggle()
+            handleInitialLoad()
+        } else {
             processCourses()
+            tableView.reloadData()
         }
-        setCourseArray()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -87,13 +62,13 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectedSemesterCourses.count
+        return desiredCourses.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("HomeCell", forIndexPath: indexPath) as! CourseTableViewCell
-        let thisCourse = selectedSemesterCourses[indexPath.row]
+        let thisCourse = desiredCourses[indexPath.row]
         cell.courseCodeLabel.text = thisCourse.subject.rawValue + "\(thisCourse.courseNumber)"
         cell.courseCodeLabel.sizeToFit()
         cell.courseTitleLabel.text = thisCourse.titleShort
@@ -112,7 +87,7 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailVC = DetailViewController()
-        detailVC.course = selectedSemesterCourses[indexPath.row]
+        detailVC.course = desiredCourses[indexPath.row]
         detailVC.delegate = self
         let backButton = UIBarButtonItem(title: "Courses", style: .Plain, target: nil, action: nil)
         backButton.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
@@ -124,6 +99,44 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return CGFloat(60)
+    }
+    
+    func handleInitialLoad() {
+        initialLoad = false
+        takenCourses = NSMutableSet()
+        plannedCourses = NSMutableSet()
+        let dataManager = DataManager.init()
+        fetchCoreData()
+        if savedCourses.count == 0 {
+            print("Have to fetch courses from API")
+            dataManager.fetchCourses() { () in
+                self.courses = dataManager.courseArray
+                self.processTakenAndPlannedCourses()
+                self.processCourses()
+                self.saveCoreData()
+                self.tableView.reloadData()
+            }
+        } else {
+            print("Didn't have to fetch")
+        }
+        
+        tableView.backgroundColor = .blackColor()
+        tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
+        addRevealVCButton()
+        setupSegmentedControl()
+        setupSeasonToggle()
+        setupSearchBar()
+        processTakenAndPlannedCourses()
+        processCourses()
+        tableView.reloadData()
+    }
+    
+    func setupSearchBar() {
+        searchBar = UISearchBar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 30))
+        searchBar.searchBarStyle = .Minimal
+        searchBar.tintColor = UIColor.cornellRed
+        searchBar.delegate = self
+        tableView.tableHeaderView = searchBar
     }
     
     func fetchCoreData() {
@@ -178,8 +191,8 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate {
         savedCourses.append(courseEntity)
         courseToNSManagedObject[course] = courseEntity
     }
-
-    func processCourses() {
+    
+    func processTakenAndPlannedCourses() {
         for course in courses {
             if course.status == .Taken {
                 takenCourses.addObject(course)
@@ -187,24 +200,35 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate {
                 plannedCourses.addObject(course)
             }
         }
-        FA14courses = courses.filter({ (c) -> Bool in
-            return c.semester == .FA14
+    }
+
+    func processCourses() {
+        var semester: Semester!
+        switch (yearIndex) {
+        case 0:
+            semester = (season == .Fall) ? .FA14 : .SP14
+        case 1:
+            semester = (season == .Fall) ? .FA15 : .SP15
+        case 2:
+            semester = (season == .Fall) ? .FA16 : .SP16
+        default:
+            semester = .FA16
+        }
+        desiredCourses = courses.filter({ (c) -> Bool in
+            return c.semester == semester
         })
-        SP14courses = courses.filter({ (c) -> Bool in
-            return c.semester == .SP14
-        })
-        FA15courses = courses.filter({ (c) -> Bool in
-            return c.semester == .FA15
-        })
-        SP15courses = courses.filter({ (c) -> Bool in
-            return c.semester == .SP15
-        })
-        FA16courses = courses.filter({ (c) -> Bool in
-            return c.semester == .FA16
-        })
-        SP16courses = courses.filter({ (c) -> Bool in
-            return c.semester == .SP16
-        })
+        if searchQuery != "" {
+            desiredCourses = desiredCourses.filter({ (c) -> Bool in
+                let options: NSStringCompareOptions = [.CaseInsensitiveSearch, .DiacriticInsensitiveSearch]
+                let courseIDFound: () -> Bool = {
+                    return String(c.courseID).rangeOfString(self.searchQuery, options: options) != nil
+                }
+                let titleFound: () -> Bool = {
+                    return c.titleLong.rangeOfString(self.searchQuery, options: options) != nil
+                }
+                return (courseIDFound() || titleFound())
+            })
+        }
     }
     
     func setupSegmentedControl() {
@@ -232,28 +256,15 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate {
         let iconName = (season == .Fall) ? "springIcon" : "fallIcon"
         season = (season == .Fall) ? .Spring : .Fall
         seasonToggle!.setImage(UIImage(named: iconName), forState: .Normal)
-        setCourseArray()
+        processCourses()
         tableView.reloadData()
     }
     
     func switchSemester(sender: UISegmentedControl) {
         yearIndex = sender.selectedSegmentIndex
-        setCourseArray()
+        processCourses()
         print(yearIndex)
         tableView.reloadData()
-    }
-    
-    func setCourseArray() {
-        switch (yearIndex) {
-        case 0:
-            selectedSemesterCourses = (season == .Fall) ? FA14courses : SP14courses
-        case 1:
-            selectedSemesterCourses = (season == .Fall) ? FA15courses : SP15courses
-        case 2:
-            selectedSemesterCourses = (season == .Fall) ? FA16courses : SP16courses
-        default:
-            selectedSemesterCourses = FA16courses
-        }
     }
     
     func handleChangedCourse(course: Course, status: Status) {
@@ -266,4 +277,24 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate {
         managedContext.deleteObject(courseToNSManagedObject[course]!) //delete the old entity
         createCourseEntity(course)
     }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        searchQuery = searchText
+        processCourses()
+        tableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchQuery = ""
+        processCourses()
+        tableView.reloadData()
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
 }
