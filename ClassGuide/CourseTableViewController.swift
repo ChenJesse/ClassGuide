@@ -41,10 +41,10 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
         super.viewDidLoad()
         if (initialLoad) {
             handleInitialLoad()
-        } else {
-            processCourses()
-            tableView.reloadData()
         }
+        processCourses()
+        tableView.reloadData()
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -120,6 +120,7 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
             print("Didn't have to fetch")
         }
         
+        navigationItem.title = "CS Courses"
         tableView.backgroundColor = .blackColor()
         tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
         addRevealVCButton()
@@ -135,6 +136,8 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
         searchBar = UISearchBar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 30))
         searchBar.searchBarStyle = .Minimal
         searchBar.tintColor = UIColor.cornellRed
+        let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = UIColor.cornellRed
         searchBar.delegate = self
         tableView.tableHeaderView = searchBar
     }
@@ -220,13 +223,13 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
         if searchQuery != "" {
             desiredCourses = desiredCourses.filter({ (c) -> Bool in
                 let options: NSStringCompareOptions = [.CaseInsensitiveSearch, .DiacriticInsensitiveSearch]
-                let courseIDFound: () -> Bool = {
-                    return String(c.courseID).rangeOfString(self.searchQuery, options: options) != nil
+                let courseNumberFound: () -> Bool = {
+                    return "\(c.courseNumber)".rangeOfString(self.searchQuery, options: options) != nil
                 }
                 let titleFound: () -> Bool = {
                     return c.titleLong.rangeOfString(self.searchQuery, options: options) != nil
                 }
-                return (courseIDFound() || titleFound())
+                return (courseNumberFound() || titleFound())
             })
         }
     }
@@ -274,6 +277,11 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
             plannedCourses.removeObject(course)
         }
         course.status = status
+        if course.status == .PlanTo {
+            plannedCourses.addObject(course)
+        } else if course.status == .Taken {
+            takenCourses.addObject(course)
+        }
         managedContext.deleteObject(courseToNSManagedObject[course]!) //delete the old entity
         createCourseEntity(course)
     }

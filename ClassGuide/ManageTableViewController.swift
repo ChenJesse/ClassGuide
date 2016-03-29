@@ -19,9 +19,11 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
     var courseToNSManagedObject: [Course: NSManagedObject]!
         
     override func viewDidLoad() {
+        print("viewdidload")
         super.viewDidLoad()
         tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "CourseCell")
         tableView.backgroundColor = .blackColor()
+        navigationItem.title = "Manage"
         relevantCourses.appendContentsOf(takenCourses.allObjects as! [Course])
         relevantCourses.appendContentsOf(plannedCourses.allObjects as! [Course])
         addRevealVCButton()
@@ -29,6 +31,10 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
+        print("viewdidappear")
+        relevantCourses = []
+        relevantCourses.appendContentsOf(takenCourses.allObjects as! [Course])
+        relevantCourses.appendContentsOf(plannedCourses.allObjects as! [Course])
         tableView.reloadData()
     }
 
@@ -114,9 +120,14 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
         if course.status == .PlanTo {
             plannedCourses.removeObject(course)
         } else if course.status == .Taken {
-            plannedCourses.removeObject(course)
+            takenCourses.removeObject(course)
         }
         course.status = status
+        if course.status == .PlanTo {
+            plannedCourses.addObject(course)
+        } else if course.status == .Taken {
+            takenCourses.addObject(course)
+        }
         managedContext.deleteObject(courseToNSManagedObject[course]!) //delete the old entity
         createCourseEntity(course)
     }

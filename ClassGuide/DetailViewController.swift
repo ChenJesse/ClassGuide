@@ -23,6 +23,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var consent: UILabel!
     @IBOutlet weak var prerequisites: UILabel!
     @IBOutlet weak var descriptionView: UITextView!
+    @IBOutlet weak var semester: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,7 @@ class DetailViewController: UIViewController {
         courseTitle.text = course.titleShort
         courseSubjectNumber.text = "\(course.subject)\(course.courseNumber)"
         fullTitle.text = "Full title: \(course.titleLong)"
+        semester.text = "Semester: \(course.semester.rawValue)"
         professors.text = "Instructors: \(course.instructors)"
         distribution.text = "Distribution requirement: \(course.distributionRequirement.rawValue)"
         special.text = "Special requirement: " + printSpecialAttributes(course).chopSuffix(2)
