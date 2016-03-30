@@ -9,6 +9,7 @@
 import Foundation
 
 protocol Requirement {
+    var title: String { get }
     var requiredCourses: Int { get }
     var completed: Bool { get set }
     func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet)
@@ -70,9 +71,9 @@ class Renaissance: Requirement {
     
     func printProgress() -> [(String, Float)] {
         var progress: [(String, Float)] = []
-        progress.append(("Taken 4 Fxxx courses?", Float(FxxxCourses) / Float(FxxxRequirement)))
-        progress.append(("Taken 2 different hundredths digits (Fxxx courses)?", Float(hundredthsIs2or8) / Float(differentHundredthsRequirement)))
-        progress.append(("At least 1 of the Fxxx courses have a 2 or 8 as the hundredths digit?", hundredthsIs2or8 ? 1 : 0))
+        progress.append(("4(Fxxx) (Core)", Float(FxxxCourses) / Float(FxxxRequirement)))
+        progress.append(("Fyxx & Fzxx | y != z (Core)", Float(hundredthsIs2or8) / Float(differentHundredthsRequirement)))
+        progress.append(("Fyxx | y == 2 or 8 (Core)", hundredthsIs2or8 ? 1 : 0))
         return progress
     }
 }
@@ -85,6 +86,7 @@ class AI: Requirement {
     var takenCS4701 = false
     var takenF78xOrF75x = false
     var takenF7xxOr4300orF67xor5846 = false
+    var takenF74xor4300 = false
     
     func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
         var relevantCourses: [Course] = []
@@ -102,6 +104,7 @@ class AI: Requirement {
         takenCS4701 = false
         takenF78xOrF75x = false
         takenF7xxOr4300orF67xor5846 = false
+        takenF74xor4300 = false
     }
     
     func checkF78xOrF75x(course: Course) -> Bool {
@@ -117,6 +120,10 @@ class AI: Requirement {
         )
     }
     
+    func checkF74xor4300(course: Course) -> Bool {
+        return ((isFXXX(course) && getHundredthsDigit(course) == 7 && getTenthsDigit(course) == 4) || course.courseNumber == 4300)
+    }
+    
     func analyzeCourse(course: Course) {
         if course.courseNumber == 4700 { takenCS4700 = true }
         if course.courseNumber == 4701 { takenCS4701 = true }
@@ -130,15 +137,23 @@ class AI: Requirement {
     
     func printProgress() -> [(String, Float)] {
         var progress: [(String, Float)] = []
-        progress.append(("Taken CS4700?", takenCS4700 ? 1 : 0))
-        progress.append(("Taken CS4701?", takenCS4701 ? 1 : 0))
-        progress.append(("Taken either F78x or F75x?", takenF78xOrF75x ? 1 : 0))
-        progress.append(("Taken any one of these: F7xx, 4300, F67x, 5846?", takenF7xxOr4300orF67xor5846 ? 1 : 0))
+        progress.append(("CS4700 (Core)", takenCS4700 ? 1 : 0))
+        progress.append(("CS4701 (Core)", takenCS4701 ? 1 : 0))
+        progress.append(("F78x/F75x (Core)", takenF78xOrF75x ? 1 : 0))
+        progress.append(("F7xx/4300/F67x/5846 (Core)", takenF7xxOr4300orF67xor5846 ? 1 : 0))
+        //Human-Language Technology Track
+        progress.append(("CSF74x/CS4300 (Human-Language Technology)", takenF74xor4300 ? 1 : 0))
+        progress.append(("LINGFxxx (Human-Language Technology", -1))
+        progress.append(("LINGFxxx/CSF74x/CSF1110", -1))
         return progress
     }
 }
 
-
+//class CSE: Requirement {
+//    let title = "Computational Science and Engineering"
+//    let requiredCourses = 4
+//    var completed: Bool = false
+//}
 
 
 

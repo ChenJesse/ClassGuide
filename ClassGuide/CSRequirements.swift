@@ -21,7 +21,7 @@ public enum Special: String {
 }
 
 public class CSRequirements: Requirement {
-    
+    let title = "CS Major Requirements"
     //MARK: Requirement number that must be fulfilled in each category
     let requiredCourses = 11
     var completed = false
@@ -76,6 +76,7 @@ public class CSRequirements: Requirement {
         else if course.courseNumber == 3410 { taken3410 = true }
         else if course.courseNumber == 4410 { taken4410 = true }
         else if course.courseNumber == 4820 { taken4820 = true }
+        else if course.courseNumber >= 4000 { electivesFulfilled += 1 } 
     }
     
     func checkCompletion() {
@@ -84,14 +85,20 @@ public class CSRequirements: Requirement {
     
     func printProgress() -> [(String, Float)] {
         var progress: [(String, Float)] = []
-        progress.append(("Taken one CS111x course?", taken111x ? 1 : 0))
-        progress.append(("Taken either CS2110 or CS2112?", taken2110or2112 ? 1 : 0))
-        progress.append(("Taken CS2800?", taken2800 ? 1 : 0))
-        progress.append(("Taken CS3110?", taken3110 ? 1 : 0))
-        progress.append(("Taken CS3410?", taken3410 ? 1 : 0))
-        progress.append(("Taken CS4410?", taken4410 ? 1 : 0))
-        progress.append(("Taken CS4820?", taken4820 ? 1 : 0))
-        progress.append(("Taken 3 CS4000+ courses?", Float(electivesFulfilled) / Float(electivesRequirement)))
+        progress.append(("CS111x (Intro)", taken111x ? 1 : 0))
+        progress.append(("CS2110/CS2112 (Intro)", taken2110or2112 ? 1 : 0))
+        progress.append(("CS2800 (Core)", taken2800 ? 1 : 0))
+        progress.append(("CS3110 (Core)", taken3110 ? 1 : 0))
+        progress.append(("CS3410 (Core)", taken3410 ? 1 : 0))
+        progress.append(("CS4410 (Core)", taken4410 ? 1 : 0))
+        progress.append(("CS4820 (Core)", taken4820 ? 1 : 0))
+        progress.append(("3(CS4000+) (Electives)", Float(electivesFulfilled) / Float(electivesRequirement)))
+        //non-cs class placeholders
+        progress.append(("Calculus Sequence", -1))
+        progress.append(("Probability Course", -1))
+        progress.append(("3(Technical Electives, 3000+)", -1))
+        progress.append(("3(External Specialization, 3000+)", -1))
+        progress.append(("3(Major Approved Electives)", -1))
         return progress
     }
 }

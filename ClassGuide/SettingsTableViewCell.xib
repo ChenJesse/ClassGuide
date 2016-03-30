@@ -15,22 +15,33 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7w-8t-Qtn">
-                        <rect key="frame" x="80" y="11" width="160" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requirement" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7w-8t-Qtn">
+                        <rect key="frame" x="8" y="10" width="216" height="25"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMB-jt-I00">
+                        <rect key="frame" x="245" y="6" width="51" height="31"/>
+                        <color key="onTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <action selector="switchToggled:" destination="KGk-i7-Jjw" eventType="valueChanged" id="0eD-mh-QGN"/>
+                        </connections>
+                    </switch>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="n7w-8t-Qtn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LIF-Kz-Ktm"/>
-                    <constraint firstItem="n7w-8t-Qtn" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="P30-rk-2PH"/>
-                    <constraint firstItem="n7w-8t-Qtn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="xHJ-5f-0IH"/>
-                    <constraint firstItem="n7w-8t-Qtn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="72" id="yPk-hj-ms0"/>
+                    <constraint firstItem="n7w-8t-Qtn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="7AA-bR-i6p"/>
+                    <constraint firstItem="n7w-8t-Qtn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="TRq-DC-c3o"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="SMB-jt-I00" secondAttribute="trailing" constant="18" id="UPb-iE-P9n"/>
+                    <constraint firstItem="SMB-jt-I00" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="XTC-we-2fE"/>
+                    <constraint firstItem="SMB-jt-I00" firstAttribute="leading" secondItem="n7w-8t-Qtn" secondAttribute="trailing" constant="21" id="gGh-Po-b7X"/>
+                    <constraint firstItem="n7w-8t-Qtn" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="zXQ-2I-1Aw"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.61176470589999998" green="0.1960784314" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="settingLabel" destination="n7w-8t-Qtn" id="b0z-O8-10m"/>
+                <outlet property="toggleSwitch" destination="SMB-jt-I00" id="8L6-ax-6bi"/>
             </connections>
         </tableViewCell>
     </objects>

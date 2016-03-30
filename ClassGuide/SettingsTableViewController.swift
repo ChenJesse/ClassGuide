@@ -8,22 +8,33 @@
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController {
+public enum SettingsKey: String {
+    case CS = "major"
+    case AI = "AI"
+    case Renaissance = "Renaissance"
+}
+
+protocol SettingsDelegate {
+    func handleToggle(cell: SettingsTableViewCell)
+}
+
+class SettingsTableViewController: UITableViewController, SettingsDelegate {
     
-    var CSReqsToggled = false
-    var AItoggled = false
-    var renaissanceToggled = false
+    var CSToggled: Bool!
+    var AItoggled: Bool!
+    var renaissanceToggled: Bool!
     
-    var CSReqs: CSRequirements!
-    var AIVector: AI!
-    var renaissanceVector: Renaissance!
-    var requirements: [Requirement]!
+    var settings: [String: Bool]!
+    var defaults: NSUserDefaults!
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.allowsSelection = false
+        tableView.backgroundColor = .blackColor()
         tableView.registerNib(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
-        
+        navigationItem.title = "Settings"
         setupToggles()
+        addRevealVCButton()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,9 +42,6 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        if CSReqsToggled { requirements.append(CSReqs) }
-        if AItoggled { requirements.append(AIVector) }
-        if renaissanceToggled { requirements.append(renaissanceVector) }
     }
 
     // MARK: - Table view data source
@@ -49,54 +57,58 @@ class SettingsTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SettingsCell", forIndexPath: indexPath) as! SettingsTableViewCell
-        
+        cell.delegate = self
         let settingsDescription: String
+        let onOrOff: Bool
         switch (indexPath.row) {
         case 0:
-            settingsDescription = "CS Requirements"
+            settingsDescription = "CS Requirements (Major Requirement)"
+            onOrOff = settings[SettingsKey.CS.rawValue]!
         case 1:
-            settingsDescription = "AI"
+            settingsDescription = "Artificial Intelligence (Vector)"
+            onOrOff = settings[SettingsKey.AI.rawValue]!
         case 2:
-            settingsDescription = "Renaissance"
+            settingsDescription = "Renaissance (Vector)"
+            onOrOff = settings[SettingsKey.Renaissance.rawValue]!
         default:
             settingsDescription = ""
+            onOrOff = false
         }
         cell.settingLabel.text = settingsDescription
+        cell.toggleSwitch.on = onOrOff
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var desiredToggle: Bool
-        var desiredReq: Requirement
-        switch(indexPath.row) {
-        case 0:
-            desiredToggle = CSReqsToggled
-            desiredReq = CSReqs
-        case 1:
-            desiredToggle = AItoggled
-            desiredReq = AIVector
-        case 2:
-            desiredToggle = renaissanceToggled
-            desiredReq = renaissanceVector
-        default:
-            desiredToggle = CSReqsToggled
-            desiredReq = CSReqs
-        }
-        
-        desiredToggle = !desiredToggle
-        if (desiredToggle) {
-            if !requirements.contains({ requirement in
-                return requirement as? AnyObject === desiredReq as? AnyObject
-            }) { requirements.append(desiredReq) }
-        }
+    func setupToggles() {
+        settings[SettingsKey.CS.rawValue] = CSToggled
+        settings[SettingsKey.AI.rawValue] = AItoggled
+        settings[SettingsKey.Renaissance.rawValue] = renaissanceToggled
     }
     
-    func setupToggles() {
-        for req in requirements {
-            switch (req) {
-            case CSReqs:
-                CSReqsToggled = true
-            }
+    func handleToggle(cell: SettingsTableViewCell) {
+        let indexPath = tableView.indexPathForCell(cell)
+        var desiredToggle: Bool
+        var desiredKey: SettingsKey
+        switch(indexPath!.row) {
+        case 0:
+            CSToggled = !CSToggled
+            desiredToggle = CSToggled
+            desiredKey = .CS
+        case 1:
+            AItoggled = !AItoggled
+            desiredToggle = AItoggled
+            desiredKey = .AI
+        case 2:
+            renaissanceToggled = !renaissanceToggled
+            desiredToggle = renaissanceToggled
+            desiredKey = .Renaissance
+        default:
+            CSToggled = !CSToggled
+            desiredToggle = CSToggled
+            desiredKey = .CS
         }
+        print(desiredToggle)
+        settings[desiredKey.rawValue] = desiredToggle
+        defaults.setBool(desiredToggle, forKey: desiredKey.rawValue)
     }
 }

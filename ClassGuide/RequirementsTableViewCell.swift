@@ -11,11 +11,13 @@ import UIKit
 class RequirementsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var requirementLabel: UILabel!
+    @IBOutlet weak var percentLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
+    
+    @IBOutlet weak var statusImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

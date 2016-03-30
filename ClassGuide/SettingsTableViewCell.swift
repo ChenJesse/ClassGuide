@@ -10,6 +10,9 @@ import UIKit
 
 class SettingsTableViewCell: UITableViewCell {
     
+    var delegate: SettingsDelegate!
+    
+    @IBOutlet weak var toggleSwitch: UISwitch!
     @IBOutlet weak var settingLabel: UILabel!
 
     override func awakeFromNib() {
@@ -23,4 +26,7 @@ class SettingsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func switchToggled(sender: UISwitch) {
+        delegate.handleToggle(self)
+    }
 }

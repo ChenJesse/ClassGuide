@@ -70,7 +70,7 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
         let cell = tableView.dequeueReusableCellWithIdentifier("HomeCell", forIndexPath: indexPath) as! CourseTableViewCell
         let thisCourse = desiredCourses[indexPath.row]
         cell.courseCodeLabel.text = thisCourse.subject.rawValue + "\(thisCourse.courseNumber)"
-        cell.courseCodeLabel.sizeToFit()
+        cell.courseCodeLabel.adjustsFontSizeToFitWidth = true
         cell.courseTitleLabel.text = thisCourse.titleShort
         var image: UIImage?
         switch (thisCourse.status) {
