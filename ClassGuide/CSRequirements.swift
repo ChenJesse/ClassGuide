@@ -40,12 +40,6 @@ public class CSRequirements: Requirement {
     public var electivesFulfilled = 0
     public var projectFulfilled = false
     
-    internal init (courses: [Course]) {
-        for course in courses {
-            analyzeCourse(course)
-        }
-    }
-    
     func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
         resetProgress()
         var relevantCourses: [Course] = []

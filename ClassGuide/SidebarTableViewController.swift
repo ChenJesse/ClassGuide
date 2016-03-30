@@ -12,6 +12,7 @@ class SidebarTableViewController: UITableViewController {
     
     var homeVC: CourseTableViewController!
     var manageVC: ManageTableViewController!
+    var requirementsVC: RequirementsTableViewController!
     var revealVC: SWRevealViewController!
     var navController: UINavigationController!
     
@@ -81,6 +82,10 @@ class SidebarTableViewController: UITableViewController {
             manageVC.plannedCourses = homeVC.plannedCourses
             manageVC.savedCourses = homeVC.savedCourses
             manageVC.courseToNSManagedObject = homeVC.courseToNSManagedObject
+        case 2:
+            desiredVC = requirementsVC
+            requirementsVC.plannedCourses = homeVC.plannedCourses
+            requirementsVC.takenCourses = homeVC.takenCourses
         default:
             desiredVC = homeVC
         }

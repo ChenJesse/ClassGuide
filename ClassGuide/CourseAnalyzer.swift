@@ -49,9 +49,9 @@ public func getThousandsDigit(course: Course) -> Int {
 }
 
 public func getHundredthsDigit(course: Course) -> Int {
-    return ((course.courseNumber % 100) / 10)
+    return ((course.courseNumber % 1000) / 100)
 }
 
 public func getTenthsDigit(course: Course) -> Int {
-    return (course.courseNumber % 10)
+    return (course.courseNumber % 100) / 10
 }

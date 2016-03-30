@@ -19,8 +19,9 @@ protocol Requirement {
 }
 
 class Renaissance: Requirement {
+    let title = "Renaissance"
     let requiredCourses = 4
-    var completed: Bool
+    var completed: Bool = false
     let FxxxRequirement = 4
     let differentHundredthsRequirement = 2
     
@@ -31,11 +32,6 @@ class Renaissance: Requirement {
     //requires at least one of the hundredths to be 2 or 8
     var hundredthsIs2or8 = false
     var seenHundredths: [Int] = []
-    
-    internal init(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
-        completed = false
-        calculateProgress(takenCourses, plannedCourses: plannedCourses)
-    }
     
     func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
         resetProgress()
@@ -63,7 +59,7 @@ class Renaissance: Requirement {
             seenHundredths.append(getHundredthsDigit(course))
             differentHundredths += 1
         }
-        if getHundredthsDigit(course) == 2 || getHundredthsDigit(course) == 8 {
+        if courseIsFXXX && (getHundredthsDigit(course) == 2 || getHundredthsDigit(course) == 8) {
             hundredthsIs2or8 = true
         }
     }
@@ -76,23 +72,19 @@ class Renaissance: Requirement {
         var progress: [(String, Float)] = []
         progress.append(("Taken 4 Fxxx courses?", Float(FxxxCourses) / Float(FxxxRequirement)))
         progress.append(("Taken 2 different hundredths digits (Fxxx courses)?", Float(hundredthsIs2or8) / Float(differentHundredthsRequirement)))
-        progress.append(("At least 1 onf the Fxxx courses have a 2 or 8 as the hundredths digit?", hundredthsIs2or8 ? 1 : 0))
+        progress.append(("At least 1 of the Fxxx courses have a 2 or 8 as the hundredths digit?", hundredthsIs2or8 ? 1 : 0))
         return progress
     }
 }
 
 class AI: Requirement {
+    let title = "Artificial Intelligence"
     let requiredCourses = 4
-    var completed: Bool
+    var completed: Bool = false
     var takenCS4700 = false
     var takenCS4701 = false
     var takenF78xOrF75x = false
     var takenF7xxOr4300orF67xor5846 = false
-    
-    internal init(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
-        completed = false
-        calculateProgress(takenCourses, plannedCourses: plannedCourses)
-    }
     
     func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
         var relevantCourses: [Course] = []
@@ -118,7 +110,7 @@ class AI: Requirement {
     
     func checkF7xxor4300orF67xor5846(course: Course) -> Bool {
         return (
-            (isFXXX(course) && getHundredthsDigit(course) == 7) ||
+            (isFXXX(course) && getHundredthsDigit(course) == 7 && course.courseNumber != 4700) ||
             course.courseNumber == 4300 ||
             (isFXXX(course) && getHundredthsDigit(course) == 6 && getTenthsDigit(course) == 7) ||
             course.courseNumber == 5846
@@ -141,7 +133,7 @@ class AI: Requirement {
         progress.append(("Taken CS4700?", takenCS4700 ? 1 : 0))
         progress.append(("Taken CS4701?", takenCS4701 ? 1 : 0))
         progress.append(("Taken either F78x or F75x?", takenF78xOrF75x ? 1 : 0))
-        progress.append(("Taken any one of these: F7xx, 44300, F67x, 5846?", takenF7xxOr4300orF67xor5846 ? 1 : 0))
+        progress.append(("Taken any one of these: F7xx, 4300, F67x, 5846?", takenF7xxOr4300orF67xor5846 ? 1 : 0))
         return progress
     }
 }

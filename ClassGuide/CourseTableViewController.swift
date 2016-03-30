@@ -274,7 +274,7 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
         if course.status == .PlanTo {
             plannedCourses.removeObject(course)
         } else if course.status == .Taken {
-            plannedCourses.removeObject(course)
+            takenCourses.removeObject(course)
         }
         course.status = status
         if course.status == .PlanTo {

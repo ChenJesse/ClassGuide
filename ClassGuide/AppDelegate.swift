@@ -20,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     let sidebarVC = SidebarTableViewController()
     let homeVC = CourseTableViewController()
     let manageVC = ManageTableViewController()
+    let requirementsVC = RequirementsTableViewController()
+    let majorReqs = CSRequirements()
+    let AIVector = AI()
+    let renaissanceVector = Renaissance()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -69,7 +73,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         sidebarVC.revealVC = revealVC
         sidebarVC.homeVC = homeVC
         sidebarVC.manageVC = manageVC
+        sidebarVC.requirementsVC = requirementsVC
         sidebarVC.navController = navigationController
+        
+        requirementsVC.majorReqs = majorReqs
+        requirementsVC.AIVector = AIVector
+        requirementsVC.renaissanceVector = renaissanceVector
+
     }
     
     func revealVCSetup() {
