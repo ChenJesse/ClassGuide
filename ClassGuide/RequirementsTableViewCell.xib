@@ -34,6 +34,7 @@
                     </imageView>
                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="V2o-Dv-cN9">
                         <rect key="frame" x="21" y="45" width="53" height="2"/>
+                        <color key="progressTintColor" red="0.36964869499206543" green="0.76466977596282959" blue="0.098903544247150421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </progressView>
                 </subviews>
                 <constraints>

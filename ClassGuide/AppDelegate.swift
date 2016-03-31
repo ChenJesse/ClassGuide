@@ -90,6 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         requirementsVC.majorReqs = majorReqs
         requirementsVC.AIVector = AIVector
         requirementsVC.renaissanceVector = renaissanceVector
+        requirementsVC.defaults = defaults
         
         settingsVC.CSToggled = CSToggled
         settingsVC.AItoggled = AIToggled
@@ -106,9 +107,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     }
     
     func settingsSetup() {
-        CSToggled = defaults.boolForKey(SettingsKey.CS.rawValue)
-        AIToggled = defaults.boolForKey(SettingsKey.AI.rawValue)
-        renaissanceToggled = defaults.boolForKey(SettingsKey.Renaissance.rawValue)
+        CSToggled = defaults.objectForKey(SettingsKey.CS.rawValue) as? Bool ?? true
+        AIToggled = defaults.objectForKey(SettingsKey.AI.rawValue) as? Bool ?? true
+        renaissanceToggled = defaults.objectForKey(SettingsKey.Renaissance.rawValue) as? Bool ?? true
         settings[SettingsKey.CS.rawValue] = CSToggled
         settings[SettingsKey.AI.rawValue] = AIToggled
         settings[SettingsKey.Renaissance.rawValue] = renaissanceToggled

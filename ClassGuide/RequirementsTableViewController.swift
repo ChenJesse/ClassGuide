@@ -20,13 +20,14 @@ class RequirementsTableViewController: UITableViewController {
     var requirements: [Requirement] = []
     var progress: [[(String, Float)]] = []
     var settings: [String: Bool]!
+    var defaults: NSUserDefaults!
         
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerNib(UINib(nibName: "RequirementsTableViewCell", bundle: nil), forCellReuseIdentifier: "RequirementCell")
         tableView.backgroundColor = .blackColor()
         navigationItem.title = "Progress"
-        tableView.allowsSelection = false;
+        //tableView.allowsSelection = false;
         addRevealVCButton()
     }
     
@@ -64,18 +65,35 @@ class RequirementsTableViewController: UITableViewController {
         cell.requirementLabel.text = desiredTuple.0
         cell.requirementLabel.adjustsFontSizeToFitWidth = true
         if (desiredTuple.1 == -1.0) { //course not suppported by app
-            cell.percentLabel.text = "???.?%"
-            cell.progressBar.progress = 1
-            cell.progressBar.progressTintColor = .grayColor()
-            cell.statusImageView.image = UIImage(named: "taskIncompleteIcon")
+            cell.isCSCourse = false
+            let courseCompleted = defaults.boolForKey(desiredTuple.0)
+            if courseCompleted {
+                setCellAsCompleted(cell)
+            } else {
+                setCellAsIncomplete(cell)
+            }
         } else {
-            cell.percentLabel.text = "\(desiredTuple.1 * 100)%"
+            cell.percentLabel.text = "\(Int(desiredTuple.1 * 100))%"
             cell.progressBar.progress = desiredTuple.1
-            cell.progressBar.progressTintColor = UIColor.darkGreen
             let image = (desiredTuple.1 == 1.0) ? UIImage(named: "taskCompleteIcon") : UIImage(named: "taskIncompleteIcon")
             cell.statusImageView.image = image
+            cell.isCSCourse = true
         }
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! RequirementsTableViewCell
+        if !cell.isCSCourse {
+            let courseCompleted = !(defaults.boolForKey(cell.requirementLabel.text!))
+            defaults.setBool(courseCompleted, forKey: cell.requirementLabel.text!)
+            if courseCompleted {
+                setCellAsCompleted(cell)
+            } else {
+                setCellAsIncomplete(cell)
+            }
+            tableView.reloadData()
+        }
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -92,6 +110,7 @@ class RequirementsTableViewController: UITableViewController {
         header.alpha = 1.0 //make the header transparent
         header.textLabel!.textColor = .whiteColor()
         header.textLabel!.font = .systemFontOfSize(17)
+        header.textLabel?.textAlignment = .Center
     }
  
     func fetchProgress() {
@@ -110,5 +129,17 @@ class RequirementsTableViewController: UITableViewController {
             requirements.append(renaissanceVector)
             progress.append(renaissanceVector.printProgress())
         }
+    }
+    
+    func setCellAsCompleted(cell: RequirementsTableViewCell) {
+        cell.percentLabel.text = "100%"
+        cell.progressBar.progress = 1
+        cell.statusImageView.image = UIImage(named: "taskCompleteIcon")
+    }
+    
+    func setCellAsIncomplete(cell: RequirementsTableViewCell) {
+        cell.percentLabel.text = "???%"
+        cell.progressBar.progress = 0
+        cell.statusImageView.image = UIImage(named: "taskIncompleteIcon")
     }
 }

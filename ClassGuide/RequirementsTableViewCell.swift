@@ -14,9 +14,11 @@ class RequirementsTableViewCell: UITableViewCell {
     @IBOutlet weak var percentLabel: UILabel!
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var progressBar: UIProgressView!
+    var isCSCourse: Bool!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        selectionStyle = .None
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
