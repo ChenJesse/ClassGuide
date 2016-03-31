@@ -12,9 +12,8 @@ class RequirementsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var requirementLabel: UILabel!
     @IBOutlet weak var percentLabel: UILabel!
-    @IBOutlet weak var progressBar: UIProgressView!
-    
     @IBOutlet weak var statusImageView: UIImageView!
+    @IBOutlet weak var progressBar: UIProgressView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

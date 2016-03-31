@@ -85,13 +85,13 @@ public class CSRequirements: Requirement {
     
     func printProgress() -> [(String, Float)] {
         var progress: [(String, Float)] = []
-        progress.append(("CS111x (Intro)", taken111x ? 1 : 0))
-        progress.append(("CS2110/CS2112 (Intro)", taken2110or2112 ? 1 : 0))
-        progress.append(("CS2800 (Core)", taken2800 ? 1 : 0))
-        progress.append(("CS3110 (Core)", taken3110 ? 1 : 0))
-        progress.append(("CS3410 (Core)", taken3410 ? 1 : 0))
-        progress.append(("CS4410 (Core)", taken4410 ? 1 : 0))
-        progress.append(("CS4820 (Core)", taken4820 ? 1 : 0))
+        progress.append(("CS111x (Intro Sequence)", taken111x ? 1 : 0))
+        progress.append(("CS2110/CS2112 (Intro Sequence)", taken2110or2112 ? 1 : 0))
+        progress.append(("CS2800 (Core Sequence)", taken2800 ? 1 : 0))
+        progress.append(("CS3110 (Core Sequence)", taken3110 ? 1 : 0))
+        progress.append(("CS3410 (Core Sequence)", taken3410 ? 1 : 0))
+        progress.append(("CS4410 (Core Sequence)", taken4410 ? 1 : 0))
+        progress.append(("CS4820 (Core Sequence)", taken4820 ? 1 : 0))
         progress.append(("3(CS4000+) (Electives)", Float(electivesFulfilled) / Float(electivesRequirement)))
         //non-cs class placeholders
         progress.append(("Calculus Sequence", -1))

@@ -64,7 +64,7 @@ class RequirementsTableViewController: UITableViewController {
         cell.requirementLabel.text = desiredTuple.0
         cell.requirementLabel.adjustsFontSizeToFitWidth = true
         if (desiredTuple.1 == -1.0) { //course not suppported by app
-            cell.percentLabel.text = "?.?%"
+            cell.percentLabel.text = "???.?%"
             cell.progressBar.progress = 1
             cell.progressBar.progressTintColor = .grayColor()
             cell.statusImageView.image = UIImage(named: "taskIncompleteIcon")
