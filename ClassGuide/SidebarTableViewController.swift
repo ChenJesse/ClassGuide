@@ -12,8 +12,11 @@ class SidebarTableViewController: UITableViewController {
     
     var homeVC: CourseTableViewController!
     var manageVC: ManageTableViewController!
+    var requirementsVC: RequirementsTableViewController!
     var revealVC: SWRevealViewController!
+    var settingsVC: SettingsTableViewController!
     var navController: UINavigationController!
+    var settings: [String: Bool]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +84,13 @@ class SidebarTableViewController: UITableViewController {
             manageVC.plannedCourses = homeVC.plannedCourses
             manageVC.savedCourses = homeVC.savedCourses
             manageVC.courseToNSManagedObject = homeVC.courseToNSManagedObject
+        case 2:
+            desiredVC = requirementsVC
+            requirementsVC.plannedCourses = homeVC.plannedCourses
+            requirementsVC.takenCourses = homeVC.takenCourses
+            requirementsVC.settings = settingsVC.settings
+        case 3:
+            desiredVC = settingsVC
         default:
             desiredVC = homeVC
         }

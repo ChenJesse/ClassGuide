@@ -11,4 +11,5 @@ import Foundation
 extension UIColor {
     @nonobjc static let cornellRed = UIColor(red: 156.0/255.0, green: 50.0/255.0, blue: 44.0/255.0, alpha: 1.0)
     @nonobjc static let darkGrey = UIColor(red: 26.0/255.0, green: 26.0/255.0, blue: 26.0/255.0, alpha: 1.0)
+    @nonobjc static let darkGreen = UIColor(red: 0.0/255.0, green: 153.0/255.0, blue: 0.0/255.0, alpha: 1.0)
 }

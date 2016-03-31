@@ -16,10 +16,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     let navigationController = UINavigationController()
     var appDelegate: AppDelegate!
     var managedContext: NSManagedObjectContext!
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
     let revealVC = SWRevealViewController()
     let sidebarVC = SidebarTableViewController()
     let homeVC = CourseTableViewController()
     let manageVC = ManageTableViewController()
+    let requirementsVC = RequirementsTableViewController()
+    let settingsVC = SettingsTableViewController()
+    
+    let majorReqs = CSRequirements()
+    let AIVector = AI()
+    let renaissanceVector = Renaissance()
+    
+    var settings: [String: Bool] = [:]
+    var CSToggled = true
+    var AIToggled = false
+    var renaissanceToggled = false
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -29,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         UINavigationBar.appearance().barStyle = .Black
         appDelegate = self
         managedContext = appDelegate.managedObjectContext
+        settingsSetup()
         viewControllerSetup()
         revealVCSetup()
         
@@ -69,7 +83,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         sidebarVC.revealVC = revealVC
         sidebarVC.homeVC = homeVC
         sidebarVC.manageVC = manageVC
+        sidebarVC.requirementsVC = requirementsVC
+        sidebarVC.settingsVC = settingsVC
         sidebarVC.navController = navigationController
+        
+        requirementsVC.majorReqs = majorReqs
+        requirementsVC.AIVector = AIVector
+        requirementsVC.renaissanceVector = renaissanceVector
+        requirementsVC.defaults = defaults
+        
+        settingsVC.CSToggled = CSToggled
+        settingsVC.AItoggled = AIToggled
+        settingsVC.renaissanceToggled = renaissanceToggled
+        settingsVC.settings = settings
+        settingsVC.defaults = defaults
     }
     
     func revealVCSetup() {
@@ -77,6 +104,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         revealVC.setFrontViewController(navigationController, animated: false)
         revealVC.setRearViewController(sidebarVC, animated: true)
         window?.rootViewController = revealVC
+    }
+    
+    func settingsSetup() {
+        CSToggled = defaults.objectForKey(SettingsKey.CS.rawValue) as? Bool ?? true
+        AIToggled = defaults.objectForKey(SettingsKey.AI.rawValue) as? Bool ?? true
+        renaissanceToggled = defaults.objectForKey(SettingsKey.Renaissance.rawValue) as? Bool ?? true
+        settings[SettingsKey.CS.rawValue] = CSToggled
+        settings[SettingsKey.AI.rawValue] = AIToggled
+        settings[SettingsKey.Renaissance.rawValue] = renaissanceToggled
     }
     
     // MARK: - Core Data stack

@@ -70,9 +70,9 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
         let cell = tableView.dequeueReusableCellWithIdentifier("HomeCell", forIndexPath: indexPath) as! CourseTableViewCell
         let thisCourse = desiredCourses[indexPath.row]
         cell.courseCodeLabel.text = thisCourse.subject.rawValue + "\(thisCourse.courseNumber)"
-        cell.courseCodeLabel.sizeToFit()
         cell.courseTitleLabel.text = thisCourse.titleShort
-        var image: UIImage?
+        cell.courseTitleLabel.adjustsFontSizeToFitWidth = true
+        var image: UIImage? 
         switch (thisCourse.status) {
         case .None:
             image = UIImage(named: "questionmarkIcon")!
@@ -274,7 +274,7 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
         if course.status == .PlanTo {
             plannedCourses.removeObject(course)
         } else if course.status == .Taken {
-            plannedCourses.removeObject(course)
+            takenCourses.removeObject(course)
         }
         course.status = status
         if course.status == .PlanTo {
