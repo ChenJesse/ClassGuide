@@ -100,6 +100,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         sidebarVC.settingsVC = settingsVC
         sidebarVC.navController = navigationController
         
+        let reqsAndTogglesAndKeys: [(Requirement, Bool, SettingsKey)] = [
+            (majorReqs, CSToggled, .CS),
+            (AIVector, AIToggled, .AI),
+            (renaissanceVector, renaissanceToggled, .Renaissance),
+            (CSEVector, CSEToggled, .CSE),
+            (graphicsVector, graphicsToggled, .Graphics),
+            (NSVector, NSToggled, .NS),
+            (PLVector, PLToggled, .PL),
+            (SEVector, SEToggled, .SE),
+            (SDVector, SDToggled, .SD),
+            (theoryVector, theoryToggled, .Theory)]
+        
         requirementsVC.majorReqs = majorReqs
         requirementsVC.AIVector = AIVector
         requirementsVC.renaissanceVector = renaissanceVector
@@ -113,16 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         
         requirementsVC.defaults = defaults
         
-        settingsVC.CSToggled = CSToggled
-        settingsVC.AItoggled = AIToggled
-        settingsVC.renaissanceToggled = renaissanceToggled
-        settingsVC.CSEToggled = CSEToggled
-        settingsVC.graphicsToggled = graphicsToggled
-        settingsVC.NSToggled = NSToggled
-        settingsVC.PLToggled = PLToggled
-        settingsVC.SEToggled = SEToggled
-        settingsVC.SDToggled = SDToggled
-        settingsVC.theoryToggled = theoryToggled
+        settingsVC.reqsAndTogglesAndKeys = reqsAndTogglesAndKeys
         settingsVC.settings = settings
         settingsVC.defaults = defaults
     }
