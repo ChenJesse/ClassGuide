@@ -50,6 +50,7 @@
                     <constraint firstItem="ip2-Tv-o9t" firstAttribute="centerY" secondItem="7Jp-wP-FU5" secondAttribute="centerY" id="uC3-Ob-cy2"/>
                 </constraints>
             </tableViewCellContentView>
+            <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
             <connections>
                 <outlet property="courseCodeLabel" destination="dqf-6h-bN1" id="ehR-Pg-j1W"/>
                 <outlet property="courseTitleLabel" destination="ip2-Tv-o9t" id="q7G-Jk-7Pu"/>

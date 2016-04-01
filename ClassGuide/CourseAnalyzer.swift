@@ -8,6 +8,10 @@
 
 import Foundation
 
+public let introCourseNumbers: [Int] = [1110, 1112]
+public let nonPracticumProjectsCourseNumbers: [Int] = [4758, 5150, 5152, 5412, 5414, 5431, 5625, 5643, 6670]
+public let coreCourseNumbers: [Int] = [2800, 3110, 3410, 4410, 4820]
+
 public func checkPracticum(course: Course) -> Bool {
     //all practicums should be 4000+ and end with a 1
     return (course.courseNumber % 10 == 1) && (course.courseNumber > 4000)
@@ -40,8 +44,8 @@ public func printSpecialAttributes(course: Course) -> String {
     return specialString
 }
 
-public func isFXXX(course: Course) -> Bool {
-    return course.courseNumber >= 4000 && course.courseNumber != 4820 && course.courseNumber != 4999
+public func checkFxxx(course: Course) -> Bool {
+    return course.courseNumber >= 4000 && course.courseNumber != 4820 && course.courseNumber != 4999 && course.courseNumber != 4410
 }
 
 public func getThousandsDigit(course: Course) -> Int {
@@ -54,4 +58,8 @@ public func getHundredthsDigit(course: Course) -> Int {
 
 public func getTenthsDigit(course: Course) -> Int {
     return (course.courseNumber % 100) / 10
+}
+
+public func getonesDigit(course: Course) -> Int {
+    return (course.courseNumber % 10)
 }

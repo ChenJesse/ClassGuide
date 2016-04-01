@@ -13,7 +13,7 @@ class RequirementsTableViewCell: UITableViewCell {
     @IBOutlet weak var requirementLabel: UILabel!
     @IBOutlet weak var percentLabel: UILabel!
     @IBOutlet weak var statusImageView: UIImageView!
-    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var progressCircle: KDCircularProgress!
     var isCSCourse: Bool!
     
     override func awakeFromNib() {
