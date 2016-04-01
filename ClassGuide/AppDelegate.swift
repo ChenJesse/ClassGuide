@@ -112,17 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
             (SDVector, SDToggled, .SD),
             (theoryVector, theoryToggled, .Theory)]
         
-        requirementsVC.majorReqs = majorReqs
-        requirementsVC.AIVector = AIVector
-        requirementsVC.renaissanceVector = renaissanceVector
-        requirementsVC.CSEVector = CSEVector
-        requirementsVC.graphicsVector = graphicsVector
-        requirementsVC.NSVector = NSVector
-        requirementsVC.PLVector = PLVector
-        requirementsVC.SEVector = SEVector
-        requirementsVC.SDVector = SDVector
-        requirementsVC.theoryVector = theoryVector
-        
+        requirementsVC.reqsAndTogglesAndKeys = reqsAndTogglesAndKeys
         requirementsVC.defaults = defaults
         
         settingsVC.reqsAndTogglesAndKeys = reqsAndTogglesAndKeys
