@@ -1,5 +1,5 @@
 //
-//  CourseTableViewController.swift
+//  HomeTableViewController.swift
 //  ClassGuide
 //
 //  Created by Jesse Chen on 3/22/16.
@@ -18,7 +18,7 @@ protocol CoreDataDelegate {
     func handleChangedCourse(course: Course, status: Status)
 }
 
-class CourseTableViewController: UITableViewController, CoreDataDelegate, UISearchBarDelegate {
+class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearchBarDelegate {
     
     var courses: [Course] = []
     var courseToNSManagedObject: [Course: NSManagedObject] = [:]
@@ -29,7 +29,6 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
     var savedCourses: [NSManagedObject]!
     var takenCourses: NSMutableSet!
     var plannedCourses: NSMutableSet!
-    var appDelegate: AppDelegate!
     var managedContext: NSManagedObjectContext!
     var seasonToggle: UIButton?
     var searchBar: UISearchBar!
@@ -64,7 +63,6 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return desiredCourses.count
     }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("HomeCell", forIndexPath: indexPath) as! CourseTableViewCell
@@ -236,7 +234,7 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
     
     func setupSegmentedControl() {
         let yearSelector = UISegmentedControl(frame: CGRectMake(20, 20, 150, 30))
-        yearSelector.addTarget(self, action: #selector(CourseTableViewController.switchSemester), forControlEvents: UIControlEvents.ValueChanged)
+        yearSelector.addTarget(self, action: #selector(HomeTableViewController.switchSemester), forControlEvents: UIControlEvents.ValueChanged)
         yearSelector.backgroundColor = .blackColor()
         yearSelector.tintColor = UIColor.cornellRed
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
@@ -250,7 +248,7 @@ class CourseTableViewController: UITableViewController, CoreDataDelegate, UISear
     
     func setupSeasonToggle() {
         seasonToggle = UIButton(frame: CGRectMake(20, 20, 30, 30))
-        seasonToggle?.addTarget(self, action: #selector(CourseTableViewController.toggleSeason(_:)), forControlEvents: .TouchUpInside)
+        seasonToggle?.addTarget(self, action: #selector(HomeTableViewController.toggleSeason(_:)), forControlEvents: .TouchUpInside)
         seasonToggle!.setImage(UIImage(named: "fallIcon"), forState: .Normal)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: seasonToggle!)
     }

@@ -13,6 +13,13 @@ class RequirementsTableViewController: UITableViewController {
     var majorReqs: CSRequirements!
     var AIVector: AI!
     var renaissanceVector: Renaissance!
+    var CSEVector: CSE!
+    var graphicsVector: Graphics!
+    var NSVector: NS!
+    var PLVector: PL!
+    var SEVector: SE!
+    var SDVector: SD!
+    var theoryVector: Theory!
     
     var takenCourses: NSMutableSet!
     var plannedCourses: NSMutableSet!
@@ -41,6 +48,27 @@ class RequirementsTableViewController: UITableViewController {
         if settings[SettingsKey.Renaissance.rawValue]! {
             renaissanceVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
         }
+        if settings[SettingsKey.CSE.rawValue]! {
+            CSEVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
+        }
+        if settings[SettingsKey.Graphics.rawValue]! {
+            graphicsVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
+        }
+        if settings[SettingsKey.NS.rawValue]! {
+            NSVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
+        }
+        if settings[SettingsKey.PL.rawValue]! {
+            PLVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
+        }
+        if settings[SettingsKey.SE.rawValue]! {
+            SEVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
+        }
+        if settings[SettingsKey.SD.rawValue]! {
+            SDVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
+        }
+        if settings[SettingsKey.Theory.rawValue]! {
+            theoryVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
+        }
         fetchProgress()
         tableView.reloadData()
     }
@@ -66,6 +94,7 @@ class RequirementsTableViewController: UITableViewController {
         cell.requirementLabel.adjustsFontSizeToFitWidth = true
         if (desiredTuple.1 == -1.0) { //course not suppported by app
             cell.isCSCourse = false
+            cell.statusImageView.image = UIImage(named: "handIcon")
             let courseCompleted = defaults.boolForKey(desiredTuple.0)
             if courseCompleted {
                 setCellAsCompleted(cell)
@@ -74,9 +103,9 @@ class RequirementsTableViewController: UITableViewController {
             }
         } else {
             cell.percentLabel.text = "\(Int(desiredTuple.1 * 100))%"
-            cell.progressBar.progress = desiredTuple.1
-            let image = (desiredTuple.1 == 1.0) ? UIImage(named: "taskCompleteIcon") : UIImage(named: "taskIncompleteIcon")
-            cell.statusImageView.image = image
+            let ceilingedProgress = (desiredTuple.1 > 1) ? 1 : desiredTuple.1
+            cell.progressCircle.angle = Int(ceilingedProgress * 360)
+            cell.statusImageView.image = UIImage(named: "noHandIcon")
             cell.isCSCourse = true
         }
         return cell
@@ -88,11 +117,10 @@ class RequirementsTableViewController: UITableViewController {
             let courseCompleted = !(defaults.boolForKey(cell.requirementLabel.text!))
             defaults.setBool(courseCompleted, forKey: cell.requirementLabel.text!)
             if courseCompleted {
-                setCellAsCompleted(cell)
+                setCellAsCompletedAnimated(cell)
             } else {
-                setCellAsIncomplete(cell)
+                setCellAsIncompleteAnimated(cell)
             }
-            tableView.reloadData()
         }
     }
     
@@ -129,17 +157,53 @@ class RequirementsTableViewController: UITableViewController {
             requirements.append(renaissanceVector)
             progress.append(renaissanceVector.printProgress())
         }
+        if settings[SettingsKey.CSE.rawValue]! {
+            requirements.append(CSEVector)
+            progress.append(CSEVector.printProgress())
+        }
+        if settings[SettingsKey.Graphics.rawValue]! {
+            requirements.append(graphicsVector)
+            progress.append(graphicsVector.printProgress())
+        }
+        if settings[SettingsKey.NS.rawValue]! {
+            requirements.append(NSVector)
+            progress.append(NSVector.printProgress())
+        }
+        if settings[SettingsKey.PL.rawValue]! {
+            requirements.append(PLVector)
+            progress.append(PLVector.printProgress())
+        }
+        if settings[SettingsKey.SE.rawValue]! {
+            requirements.append(SEVector)
+            progress.append(SEVector.printProgress())
+        }
+        if settings[SettingsKey.SD.rawValue]! {
+            requirements.append(SDVector)
+            progress.append(SDVector.printProgress())
+        }
+        if settings[SettingsKey.Theory.rawValue]! {
+            requirements.append(theoryVector)
+            progress.append(theoryVector.printProgress())
+        }
     }
     
     func setCellAsCompleted(cell: RequirementsTableViewCell) {
         cell.percentLabel.text = "100%"
-        cell.progressBar.progress = 1
-        cell.statusImageView.image = UIImage(named: "taskCompleteIcon")
+        cell.progressCircle.angle = 360
     }
     
     func setCellAsIncomplete(cell: RequirementsTableViewCell) {
         cell.percentLabel.text = "???%"
-        cell.progressBar.progress = 0
-        cell.statusImageView.image = UIImage(named: "taskIncompleteIcon")
+        cell.progressCircle.angle = 0
+    }
+    
+    func setCellAsCompletedAnimated(cell: RequirementsTableViewCell) {
+        cell.percentLabel.text = "100%"
+        cell.progressCircle.animateToAngle(360, duration: 0.5, completion: nil)
+    }
+    
+    func setCellAsIncompleteAnimated(cell: RequirementsTableViewCell) {
+        cell.percentLabel.text = "???%"
+        cell.progressCircle.animateFromAngle(360, toAngle: 0, duration: 0.5, completion: nil)
     }
 }

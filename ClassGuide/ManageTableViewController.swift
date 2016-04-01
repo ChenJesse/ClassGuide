@@ -32,7 +32,7 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
     
     override func viewDidAppear(animated: Bool) {
         print("viewdidappear")
-        relevantCourses = []
+        relevantCourses.removeAll()
         relevantCourses.appendContentsOf(takenCourses.allObjects as! [Course])
         relevantCourses.appendContentsOf(plannedCourses.allObjects as! [Course])
         tableView.reloadData()

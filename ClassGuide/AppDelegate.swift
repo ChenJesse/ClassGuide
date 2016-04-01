@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     
     let revealVC = SWRevealViewController()
     let sidebarVC = SidebarTableViewController()
-    let homeVC = CourseTableViewController()
+    let homeVC = HomeTableViewController()
     let manageVC = ManageTableViewController()
     let requirementsVC = RequirementsTableViewController()
     let settingsVC = SettingsTableViewController()
@@ -28,11 +28,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     let majorReqs = CSRequirements()
     let AIVector = AI()
     let renaissanceVector = Renaissance()
+    let CSEVector = CSE()
+    let graphicsVector = Graphics()
+    let NSVector = NS()
+    let PLVector = PL()
+    let SEVector = SE()
+    let SDVector = SD()
+    let theoryVector = Theory()
     
     var settings: [String: Bool] = [:]
-    var CSToggled = true
-    var AIToggled = false
-    var renaissanceToggled = false
+    var CSToggled: Bool!
+    var AIToggled: Bool!
+    var renaissanceToggled: Bool!
+    var CSEToggled: Bool!
+    var graphicsToggled: Bool!
+    var NSToggled: Bool!
+    var PLToggled: Bool!
+    var SEToggled: Bool!
+    var SDToggled: Bool!
+    var theoryToggled: Bool!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -75,7 +89,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     }
     
     func viewControllerSetup() {
-        homeVC.appDelegate = appDelegate
         homeVC.managedContext = managedContext
         
         manageVC.managedContext = managedContext
@@ -90,11 +103,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         requirementsVC.majorReqs = majorReqs
         requirementsVC.AIVector = AIVector
         requirementsVC.renaissanceVector = renaissanceVector
+        requirementsVC.CSEVector = CSEVector
+        requirementsVC.graphicsVector = graphicsVector
+        requirementsVC.NSVector = NSVector
+        requirementsVC.PLVector = PLVector
+        requirementsVC.SEVector = SEVector
+        requirementsVC.SDVector = SDVector
+        requirementsVC.theoryVector = theoryVector
+        
         requirementsVC.defaults = defaults
         
         settingsVC.CSToggled = CSToggled
         settingsVC.AItoggled = AIToggled
         settingsVC.renaissanceToggled = renaissanceToggled
+        settingsVC.CSEToggled = CSEToggled
+        settingsVC.graphicsToggled = graphicsToggled
+        settingsVC.NSToggled = NSToggled
+        settingsVC.PLToggled = PLToggled
+        settingsVC.SEToggled = SEToggled
+        settingsVC.SDToggled = SDToggled
+        settingsVC.theoryToggled = theoryToggled
         settingsVC.settings = settings
         settingsVC.defaults = defaults
     }
@@ -110,9 +138,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         CSToggled = defaults.objectForKey(SettingsKey.CS.rawValue) as? Bool ?? true
         AIToggled = defaults.objectForKey(SettingsKey.AI.rawValue) as? Bool ?? true
         renaissanceToggled = defaults.objectForKey(SettingsKey.Renaissance.rawValue) as? Bool ?? true
+        CSEToggled = defaults.objectForKey(SettingsKey.CSE.rawValue) as? Bool ?? true
+        graphicsToggled = defaults.objectForKey(SettingsKey.Graphics.rawValue) as? Bool ?? true
+        NSToggled = defaults.objectForKey(SettingsKey.NS.rawValue) as? Bool ?? true
+        PLToggled = defaults.objectForKey(SettingsKey.PL.rawValue) as? Bool ?? true
+        SEToggled = defaults.objectForKey(SettingsKey.SE.rawValue) as? Bool ?? true
+        SDToggled = defaults.objectForKey(SettingsKey.SD.rawValue) as? Bool ?? true
+        theoryToggled = defaults.objectForKey(SettingsKey.Theory.rawValue) as? Bool ?? true
         settings[SettingsKey.CS.rawValue] = CSToggled
         settings[SettingsKey.AI.rawValue] = AIToggled
         settings[SettingsKey.Renaissance.rawValue] = renaissanceToggled
+        settings[SettingsKey.CSE.rawValue] = CSEToggled
+        settings[SettingsKey.Graphics.rawValue] = graphicsToggled
+        settings[SettingsKey.NS.rawValue] = NSToggled
+        settings[SettingsKey.PL.rawValue] = PLToggled
+        settings[SettingsKey.SE.rawValue] = SEToggled
+        settings[SettingsKey.SD.rawValue] = SDToggled
+        settings[SettingsKey.Theory.rawValue] = theoryToggled
     }
     
     // MARK: - Core Data stack

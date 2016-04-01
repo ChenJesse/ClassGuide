@@ -10,7 +10,7 @@ import UIKit
 
 class SidebarTableViewController: UITableViewController {
     
-    var homeVC: CourseTableViewController!
+    var homeVC: HomeTableViewController!
     var manageVC: ManageTableViewController!
     var requirementsVC: RequirementsTableViewController!
     var revealVC: SWRevealViewController!

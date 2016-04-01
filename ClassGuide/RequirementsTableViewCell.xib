@@ -22,42 +22,64 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XX%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MP9-rW-Tf3">
-                        <rect key="frame" x="21" y="17" width="53" height="30"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <rect key="frame" x="32" y="18" width="32" height="28"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="taskCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="hRK-Oy-qa7">
-                        <rect key="frame" x="262" y="11" width="41" height="41"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GdF-Js-vUw" customClass="KDCircularProgress" customModule="ClassGuide" customModuleProvider="target">
+                        <rect key="frame" x="22" y="4" width="52" height="56"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="trackColor">
+                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="trackThickness">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="IBColor1">
+                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="gradientRotateSpeed">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="glowAmount">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="progressThickness">
+                                <real key="value" value="0.20000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noHandIcon" translatesAutoresizingMaskIntoConstraints="NO" id="hRK-Oy-qa7">
+                        <rect key="frame" x="272" y="19" width="25" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="41" id="fYo-Jl-iym"/>
+                            <constraint firstAttribute="width" constant="25" id="9mM-0k-wha"/>
                         </constraints>
                     </imageView>
-                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="V2o-Dv-cN9">
-                        <rect key="frame" x="21" y="45" width="53" height="2"/>
-                        <color key="progressTintColor" red="0.36964869499206543" green="0.76466977596282959" blue="0.098903544247150421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </progressView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="lqe-iQ-59k" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="3ta-pj-aiJ"/>
-                    <constraint firstItem="MP9-rW-Tf3" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6jT-sM-T1x"/>
-                    <constraint firstItem="lqe-iQ-59k" firstAttribute="bottom" secondItem="hRK-Oy-qa7" secondAttribute="bottom" id="8Ck-H7-62P"/>
-                    <constraint firstItem="lqe-iQ-59k" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="9AF-Xs-Y2j"/>
-                    <constraint firstItem="MP9-rW-Tf3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="13" id="EjF-6r-vcf"/>
-                    <constraint firstItem="MP9-rW-Tf3" firstAttribute="centerY" secondItem="lqe-iQ-59k" secondAttribute="centerY" id="G4s-El-enM"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="hRK-Oy-qa7" secondAttribute="trailing" constant="11" id="KTX-Qq-PeQ"/>
-                    <constraint firstItem="lqe-iQ-59k" firstAttribute="leading" secondItem="MP9-rW-Tf3" secondAttribute="trailing" constant="8" symbolic="YES" id="RpO-45-UN2"/>
-                    <constraint firstItem="MP9-rW-Tf3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="9" id="brw-ZS-ZYs"/>
-                    <constraint firstItem="lqe-iQ-59k" firstAttribute="leading" secondItem="V2o-Dv-cN9" secondAttribute="trailing" constant="8" symbolic="YES" id="eyY-YP-wKN"/>
-                    <constraint firstItem="lqe-iQ-59k" firstAttribute="top" secondItem="hRK-Oy-qa7" secondAttribute="top" id="gpc-HX-ruT"/>
-                    <constraint firstItem="hRK-Oy-qa7" firstAttribute="leading" secondItem="lqe-iQ-59k" secondAttribute="trailing" constant="22" id="j9e-eu-Vzr"/>
-                    <constraint firstItem="V2o-Dv-cN9" firstAttribute="bottom" secondItem="MP9-rW-Tf3" secondAttribute="bottom" id="q0n-vJ-74W"/>
-                    <constraint firstItem="MP9-rW-Tf3" firstAttribute="leading" secondItem="V2o-Dv-cN9" secondAttribute="leading" id="yil-T3-hbh"/>
+                    <constraint firstItem="lqe-iQ-59k" firstAttribute="centerY" secondItem="hRK-Oy-qa7" secondAttribute="centerY" id="1Oo-md-zbD"/>
+                    <constraint firstItem="GdF-Js-vUw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="8kf-ki-JwV"/>
+                    <constraint firstItem="GdF-Js-vUw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-4" id="EVD-qF-uqK"/>
+                    <constraint firstItem="MP9-rW-Tf3" firstAttribute="centerY" secondItem="lqe-iQ-59k" secondAttribute="centerY" id="KPw-Qq-aPV"/>
+                    <constraint firstItem="GdF-Js-vUw" firstAttribute="centerY" secondItem="MP9-rW-Tf3" secondAttribute="centerY" id="QvX-20-I4m"/>
+                    <constraint firstItem="GdF-Js-vUw" firstAttribute="centerX" secondItem="MP9-rW-Tf3" secondAttribute="centerX" id="U8x-O0-QV2"/>
+                    <constraint firstItem="hRK-Oy-qa7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="11" id="VCP-AS-S6C"/>
+                    <constraint firstItem="lqe-iQ-59k" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="aMk-d7-ZuS"/>
+                    <constraint firstItem="MP9-rW-Tf3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="by5-uW-AF5"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="hRK-Oy-qa7" secondAttribute="trailing" constant="17" id="hTY-QA-v2K"/>
+                    <constraint firstItem="lqe-iQ-59k" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="l3n-e2-FdV"/>
+                    <constraint firstItem="lqe-iQ-59k" firstAttribute="leading" secondItem="MP9-rW-Tf3" secondAttribute="trailing" constant="18" id="lva-yt-OiB"/>
+                    <constraint firstItem="lqe-iQ-59k" firstAttribute="leading" secondItem="GdF-Js-vUw" secondAttribute="trailing" constant="8" symbolic="YES" id="maw-Ub-aKv"/>
+                    <constraint firstItem="hRK-Oy-qa7" firstAttribute="leading" secondItem="lqe-iQ-59k" secondAttribute="trailing" constant="32" id="rp1-o0-XDn"/>
+                    <constraint firstItem="GdF-Js-vUw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="14" id="tDe-2Z-qPZ"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.61176470589999998" green="0.1960784314" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+            <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
             <connections>
                 <outlet property="percentLabel" destination="MP9-rW-Tf3" id="7b1-vV-4Ge"/>
-                <outlet property="progressBar" destination="V2o-Dv-cN9" id="82u-bR-PYG"/>
+                <outlet property="progressCircle" destination="GdF-Js-vUw" id="oy8-uw-7Xy"/>
                 <outlet property="requirementLabel" destination="lqe-iQ-59k" id="BCz-P7-Mfa"/>
                 <outlet property="statusImageView" destination="hRK-Oy-qa7" id="lii-Gj-GBK"/>
             </connections>
@@ -65,6 +87,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="taskCompleteIcon" width="50" height="50"/>
+        <image name="noHandIcon" width="37" height="37"/>
     </resources>
 </document>
