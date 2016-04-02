@@ -115,20 +115,4 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
         courseEntities.append(courseEntity)
         courseToNSManagedObject[course] = courseEntity
     }
-    
-    func handleChangedCourse(course: Course, status: Status) {
-        if course.status == .PlanTo {
-            plannedCourses.removeObject(course)
-        } else if course.status == .Taken {
-            takenCourses.removeObject(course)
-        }
-        course.status = status
-        if course.status == .PlanTo {
-            plannedCourses.addObject(course)
-        } else if course.status == .Taken {
-            takenCourses.addObject(course)
-        }
-        managedContext.deleteObject(courseToNSManagedObject[course]!) //delete the old entity
-        createCourseEntity(course)
-    }
 }

@@ -15,13 +15,37 @@ public enum Season {
 }
 
 protocol CoreDataDelegate {
+    var courseToNSManagedObject: [Course: NSManagedObject]! { get set }
+    var takenCourses: NSMutableSet! { get set }
+    var plannedCourses: NSMutableSet! { get set }
+    var managedContext: NSManagedObjectContext! { get set }
+    var courseEntities: [NSManagedObject]! { get set }
     func handleChangedCourse(course: Course, status: Status)
+    func createCourseEntity(course: Course)
+}
+
+extension CoreDataDelegate {
+    func handleChangedCourse(course: Course, status: Status) {
+        if course.status == .PlanTo {
+            plannedCourses.removeObject(course)
+        } else if course.status == .Taken {
+            takenCourses.removeObject(course)
+        }
+        course.status = status
+        if course.status == .PlanTo {
+            plannedCourses.addObject(course)
+        } else if course.status == .Taken {
+            takenCourses.addObject(course)
+        }
+        managedContext.deleteObject(courseToNSManagedObject[course]!) //delete the old entity
+        createCourseEntity(course)
+    }
 }
 
 class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearchBarDelegate {
     
     var courses: [Course] = []
-    var courseToNSManagedObject: [Course: NSManagedObject] = [:]
+    var courseToNSManagedObject: [Course: NSManagedObject]! = [:]
     
     var desiredCourses: [Course] = []
     
@@ -263,22 +287,6 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         processCourses()
         print(yearIndex)
         tableView.reloadData()
-    }
-    
-    func handleChangedCourse(course: Course, status: Status) {
-        if course.status == .PlanTo {
-            plannedCourses.removeObject(course)
-        } else if course.status == .Taken {
-            takenCourses.removeObject(course)
-        }
-        course.status = status
-        if course.status == .PlanTo {
-            plannedCourses.addObject(course)
-        } else if course.status == .Taken {
-            takenCourses.addObject(course)
-        }
-        managedContext.deleteObject(courseToNSManagedObject[course]!) //delete the old entity
-        createCourseEntity(course)
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
