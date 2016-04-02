@@ -26,7 +26,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     var desiredCourses: [Course] = []
     
     var initialLoad = true
-    var savedCourses: [NSManagedObject]!
+    var courseEntities: [NSManagedObject]!
     var takenCourses: NSMutableSet!
     var plannedCourses: NSMutableSet!
     var managedContext: NSManagedObjectContext!
@@ -105,7 +105,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         plannedCourses = NSMutableSet()
         let dataManager = DataManager.init()
         fetchCoreData()
-        if savedCourses.count == 0 {
+        if courseEntities.count == 0 {
             print("Have to fetch courses from API")
             dataManager.fetchCourses() { () in
                 self.courses = dataManager.courseArray
@@ -143,9 +143,9 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         do {
             let results =
                 try managedContext.executeFetchRequest(fetchRequest)
-            if let savedCourses = results as? [NSManagedObject] {
-                self.savedCourses = savedCourses.sort { ($0.valueForKey("courseNumber") as! Int) < ($1.valueForKey("courseNumber") as! Int)}
-                for course in self.savedCourses {
+            if let courseEntities = results as? [NSManagedObject] {
+                self.courseEntities = courseEntities.sort { ($0.valueForKey("courseNumber") as! Int) < ($1.valueForKey("courseNumber") as! Int)}
+                for course in self.courseEntities {
                     let newCourse = Course(savedCourse: course)
                     courses.append(newCourse)
                     courseToNSManagedObject[newCourse] = course
@@ -158,7 +158,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     
     func saveCoreData() {
         print("Saving")
-        if savedCourses.count == 0 {
+        if courseEntities.count == 0 {
             for course in courses {
                 createCourseEntity(course)
             }
@@ -186,7 +186,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
         courseEntity.setValue(course.status.rawValue, forKey: "status")
         courseEntity.setValue(course.instructors, forKey: "instructors")
-        savedCourses.append(courseEntity)
+        courseEntities.append(courseEntity)
         courseToNSManagedObject[course] = courseEntity
     }
     

@@ -14,7 +14,7 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
     var relevantCourses: [Course] = []
     var takenCourses: NSMutableSet!
     var plannedCourses: NSMutableSet!
-    var savedCourses: [NSManagedObject]!
+    var courseEntities: [NSManagedObject]!
     var managedContext: NSManagedObjectContext!
     var courseToNSManagedObject: [Course: NSManagedObject]!
         
@@ -112,7 +112,7 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
         courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
         courseEntity.setValue(course.status.rawValue, forKey: "status")
         courseEntity.setValue(course.instructors, forKey: "instructors")
-        savedCourses.append(courseEntity)
+        courseEntities.append(courseEntity)
         courseToNSManagedObject[course] = courseEntity
     }
     

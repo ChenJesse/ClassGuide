@@ -82,7 +82,7 @@ class SidebarTableViewController: UITableViewController {
             desiredVC = manageVC
             manageVC.takenCourses = homeVC.takenCourses
             manageVC.plannedCourses = homeVC.plannedCourses
-            manageVC.savedCourses = homeVC.savedCourses
+            manageVC.courseEntities = homeVC.courseEntities
             manageVC.courseToNSManagedObject = homeVC.courseToNSManagedObject
         case 2:
             desiredVC = requirementsVC
