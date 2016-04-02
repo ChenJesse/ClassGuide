@@ -84,7 +84,7 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return CGFloat(60)
+        return courseCellHeight
     }
     
     func saveCoreData() {

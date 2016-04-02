@@ -59,7 +59,7 @@ class RequirementsTableViewController: UITableViewController {
         let desiredTuple = progress[indexPath.section][indexPath.row]
         cell.requirementLabel.text = desiredTuple.0
         cell.requirementLabel.adjustsFontSizeToFitWidth = true
-        if (desiredTuple.1 == -1.0) { //course not suppported by app
+        if (desiredTuple.1 == unsupportedCourseValue) { //course not suppported by app
             cell.isCSCourse = false
             cell.statusImageView.image = UIImage(named: "handIcon")
             let courseCompleted = defaults.boolForKey(desiredTuple.0)
@@ -96,7 +96,7 @@ class RequirementsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return CGFloat(70)
+        return requirementsCellHeight
     }
     
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {

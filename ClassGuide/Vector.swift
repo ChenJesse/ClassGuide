@@ -154,10 +154,10 @@ class AI: Requirement {
         progress.append(("F7xx/4300/F67x/5846 (Core) (M)", takenF7xxOr4300orF67xor5846 ? 1 : 0))
         //Human-Language Technology Track
         progress.append(("CSF74x/CS4300 (Human-Language Technology) (O)", takenF74xor4300 ? 1 : 0))
-        progress.append(("LINGFxxx (Human-Language Technology) (O)", -1))
-        progress.append(("LINGFxxx/CSF74x/CSF1110 (Human-Language Technology) (O)", -1))
+        progress.append(("LINGFxxx (Human-Language Technology) (O)", unsupportedCourseValue))
+        progress.append(("LINGFxxx/CSF74x/CSF1110 (Human-Language Technology) (O)", unsupportedCourseValue))
         //Machine Learning
-        progress.append(("CSF78x/CS4758/CS4850/STSCIFxxx (Machine Learning) (O)", -1))
+        progress.append(("CSF78x/CS4758/CS4850/STSCIFxxx (Machine Learning) (O)", unsupportedCourseValue))
         progress.append(("CS4300/CSF74x/F75x/F67x/CSF2xx (Machine Learning) (O)", taken4300orF74xorF75xorF67xorF2xx ? 1 : 0))
         return progress
     }
@@ -204,7 +204,7 @@ class CSE: Requirement {
     func printProgress() -> [(String, Float)] {
         var progress: [(String, Float)] = []
         progress.append(("2(F2xx), CS4220 & CS6210 = 1 (Core) (M)", Float(F2xxFulfilled) / Float(requiredF2xx)))
-        progress.append(("OR3300/TAM3100/MATH4200/MATH4240/MATH4280/AEP4210/CEE3310/CEE3710/MAE3230 (Core) (M)", -1))
+        progress.append(("OR3300/TAM3100/MATH4200/MATH4240/MATH4280/AEP4210/CEE3310/CEE3710/MAE3230 (Core) (M)", unsupportedCourseValue))
         progress.append(("CS2024 (Core) (M)", taken2024 ? 1 : 0))
         progress.append(("CS2043 (Core) (M)", taken2043 ? 1 : 0))
         
@@ -307,9 +307,9 @@ class NS: Requirement {
     
     func printProgress() -> [(String, Float)] {
         var progress: [(String, Float)] = []
-        progress.append(("CSx86x/INFO4220 (Core) (M)", -1))
+        progress.append(("CSx86x/INFO4220 (Core) (M)", unsupportedCourseValue))
         progress.append(("CSF76x/4758 (Core) (M)", takenF76xor4758 ? 1 : 0))
-        progress.append(("ORIEx350/ECON4010/ECON4020/SOC3040/SOC4250/SOC5270/CSF84x/INFO4220 (Core) (M)", -1))
+        progress.append(("ORIEx350/ECON4010/ECON4020/SOC3040/SOC4250/SOC5270/CSF84x/INFO4220 (Core) (M)", unsupportedCourseValue))
         return progress
     }
 }
@@ -515,7 +515,7 @@ class SD: Requirement {
         progress.append(("CS4411 (Operating Systems, Security & Trustworthy Systems) (O)", taken4411 ? 1 : 0))
         progress.append(("CS5430 (Security & Trustworthy Systems) (O)", taken5430 ? 1 : 0))
         progress.append(("CS5412/CS5414 (Security & Trustworthy Systems) (O)", taken5412or5414 ? 1 : 0))
-        progress.append(("CS4830/CS4860/MATH3360 (Security & Trustworthy Systems) (O)", -1))
+        progress.append(("CS4830/CS4860/MATH3360 (Security & Trustworthy Systems) (O)", unsupportedCourseValue))
         progress.append(("CS4321 (Data-Intensive Computing) (O)", taken4321 ? 1 : 0))
         progress.append(("CS4320 & CS5300 (Data-Intensive Computing) (O)", (taken4320 && taken5300) ? 1 : 0))
         progress.append(("Extra CSF78x/CS4758/CS4300/CS6740 (Data-Intensive Computing) (O)", takenExtraCSF78xor4758or4300or6740 ? 1 : 0))
@@ -547,8 +547,8 @@ class Theory: Requirement {
     func printProgress() -> [(String, Float)] {
         var progress: [(String, Float)] = []
         progress.append(("CS481x (Core) (M)", taken481x ? 1 : 0))
-        progress.append(("2(CSF8xx/ORIE6330/ORIE6335) (Core) (M)", -1))
-        progress.append(("MATHTHxx/MATH4010/CS4860 (Core) (M0", -1))
+        progress.append(("2(CSF8xx/ORIE6330/ORIE6335) (Core) (M)", unsupportedCourseValue))
+        progress.append(("MATHTHxx/MATH4010/CS4860 (Core) (M0", unsupportedCourseValue))
         return progress
     }
 }

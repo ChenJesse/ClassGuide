@@ -69,7 +69,7 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return CGFloat(65)
+        return settingsCellHeight
     }
     
     func handleToggle(cell: SettingsTableViewCell) {

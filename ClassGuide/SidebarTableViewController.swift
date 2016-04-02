@@ -70,7 +70,7 @@ class SidebarTableViewController: UITableViewController {
     }
  
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return CGFloat(75)
+        return sidebarCellHeight
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

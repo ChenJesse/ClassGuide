@@ -96,7 +96,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return CGFloat(60)
+        return courseCellHeight
     }
     
     func handleInitialLoad() {
@@ -114,10 +114,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
                 self.saveCoreData()
                 self.tableView.reloadData()
             }
-        } else {
-            print("Didn't have to fetch")
-        }
-        
+        } else { print("Didn't have to fetch") }
         navigationItem.title = "CS Courses"
         tableView.backgroundColor = .blackColor()
         tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
@@ -160,13 +157,13 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     }
     
     func saveCoreData() {
-        print("Attempting to save")
+        print("Saving")
         if savedCourses.count == 0 {
             for course in courses {
                 createCourseEntity(course)
             }
         }
-        //save
+        
         do {
             try managedContext.save()
         } catch let error as NSError {
@@ -302,5 +299,5 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
     }
-    
+
 }
