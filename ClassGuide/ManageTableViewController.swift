@@ -96,23 +96,4 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
             print("Could not save \(error), \(error.userInfo)")
         }
     }
-    
-    func createCourseEntity(course: Course) {
-        let entity = NSEntityDescription.entityForName("Course", inManagedObjectContext: managedContext)
-        let courseEntity = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        courseEntity.setValue(course.semester.rawValue, forKey: "semester")
-        courseEntity.setValue(course.subject.rawValue, forKey: "subject")
-        courseEntity.setValue(course.courseNumber, forKey: "courseNumber")
-        courseEntity.setValue(course.distributionRequirement.rawValue, forKey: "distributionRequirement")
-        courseEntity.setValue(course.consent.rawValue, forKey: "consent")
-        courseEntity.setValue(course.titleShort, forKey: "titleShort")
-        courseEntity.setValue(course.titleLong, forKey: "titleLong")
-        courseEntity.setValue(course.courseID, forKey: "courseID")
-        courseEntity.setValue(course.description, forKey: "descr")
-        courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
-        courseEntity.setValue(course.status.rawValue, forKey: "status")
-        courseEntity.setValue(course.instructors, forKey: "instructors")
-        courseEntities.append(courseEntity)
-        courseToNSManagedObject[course] = courseEntity
-    }
 }
