@@ -10,16 +10,8 @@ import UIKit
 
 class RequirementsTableViewController: UITableViewController {
     //MARK: All the Requirement objects individually
-    var majorReqs: CSRequirements!
-    var AIVector: AI!
-    var renaissanceVector: Renaissance!
-    var CSEVector: CSE!
-    var graphicsVector: Graphics!
-    var NSVector: NS!
-    var PLVector: PL!
-    var SEVector: SE!
-    var SDVector: SD!
-    var theoryVector: Theory!
+
+    var reqsAndTogglesAndKeys: [(Requirement, Bool, SettingsKey)]!
     
     var takenCourses: NSMutableSet!
     var plannedCourses: NSMutableSet!
@@ -39,35 +31,10 @@ class RequirementsTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        if settings[SettingsKey.CS.rawValue]! {
-            majorReqs.calculateProgress(takenCourses, plannedCourses: plannedCourses)
-        }
-        if settings[SettingsKey.AI.rawValue]! {
-            AIVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
-        }
-        if settings[SettingsKey.Renaissance.rawValue]! {
-            renaissanceVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
-        }
-        if settings[SettingsKey.CSE.rawValue]! {
-            CSEVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
-        }
-        if settings[SettingsKey.Graphics.rawValue]! {
-            graphicsVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
-        }
-        if settings[SettingsKey.NS.rawValue]! {
-            NSVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
-        }
-        if settings[SettingsKey.PL.rawValue]! {
-            PLVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
-        }
-        if settings[SettingsKey.SE.rawValue]! {
-            SEVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
-        }
-        if settings[SettingsKey.SD.rawValue]! {
-            SDVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
-        }
-        if settings[SettingsKey.Theory.rawValue]! {
-            theoryVector.calculateProgress(takenCourses, plannedCourses: plannedCourses)
+        for tuple in reqsAndTogglesAndKeys {
+            if settings[tuple.2.rawValue]! {
+                tuple.0.calculateProgress(takenCourses, plannedCourses: plannedCourses)
+            }
         }
         fetchProgress()
         tableView.reloadData()
@@ -92,7 +59,7 @@ class RequirementsTableViewController: UITableViewController {
         let desiredTuple = progress[indexPath.section][indexPath.row]
         cell.requirementLabel.text = desiredTuple.0
         cell.requirementLabel.adjustsFontSizeToFitWidth = true
-        if (desiredTuple.1 == -1.0) { //course not suppported by app
+        if (desiredTuple.1 == unsupportedCourseValue) { //course not suppported by app
             cell.isCSCourse = false
             cell.statusImageView.image = UIImage(named: "handIcon")
             let courseCompleted = defaults.boolForKey(desiredTuple.0)
@@ -129,7 +96,7 @@ class RequirementsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return CGFloat(70)
+        return requirementsCellHeight
     }
     
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -145,45 +112,11 @@ class RequirementsTableViewController: UITableViewController {
         print("fetching progress")
         requirements = []
         progress = []
-        if settings[SettingsKey.CS.rawValue]! {
-            requirements.append(majorReqs)
-            progress.append(majorReqs.printProgress())
-        }
-        if settings[SettingsKey.AI.rawValue]! {
-            requirements.append(AIVector)
-            progress.append(AIVector.printProgress())
-        }
-        if settings[SettingsKey.Renaissance.rawValue]! {
-            requirements.append(renaissanceVector)
-            progress.append(renaissanceVector.printProgress())
-        }
-        if settings[SettingsKey.CSE.rawValue]! {
-            requirements.append(CSEVector)
-            progress.append(CSEVector.printProgress())
-        }
-        if settings[SettingsKey.Graphics.rawValue]! {
-            requirements.append(graphicsVector)
-            progress.append(graphicsVector.printProgress())
-        }
-        if settings[SettingsKey.NS.rawValue]! {
-            requirements.append(NSVector)
-            progress.append(NSVector.printProgress())
-        }
-        if settings[SettingsKey.PL.rawValue]! {
-            requirements.append(PLVector)
-            progress.append(PLVector.printProgress())
-        }
-        if settings[SettingsKey.SE.rawValue]! {
-            requirements.append(SEVector)
-            progress.append(SEVector.printProgress())
-        }
-        if settings[SettingsKey.SD.rawValue]! {
-            requirements.append(SDVector)
-            progress.append(SDVector.printProgress())
-        }
-        if settings[SettingsKey.Theory.rawValue]! {
-            requirements.append(theoryVector)
-            progress.append(theoryVector.printProgress())
+        for tuple in reqsAndTogglesAndKeys {
+            if settings[tuple.2.rawValue]! {
+                requirements.append(tuple.0)
+                progress.append(tuple.0.printProgress())
+            }
         }
     }
     

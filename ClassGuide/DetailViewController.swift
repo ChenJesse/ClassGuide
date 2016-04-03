@@ -28,12 +28,10 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     internal func setup() {
@@ -47,15 +45,13 @@ class DetailViewController: UIViewController {
         consent.text = "Consent: \(course.consent.rawValue)"
         prerequisites.text = "Prerequisites: \(course.prerequisites)"
         descriptionView.text = "Description: \(course.description)"
+        courseStatusSelector.selectedSegmentIndex = course.status.rawValue
         courseTitle.sizeToFit()
         courseSubjectNumber.sizeToFit()
         fullTitle.sizeToFit()
-        courseStatusSelector.selectedSegmentIndex = course.status.rawValue
     }
-    
     
     @IBAction func statusChanged(sender: UISegmentedControl) {
         delegate.handleChangedCourse(course, status: Status(rawValue: sender.selectedSegmentIndex)!)
     }
-
 }

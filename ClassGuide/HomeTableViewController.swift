@@ -14,19 +14,62 @@ public enum Season {
     case Spring
 }
 
-protocol CoreDataDelegate {
+protocol CoreDataDelegate: class {
+    var courseToNSManagedObject: [Course: NSManagedObject]! { get set }
+    var takenCourses: NSMutableSet! { get set }
+    var plannedCourses: NSMutableSet! { get set }
+    var managedContext: NSManagedObjectContext! { get set }
+    var courseEntities: [NSManagedObject]! { get set }
     func handleChangedCourse(course: Course, status: Status)
+    func createCourseEntity(course: Course)
+}
+
+extension CoreDataDelegate {
+    func handleChangedCourse(course: Course, status: Status) {
+        if course.status == .PlanTo {
+            plannedCourses.removeObject(course)
+        } else if course.status == .Taken {
+            takenCourses.removeObject(course)
+        }
+        course.status = status
+        if course.status == .PlanTo {
+            plannedCourses.addObject(course)
+        } else if course.status == .Taken {
+            takenCourses.addObject(course)
+        }
+        managedContext.deleteObject(courseToNSManagedObject[course]!) //delete the old entity
+        createCourseEntity(course)
+    }
+    
+    func createCourseEntity(course: Course) {
+        let entity = NSEntityDescription.entityForName("Course", inManagedObjectContext: managedContext)
+        let courseEntity = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        courseEntity.setValue(course.semester.rawValue, forKey: "semester")
+        courseEntity.setValue(course.subject.rawValue, forKey: "subject")
+        courseEntity.setValue(course.courseNumber, forKey: "courseNumber")
+        courseEntity.setValue(course.distributionRequirement.rawValue, forKey: "distributionRequirement")
+        courseEntity.setValue(course.consent.rawValue, forKey: "consent")
+        courseEntity.setValue(course.titleShort, forKey: "titleShort")
+        courseEntity.setValue(course.titleLong, forKey: "titleLong")
+        courseEntity.setValue(course.courseID, forKey: "courseID")
+        courseEntity.setValue(course.description, forKey: "descr")
+        courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
+        courseEntity.setValue(course.status.rawValue, forKey: "status")
+        courseEntity.setValue(course.instructors, forKey: "instructors")
+        courseEntities.append(courseEntity)
+        courseToNSManagedObject[course] = courseEntity
+    }
 }
 
 class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearchBarDelegate {
     
     var courses: [Course] = []
-    var courseToNSManagedObject: [Course: NSManagedObject] = [:]
+    var courseToNSManagedObject: [Course: NSManagedObject]! = [:]
     
     var desiredCourses: [Course] = []
     
     var initialLoad = true
-    var savedCourses: [NSManagedObject]!
+    var courseEntities: [NSManagedObject]!
     var takenCourses: NSMutableSet!
     var plannedCourses: NSMutableSet!
     var managedContext: NSManagedObjectContext!
@@ -96,7 +139,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return CGFloat(60)
+        return courseCellHeight
     }
     
     func handleInitialLoad() {
@@ -105,7 +148,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         plannedCourses = NSMutableSet()
         let dataManager = DataManager.init()
         fetchCoreData()
-        if savedCourses.count == 0 {
+        if courseEntities.count == 0 {
             print("Have to fetch courses from API")
             dataManager.fetchCourses() { () in
                 self.courses = dataManager.courseArray
@@ -114,10 +157,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
                 self.saveCoreData()
                 self.tableView.reloadData()
             }
-        } else {
-            print("Didn't have to fetch")
-        }
-        
+        } else { print("Didn't have to fetch") }
         navigationItem.title = "CS Courses"
         tableView.backgroundColor = .blackColor()
         tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
@@ -146,9 +186,9 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         do {
             let results =
                 try managedContext.executeFetchRequest(fetchRequest)
-            if let savedCourses = results as? [NSManagedObject] {
-                self.savedCourses = savedCourses.sort { ($0.valueForKey("courseNumber") as! Int) < ($1.valueForKey("courseNumber") as! Int)}
-                for course in self.savedCourses {
+            if let courseEntities = results as? [NSManagedObject] {
+                self.courseEntities = courseEntities.sort { ($0.valueForKey("courseNumber") as! Int) < ($1.valueForKey("courseNumber") as! Int)}
+                for course in self.courseEntities {
                     let newCourse = Course(savedCourse: course)
                     courses.append(newCourse)
                     courseToNSManagedObject[newCourse] = course
@@ -160,37 +200,18 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     }
     
     func saveCoreData() {
-        print("Attempting to save")
-        if savedCourses.count == 0 {
+        print("Saving")
+        if courseEntities.count == 0 {
             for course in courses {
                 createCourseEntity(course)
             }
         }
-        //save
+        
         do {
             try managedContext.save()
         } catch let error as NSError {
             print("Could not save \(error), \(error.userInfo)")
         }
-    }
-    
-    func createCourseEntity(course: Course) {
-        let entity = NSEntityDescription.entityForName("Course", inManagedObjectContext: managedContext)
-        let courseEntity = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        courseEntity.setValue(course.semester.rawValue, forKey: "semester")
-        courseEntity.setValue(course.subject.rawValue, forKey: "subject")
-        courseEntity.setValue(course.courseNumber, forKey: "courseNumber")
-        courseEntity.setValue(course.distributionRequirement.rawValue, forKey: "distributionRequirement")
-        courseEntity.setValue(course.consent.rawValue, forKey: "consent")
-        courseEntity.setValue(course.titleShort, forKey: "titleShort")
-        courseEntity.setValue(course.titleLong, forKey: "titleLong")
-        courseEntity.setValue(course.courseID, forKey: "courseID")
-        courseEntity.setValue(course.description, forKey: "descr")
-        courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
-        courseEntity.setValue(course.status.rawValue, forKey: "status")
-        courseEntity.setValue(course.instructors, forKey: "instructors")
-        savedCourses.append(courseEntity)
-        courseToNSManagedObject[course] = courseEntity
     }
     
     func processTakenAndPlannedCourses() {
@@ -268,22 +289,6 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         tableView.reloadData()
     }
     
-    func handleChangedCourse(course: Course, status: Status) {
-        if course.status == .PlanTo {
-            plannedCourses.removeObject(course)
-        } else if course.status == .Taken {
-            takenCourses.removeObject(course)
-        }
-        course.status = status
-        if course.status == .PlanTo {
-            plannedCourses.addObject(course)
-        } else if course.status == .Taken {
-            takenCourses.addObject(course)
-        }
-        managedContext.deleteObject(courseToNSManagedObject[course]!) //delete the old entity
-        createCourseEntity(course)
-    }
-    
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         searchQuery = searchText
         processCourses()
@@ -302,5 +307,5 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
     }
-    
+
 }

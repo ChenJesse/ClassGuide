@@ -14,7 +14,7 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
     var relevantCourses: [Course] = []
     var takenCourses: NSMutableSet!
     var plannedCourses: NSMutableSet!
-    var savedCourses: [NSManagedObject]!
+    var courseEntities: [NSManagedObject]!
     var managedContext: NSManagedObjectContext!
     var courseToNSManagedObject: [Course: NSManagedObject]!
         
@@ -84,7 +84,7 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return CGFloat(60)
+        return courseCellHeight
     }
     
     func saveCoreData() {
@@ -95,40 +95,5 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
         } catch let error as NSError {
             print("Could not save \(error), \(error.userInfo)")
         }
-    }
-    
-    func createCourseEntity(course: Course) {
-        let entity = NSEntityDescription.entityForName("Course", inManagedObjectContext: managedContext)
-        let courseEntity = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        courseEntity.setValue(course.semester.rawValue, forKey: "semester")
-        courseEntity.setValue(course.subject.rawValue, forKey: "subject")
-        courseEntity.setValue(course.courseNumber, forKey: "courseNumber")
-        courseEntity.setValue(course.distributionRequirement.rawValue, forKey: "distributionRequirement")
-        courseEntity.setValue(course.consent.rawValue, forKey: "consent")
-        courseEntity.setValue(course.titleShort, forKey: "titleShort")
-        courseEntity.setValue(course.titleLong, forKey: "titleLong")
-        courseEntity.setValue(course.courseID, forKey: "courseID")
-        courseEntity.setValue(course.description, forKey: "descr")
-        courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
-        courseEntity.setValue(course.status.rawValue, forKey: "status")
-        courseEntity.setValue(course.instructors, forKey: "instructors")
-        savedCourses.append(courseEntity)
-        courseToNSManagedObject[course] = courseEntity
-    }
-    
-    func handleChangedCourse(course: Course, status: Status) {
-        if course.status == .PlanTo {
-            plannedCourses.removeObject(course)
-        } else if course.status == .Taken {
-            takenCourses.removeObject(course)
-        }
-        course.status = status
-        if course.status == .PlanTo {
-            plannedCourses.addObject(course)
-        } else if course.status == .Taken {
-            takenCourses.addObject(course)
-        }
-        managedContext.deleteObject(courseToNSManagedObject[course]!) //delete the old entity
-        createCourseEntity(course)
     }
 }

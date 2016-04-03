@@ -81,12 +81,11 @@ public class CSRequirements: Requirement {
         progress.append(("CS4410 (Core) (M)", taken4410 ? 1 : 0))
         progress.append(("CS4820 (Core) (M)", taken4820 ? 1 : 0))
         progress.append(("3(CS4000+) (Electives) (M)", Float(electivesFulfilled) / Float(electivesRequirement)))
-        //non-cs class placeholders
-        progress.append(("Calculus Sequence (M)", -1))
-        progress.append(("Probability Course (M)", -1))
-        progress.append(("3(Technical Electives, 3000+) (M)", -1))
-        progress.append(("3(External Specialization, 3000+) (M)", -1))
-        progress.append(("3(Major Approved Electives) (M)", -1))
+        progress.append(("Calculus Sequence (M)", unsupportedCourseValue))
+        progress.append(("Probability Course (M)", unsupportedCourseValue))
+        progress.append(("3(Technical Electives, 3000+) (M)", unsupportedCourseValue))
+        progress.append(("3(External Specialization, 3000+) (M)", unsupportedCourseValue))
+        progress.append(("3(Major Approved Electives) (M)", unsupportedCourseValue))
         return progress
     }
 }
