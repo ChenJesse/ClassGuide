@@ -8,30 +8,6 @@
 
 import Foundation
 
-protocol Requirement {
-    var title: String { get }
-    var requiredCourses: Int { get }
-    var completed: Bool { get set }
-    func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet)
-    func analyzeCourse(course: Course)
-    func checkCompletion()
-    func resetProgress()
-    func printProgress() -> [(String, Float)]
-}
-
-extension Requirement {
-    func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
-        resetProgress()
-        var relevantCourses: [Course] = []
-        relevantCourses.appendContentsOf(takenCourses.allObjects as! [Course])
-        relevantCourses.appendContentsOf(plannedCourses.allObjects as! [Course])
-        for course in relevantCourses {
-            analyzeCourse(course)
-        }
-        checkCompletion()
-    }
-}
-
 class Renaissance: Requirement {
     let title = "Renaissance"
     let requiredCourses = 4

@@ -8,19 +8,6 @@
 
 import UIKit
 
-public enum SettingsKey: String {
-    case CS = "major"
-    case AI = "AI"
-    case Renaissance = "Renaissance"
-    case CSE = "CSE"
-    case Graphics = "Graphics"
-    case NS = "NS"
-    case PL = "PL"
-    case SE = "SE"
-    case SD = "SD"
-    case Theory = "Theory"
-}
-
 protocol SettingsDelegate {
     func handleToggle(cell: SettingsTableViewCell)
 }
@@ -43,9 +30,6 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
     }
 
     // MARK: - Table view data source

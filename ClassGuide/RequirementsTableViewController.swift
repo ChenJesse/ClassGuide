@@ -26,7 +26,6 @@ class RequirementsTableViewController: UITableViewController {
         tableView.registerNib(UINib(nibName: "RequirementsTableViewCell", bundle: nil), forCellReuseIdentifier: "RequirementCell")
         tableView.backgroundColor = .blackColor()
         navigationItem.title = "Progress"
-        //tableView.allowsSelection = false;
         addRevealVCButton()
     }
     
@@ -110,8 +109,8 @@ class RequirementsTableViewController: UITableViewController {
  
     func fetchProgress() {
         print("fetching progress")
-        requirements = []
-        progress = []
+        requirements.removeAll()
+        progress.removeAll()
         for tuple in reqsAndTogglesAndKeys {
             if settings[tuple.2.rawValue]! {
                 requirements.append(tuple.0)

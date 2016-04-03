@@ -10,13 +10,6 @@ import Foundation
 
 //All the project courses that are not practicums (practicums are a subset)
 
-public enum Special: String {
-    case Practicum =    "Practicum"
-    case Project =      "Project"
-    case Core =         "Core"
-    case None =         "None"
-}
-
 public class CSRequirements: Requirement {
     let title = "CS Major Requirements"
     //MARK: Requirement number that must be fulfilled in each category

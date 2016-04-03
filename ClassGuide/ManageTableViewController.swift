@@ -19,7 +19,6 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
     var courseToNSManagedObject: [Course: NSManagedObject]!
         
     override func viewDidLoad() {
-        print("viewdidload")
         super.viewDidLoad()
         tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "CourseCell")
         tableView.backgroundColor = .blackColor()
@@ -31,10 +30,10 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
-        print("viewdidappear")
         relevantCourses.removeAll()
         relevantCourses.appendContentsOf(takenCourses.allObjects as! [Course])
         relevantCourses.appendContentsOf(plannedCourses.allObjects as! [Course])
+        relevantCourses = relevantCourses.sort { $0.courseNumber < $1.courseNumber }
         tableView.reloadData()
     }
 

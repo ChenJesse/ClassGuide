@@ -44,6 +44,9 @@
 		60B7C62B1CA20DD400B9D190 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60B7C6291CA20DD400B9D190 /* Model.xcdatamodeld */; };
 		60C76A9E1CA5F0EF0030A7B4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C76A9C1CA5F0EF0030A7B4 /* DetailViewController.swift */; };
 		60C76A9F1CA5F0EF0030A7B4 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60C76A9D1CA5F0EF0030A7B4 /* DetailViewController.xib */; };
+		60D10DD31CB0AE080053D971 /* CoreDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D10DD21CB0AE080053D971 /* CoreDelegateProtocol.swift */; };
+		60D10DD51CB0AE430053D971 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D10DD41CB0AE430053D971 /* Enums.swift */; };
+		60D10DD71CB0AEC10053D971 /* Requirement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D10DD61CB0AEC10053D971 /* Requirement.swift */; };
 		60DE62D81CA4CC5900AAFB32 /* SidebarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DE62D61CA4CC5900AAFB32 /* SidebarTableViewCell.swift */; };
 		60DE62D91CA4CC5900AAFB32 /* SidebarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60DE62D71CA4CC5900AAFB32 /* SidebarTableViewCell.xib */; };
 		60DE62DB1CA4D7D800AAFB32 /* StyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DE62DA1CA4D7D800AAFB32 /* StyleExtension.swift */; };
@@ -114,6 +117,9 @@
 		60B7C62A1CA20DD400B9D190 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		60C76A9C1CA5F0EF0030A7B4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		60C76A9D1CA5F0EF0030A7B4 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		60D10DD21CB0AE080053D971 /* CoreDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDelegateProtocol.swift; sourceTree = "<group>"; };
+		60D10DD41CB0AE430053D971 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		60D10DD61CB0AEC10053D971 /* Requirement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requirement.swift; sourceTree = "<group>"; };
 		60DE62D61CA4CC5900AAFB32 /* SidebarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarTableViewCell.swift; sourceTree = "<group>"; };
 		60DE62D71CA4CC5900AAFB32 /* SidebarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SidebarTableViewCell.xib; sourceTree = "<group>"; };
 		60DE62DA1CA4D7D800AAFB32 /* StyleExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleExtension.swift; sourceTree = "<group>"; };
@@ -222,7 +228,7 @@
 			name = Misc;
 			sourceTree = "<group>";
 		};
-		60A109BB1CA3C56A00E6D2E8 /* Extensions */ = {
+		60A109BB1CA3C56A00E6D2E8 /* Extensions/Resources */ = {
 			isa = PBXGroup;
 			children = (
 				60A109AC1CA3BA8A00E6D2E8 /* RevealExtension.swift */,
@@ -231,8 +237,11 @@
 				6042D7D31CA78C6A00273B20 /* StringExtension.swift */,
 				60AFAAFC1CACD00A0008371F /* KDCircularProgress.swift */,
 				604139D71CAED3D1008C6B72 /* Constants.swift */,
+				60D10DD21CB0AE080053D971 /* CoreDelegateProtocol.swift */,
+				60D10DD41CB0AE430053D971 /* Enums.swift */,
+				60D10DD61CB0AEC10053D971 /* Requirement.swift */,
 			);
-			name = Extensions;
+			name = Extensions/Resources;
 			sourceTree = "<group>";
 		};
 		60A985BD1CA1C8D6006024CA = {
@@ -266,7 +275,7 @@
 				60A1099F1CA3B77200E6D2E8 /* SWRevealViewController */,
 				60A109B91CA3C51100E6D2E8 /* Controllers */,
 				60DE62DE1CA4F20F00AAFB32 /* Cells */,
-				60A109BB1CA3C56A00E6D2E8 /* Extensions */,
+				60A109BB1CA3C56A00E6D2E8 /* Extensions/Resources */,
 				60A109BA1CA3C54F00E6D2E8 /* Misc */,
 				60A985D01CA1C8D6006024CA /* Assets.xcassets */,
 			);
@@ -510,6 +519,7 @@
 				60C76A9E1CA5F0EF0030A7B4 /* DetailViewController.swift in Sources */,
 				60A8281D1CAA2DD80021247B /* Vector.swift in Sources */,
 				60B7C6221CA1CF3300B9D190 /* DataManager.swift in Sources */,
+				60D10DD31CB0AE080053D971 /* CoreDelegateProtocol.swift in Sources */,
 				60AFAAFD1CACD00A0008371F /* KDCircularProgress.swift in Sources */,
 				60B7C6261CA1D86E00B9D190 /* Course.swift in Sources */,
 				60B359281CA73AC300A63524 /* CourseAnalyzer.swift in Sources */,
@@ -518,10 +528,12 @@
 				60A109B41CA3C21200E6D2E8 /* SidebarTableViewController.swift in Sources */,
 				60B7C62B1CA20DD400B9D190 /* Model.xcdatamodeld in Sources */,
 				60B7C61B1CA1CC4F00B9D190 /* HomeTableViewController.swift in Sources */,
+				60D10DD51CB0AE430053D971 /* Enums.swift in Sources */,
 				60B7C6281CA1DD6000B9D190 /* Instructor.swift in Sources */,
 				6036A40B1CA460CC00C8C113 /* CSRequirements.swift in Sources */,
 				60608E741CA5895E00D7C9D7 /* ManageTableViewController.swift in Sources */,
 				6089212E1CAB4E050039F8F9 /* RequirementsTableViewCell.swift in Sources */,
+				60D10DD71CB0AEC10053D971 /* Requirement.swift in Sources */,
 				60A985CA1CA1C8D6006024CA /* AppDelegate.swift in Sources */,
 				60A109AD1CA3BA8A00E6D2E8 /* RevealExtension.swift in Sources */,
 				60DE62D81CA4CC5900AAFB32 /* SidebarTableViewCell.swift in Sources */,
