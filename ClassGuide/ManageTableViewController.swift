@@ -123,22 +123,8 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate, Course
     }
     
     func processCourses() {
-        if searchQuery != "" {
-            desiredCourses = relevantCourses.filter({ (c) -> Bool in
-                let options: NSStringCompareOptions = [.CaseInsensitiveSearch, .DiacriticInsensitiveSearch]
-                let courseNumberFound: () -> Bool = {
-                    return "\(c.courseNumber)".rangeOfString(self.searchQuery, options: options) != nil
-                }
-                let titleFound: () -> Bool = {
-                    return c.titleLong.rangeOfString(self.searchQuery, options: options) != nil
-                }
-                return (courseNumberFound() || titleFound())
-            })
-        } else {
-            desiredCourses = relevantCourses.filter({ _ in
-                return true
-            })
-        }
+        desiredCourses = relevantCourses.map { $0 }
+        filterCourses()
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {

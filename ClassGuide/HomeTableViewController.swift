@@ -181,18 +181,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         desiredCourses = courses.filter({ (c) -> Bool in
             return c.semester == semester
         })
-        if searchQuery != "" {
-            desiredCourses = desiredCourses.filter({ (c) -> Bool in
-                let options: NSStringCompareOptions = [.CaseInsensitiveSearch, .DiacriticInsensitiveSearch]
-                let courseNumberFound: () -> Bool = {
-                    return "\(c.courseNumber)".rangeOfString(self.searchQuery, options: options) != nil
-                }
-                let titleFound: () -> Bool = {
-                    return c.titleLong.rangeOfString(self.searchQuery, options: options) != nil
-                }
-                return (courseNumberFound() || titleFound())
-            })
-        }
+        filterCourses()
     }
     
     func setupSegmentedControl() {

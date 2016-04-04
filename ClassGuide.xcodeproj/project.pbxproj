@@ -176,7 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				60A109A61CA3B7D200E6D2E8 /* SWRevealViewController.h */,
-				60A109A71CA3B7D200E6D2E8 /* SWRevealViewController.m */,
 			);
 			name = SWRevealViewController;
 			sourceTree = "<group>";
@@ -204,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				60C76A9C1CA5F0EF0030A7B4 /* DetailViewController.swift */,
+				60A109A71CA3B7D200E6D2E8 /* SWRevealViewController.m */,
 				60C76A9D1CA5F0EF0030A7B4 /* DetailViewController.xib */,
 				60B7C6191CA1CC4F00B9D190 /* HomeTableViewController.swift */,
 				60B7C61A1CA1CC4F00B9D190 /* HomeTableViewController.xib */,
