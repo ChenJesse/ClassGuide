@@ -86,3 +86,8 @@ public enum SettingsKey: String {
     case SD = "SD"
     case Theory = "Theory"
 }
+
+public enum Priority {
+    case Mandatory
+    case Optional
+}

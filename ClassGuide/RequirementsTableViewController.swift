@@ -17,7 +17,7 @@ class RequirementsTableViewController: UITableViewController {
     var plannedCourses: NSMutableSet!
     
     var requirements: [Requirement] = []
-    var progress: [[(String, Float)]] = []
+    var progress: [[(String, Float, Priority)]] = []
     var settings: [String: Bool]!
     var defaults: NSUserDefaults!
         
@@ -58,6 +58,7 @@ class RequirementsTableViewController: UITableViewController {
         let desiredTuple = progress[indexPath.section][indexPath.row]
         cell.requirementLabel.text = desiredTuple.0
         cell.requirementLabel.adjustsFontSizeToFitWidth = true
+        cell.optionalImageView.image = (desiredTuple.2 == .Mandatory) ? UIImage(named: "mandatoryIcon") : UIImage(named: "optionalIcon")
         if (desiredTuple.1 == unsupportedCourseValue) { //course not suppported by app
             cell.isCSCourse = false
             cell.statusImageView.image = UIImage(named: "handIcon")

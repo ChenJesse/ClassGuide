@@ -64,22 +64,22 @@ public class CSRequirements: Requirement {
         completed = taken111x && taken2110or2112 && taken2800 && taken3110 && taken3410 && taken4410 && taken4820 && projectFulfilled && electivesFulfilled >= electivesRequirement
     }
     
-    func printProgress() -> [(String, Float)] {
-        var progress: [(String, Float)] = []
-        progress.append(("CS111x (Intro) (M)", taken111x ? 1 : 0))
-        progress.append(("CS2110/CS2112 (Intro) (M)", taken2110or2112 ? 1 : 0))
-        progress.append(("CS2800 (Core) (M)", taken2800 ? 1 : 0))
-        progress.append(("CS3110 (Core) (M)", taken3110 ? 1 : 0))
-        progress.append(("CS3410 (Core) (M)", taken3410 ? 1 : 0))
-        progress.append(("CS4410 (Core) (M)", taken4410 ? 1 : 0))
-        progress.append(("CS4820 (Core) (M)", taken4820 ? 1 : 0))
-        progress.append(("Project Course (Core) (M)", projectFulfilled ? 1 : 0))
-        progress.append(("3(CS4000+) (Electives) (M)", Float(electivesFulfilled) / Float(electivesRequirement)))
-        progress.append(("Calculus Sequence (M)", unsupportedCourseValue))
-        progress.append(("Probability Course (M)", unsupportedCourseValue))
-        progress.append(("3(Technical Electives, 3000+) (M)", unsupportedCourseValue))
-        progress.append(("3(External Specialization, 3000+) (M)", unsupportedCourseValue))
-        progress.append(("3(Major Approved Electives) (M)", unsupportedCourseValue))
+    func printProgress() -> [(String, Float, Priority)] {
+        var progress: [(String, Float, Priority)] = []
+        progress.append(("CS111x (Intro) ", taken111x ? 1 : 0, .Mandatory))
+        progress.append(("CS2110/CS2112 (Intro) ", taken2110or2112 ? 1 : 0, .Mandatory))
+        progress.append(("CS2800 (Core) ", taken2800 ? 1 : 0, .Mandatory))
+        progress.append(("CS3110 (Core) ", taken3110 ? 1 : 0, .Mandatory))
+        progress.append(("CS3410 (Core) ", taken3410 ? 1 : 0, .Mandatory))
+        progress.append(("CS4410 (Core) ", taken4410 ? 1 : 0, .Mandatory))
+        progress.append(("CS4820 (Core) ", taken4820 ? 1 : 0, .Mandatory))
+        progress.append(("Project Course (Core) ", projectFulfilled ? 1 : 0, .Mandatory))
+        progress.append(("3(CS4000+) (Electives) ", Float(electivesFulfilled) / Float(electivesRequirement), .Mandatory))
+        progress.append(("Calculus Sequence ", unsupportedCourseValue, .Mandatory))
+        progress.append(("Probability Course ", unsupportedCourseValue, .Mandatory))
+        progress.append(("3(Technical Electives, 3000+) ", unsupportedCourseValue, .Mandatory))
+        progress.append(("3(External Specialization, 3000+) ", unsupportedCourseValue, .Mandatory))
+        progress.append(("3(Major Approved Electives) ", unsupportedCourseValue, .Mandatory))
         return progress
     }
 }

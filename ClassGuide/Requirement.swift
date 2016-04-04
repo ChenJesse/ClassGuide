@@ -16,7 +16,7 @@ protocol Requirement {
     func analyzeCourse(course: Course)
     func checkCompletion()
     func resetProgress()
-    func printProgress() -> [(String, Float)]
+    func printProgress() -> [(String, Float, Priority)]
 }
 
 extension Requirement {
