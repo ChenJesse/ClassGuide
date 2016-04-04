@@ -13,3 +13,5 @@ let settingsCellHeight = CGFloat(65)
 let requirementsCellHeight = CGFloat(70)
 let sidebarCellHeight = CGFloat(75)
 let unsupportedCourseValue = Float(-1.0)
+
+let tabNumber = 5

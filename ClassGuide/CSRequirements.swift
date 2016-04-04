@@ -73,6 +73,7 @@ public class CSRequirements: Requirement {
         progress.append(("CS3410 (Core) (M)", taken3410 ? 1 : 0))
         progress.append(("CS4410 (Core) (M)", taken4410 ? 1 : 0))
         progress.append(("CS4820 (Core) (M)", taken4820 ? 1 : 0))
+        progress.append(("Project Course (Core) (M)", projectFulfilled ? 1 : 0))
         progress.append(("3(CS4000+) (Electives) (M)", Float(electivesFulfilled) / Float(electivesRequirement)))
         progress.append(("Calculus Sequence (M)", unsupportedCourseValue))
         progress.append(("Probability Course (M)", unsupportedCourseValue))

@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearchBarDelegate {
+class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSearchDelegate {
     
     var courses: [Course] = []
     var courseToNSManagedObject: [Course: NSManagedObject]! = [:]
@@ -27,8 +27,11 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     var yearIndex = 2
     var season: Season = .Fall
     
+    var controller: UITableViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        controller = self
         if (initialLoad) {
             handleInitialLoad()
         }
@@ -38,6 +41,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     }
     
     override func viewDidAppear(animated: Bool) {
+        addPanGesture()
         tableView.reloadData()
     }
 
@@ -116,16 +120,6 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         processTakenAndPlannedCourses()
         processCourses()
         tableView.reloadData()
-    }
-    
-    func setupSearchBar() {
-        searchBar = UISearchBar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 30))
-        searchBar.searchBarStyle = .Minimal
-        searchBar.tintColor = UIColor.cornellRed
-        let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = UIColor.cornellRed
-        searchBar.delegate = self
-        tableView.tableHeaderView = searchBar
     }
     
     func fetchCoreData() {
@@ -237,22 +231,15 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        searchQuery = searchText
-        processCourses()
-        tableView.reloadData()
+        handleSearchBar(searchBar, textDidChange: searchText)
     }
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(true, animated: true)
+        handleSearchBarTextDidBeginEditing(searchBar)
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        searchBar.text = ""
-        searchQuery = ""
-        processCourses()
-        tableView.reloadData()
-        searchBar.resignFirstResponder()
-        searchBar.setShowsCancelButton(false, animated: true)
+        handleSearchBarCancelButtonClicked(searchBar)
     }
 
 }

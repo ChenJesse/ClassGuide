@@ -9,8 +9,13 @@
 import UIKit
 import CoreData
 
-class ManageTableViewController: UITableViewController, CoreDataDelegate {
+class ManageTableViewController: UITableViewController, CoreDataDelegate, CourseSearchDelegate {
     
+    var controller: UITableViewController!
+    var searchBar: UISearchBar!
+    var searchQuery = ""
+    
+    var desiredCourses: [Course] = []
     var relevantCourses: [Course] = []
     var takenCourses: NSMutableSet!
     var plannedCourses: NSMutableSet!
@@ -20,21 +25,21 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        controller = self
         tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "CourseCell")
         tableView.backgroundColor = .blackColor()
         navigationItem.title = "Manage"
-        relevantCourses.appendContentsOf(takenCourses.allObjects as! [Course])
-        relevantCourses.appendContentsOf(plannedCourses.allObjects as! [Course])
+        self.editButtonItem().tintColor = .whiteColor()
+        navigationItem.rightBarButtonItem = self.editButtonItem()
+        refreshCourses()
         addRevealVCButton()
+        setupSearchBar()
         tableView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {
-        relevantCourses.removeAll()
-        relevantCourses.appendContentsOf(takenCourses.allObjects as! [Course])
-        relevantCourses.appendContentsOf(plannedCourses.allObjects as! [Course])
-        relevantCourses = relevantCourses.sort { $0.courseNumber < $1.courseNumber }
-        tableView.reloadData()
+        addPanGesture()
+        refreshCourses()
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,12 +53,12 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return relevantCourses.count
+        return desiredCourses.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell", forIndexPath: indexPath) as! CourseTableViewCell
-        let thisCourse = relevantCourses[indexPath.row]
+        let thisCourse = desiredCourses[indexPath.row]
         cell.courseCodeLabel.text = thisCourse.subject.rawValue + "\(thisCourse.courseNumber)"
         cell.courseCodeLabel.sizeToFit()
         cell.courseTitleLabel.text = thisCourse.titleShort
@@ -67,12 +72,13 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
             image = UIImage(named: "checkIcon")
         }
         cell.statusImageView.image = image!
+        cell.backgroundColor = UIColor.cornellRed
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailVC = DetailViewController()
-        detailVC.course = relevantCourses[indexPath.row]
+        detailVC.course = desiredCourses[indexPath.row]
         detailVC.delegate = self
         let backButton = UIBarButtonItem(title: "Courses", style: .Plain, target: nil, action: nil)
         backButton.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
@@ -86,6 +92,26 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
         return courseCellHeight
     }
     
+    override func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            handleChangedCourse(desiredCourses[indexPath.row], status: .None)
+            refreshCourses()
+        }
+    }
+    
+    func refreshCourses() {
+        relevantCourses.removeAll()
+        relevantCourses.appendContentsOf(takenCourses.allObjects as! [Course])
+        relevantCourses.appendContentsOf(plannedCourses.allObjects as! [Course])
+        relevantCourses = relevantCourses.sort { $0.courseNumber < $1.courseNumber }
+        processCourses()
+        tableView.reloadData()
+    }
+    
     func saveCoreData() {
         print("Attempting to save")
         //save
@@ -94,5 +120,36 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate {
         } catch let error as NSError {
             print("Could not save \(error), \(error.userInfo)")
         }
+    }
+    
+    func processCourses() {
+        if searchQuery != "" {
+            desiredCourses = relevantCourses.filter({ (c) -> Bool in
+                let options: NSStringCompareOptions = [.CaseInsensitiveSearch, .DiacriticInsensitiveSearch]
+                let courseNumberFound: () -> Bool = {
+                    return "\(c.courseNumber)".rangeOfString(self.searchQuery, options: options) != nil
+                }
+                let titleFound: () -> Bool = {
+                    return c.titleLong.rangeOfString(self.searchQuery, options: options) != nil
+                }
+                return (courseNumberFound() || titleFound())
+            })
+        } else {
+            desiredCourses = relevantCourses.filter({ _ in
+                return true
+            })
+        }
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        handleSearchBar(searchBar, textDidChange: searchText)
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        handleSearchBarTextDidBeginEditing(searchBar)
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        handleSearchBarCancelButtonClicked(searchBar)
     }
 }

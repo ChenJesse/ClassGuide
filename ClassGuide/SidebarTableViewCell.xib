@@ -44,6 +44,7 @@
                     <constraint firstItem="lUZ-dt-TxB" firstAttribute="bottom" secondItem="SS2-E5-BKn" secondAttribute="bottom" id="knf-x3-BEV"/>
                 </constraints>
             </tableViewCellContentView>
+            <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
             <connections>
                 <outlet property="categoryLabel" destination="SS2-E5-BKn" id="dAH-FV-yuX"/>
                 <outlet property="iconImageView" destination="lUZ-dt-TxB" id="4fU-DK-vRB"/>
