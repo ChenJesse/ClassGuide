@@ -90,6 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     
     func viewControllerSetup() {
         homeVC.managedContext = managedContext
+        homeVC.defaults = defaults
         
         manageVC.managedContext = managedContext
         

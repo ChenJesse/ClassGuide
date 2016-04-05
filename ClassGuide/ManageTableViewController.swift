@@ -114,12 +114,7 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate, Course
     
     func saveCoreData() {
         print("Attempting to save")
-        //save
-        do {
-            try managedContext.save()
-        } catch let error as NSError {
-            print("Could not save \(error), \(error.userInfo)")
-        }
+        save()
     }
     
     func processCourses() {

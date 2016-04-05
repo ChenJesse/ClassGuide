@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+//Responsible for saving changes to Core Data
 protocol CoreDataDelegate: class {
     var courseToNSManagedObject: [Course: NSManagedObject]! { get set }
     var takenCourses: NSMutableSet! { get set }
@@ -54,4 +55,13 @@ extension CoreDataDelegate {
         courseEntities.append(courseEntity)
         courseToNSManagedObject[course] = courseEntity
     }
+    
+    func save() {
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+    }
+    
 }

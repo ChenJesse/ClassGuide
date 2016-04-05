@@ -79,7 +79,7 @@ public class CSRequirements: Requirement {
         progress.append(("Probability Course ", unsupportedCourseValue, .Mandatory))
         progress.append(("3(Technical Electives, 3000+) ", unsupportedCourseValue, .Mandatory))
         progress.append(("3(External Specialization, 3000+) ", unsupportedCourseValue, .Mandatory))
-        progress.append(("3(Major Approved Electives) ", unsupportedCourseValue, .Mandatory))
+        progress.append(("3 Credits Approved Elective) ", unsupportedCourseValue, .Mandatory))
         return progress
     }
 }

@@ -33,22 +33,27 @@ public class DataManager: NSObject {
     public static let sharedInstance = DataManager()
     public let semesters = ["FA14", "SP14", "FA15", "SP15", "FA16", "SP16"]
     var courseArray: [Course] = []
+    var defaults: NSUserDefaults! //for checking which semesters we've fetched
     
     public func fetchCourses(completionHandler: () -> ()) {
         for semester in semesters {
-            let _ = Alamofire.request(.GET, Router.Classes, parameters: ["roster": semester, "subject": "CS"])
-                .responseJSON { response in
-                    switch response.result {
-                    case .Success(let data):
-                        print("success")
-                        self.createCourses(JSON(data), semester: semester)
-                        if semester == self.semesters[self.semesters.count - 1] {
-                            completionHandler()
+            if !defaults.boolForKey(semester) {
+                print("Getting \(semester)")
+                let _ = Alamofire.request(.GET, Router.Classes, parameters: ["roster": semester, "subject": "CS"])
+                    .responseJSON { response in
+                        switch response.result {
+                        case .Success(let data):
+                            print("success")
+                            self.createCourses(JSON(data), semester: semester)
+                            if semester == self.semesters[self.semesters.count - 1] {
+                                completionHandler()
+                            }
+                            self.defaults.setBool(true, forKey: semester) //we've succesfully fetched this semester
+                        case .Failure(let error):
+                            print(error)
                         }
-                    case .Failure(let error):
-                        print(error)
                     }
-            }
+            } else { print("Not getting \(semester)") }
         }
     }
     

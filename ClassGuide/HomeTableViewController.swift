@@ -28,6 +28,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     var season: Season = .Fall
     
     var controller: UITableViewController!
+    var defaults: NSUserDefaults!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,17 +100,15 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         takenCourses = NSMutableSet()
         plannedCourses = NSMutableSet()
         let dataManager = DataManager.init()
+        dataManager.defaults = defaults
         fetchCoreData()
-        if courseEntities.count == 0 {
-            print("Have to fetch courses from API")
-            dataManager.fetchCourses() { () in
-                self.courses = dataManager.courseArray
-                self.processTakenAndPlannedCourses()
-                self.processCourses()
-                self.saveCoreData()
-                self.tableView.reloadData()
-            }
-        } else { print("Didn't have to fetch") }
+        dataManager.fetchCourses() { () in
+            self.courses = dataManager.courseArray
+            self.processTakenAndPlannedCourses()
+            self.processCourses()
+            self.saveCoreData()
+            self.tableView.reloadData()
+        }
         navigationItem.title = "CS Courses"
         tableView.backgroundColor = .blackColor()
         tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
@@ -148,12 +147,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
                 createCourseEntity(course)
             }
         }
-        
-        do {
-            try managedContext.save()
-        } catch let error as NSError {
-            print("Could not save \(error), \(error.userInfo)")
-        }
+        save()
     }
     
     func processTakenAndPlannedCourses() {

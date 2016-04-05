@@ -9,7 +9,6 @@
 import UIKit
 
 class RequirementsTableViewController: UITableViewController {
-    //MARK: All the Requirement objects individually
 
     var reqsAndTogglesAndKeys: [(Requirement, Bool, SettingsKey)]!
     
