@@ -125,7 +125,7 @@ class RequirementsTableViewController: UITableViewController {
     }
     
     func setCellAsIncomplete(cell: RequirementsTableViewCell) {
-        cell.percentLabel.text = "???%"
+        cell.percentLabel.text = "?%"
         cell.progressCircle.angle = 0
     }
     
@@ -135,7 +135,7 @@ class RequirementsTableViewController: UITableViewController {
     }
     
     func setCellAsIncompleteAnimated(cell: RequirementsTableViewCell) {
-        cell.percentLabel.text = "???%"
+        cell.percentLabel.text = "?%"
         cell.progressCircle.animateFromAngle(360, toAngle: 0, duration: 0.5, completion: nil)
     }
 }
