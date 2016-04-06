@@ -29,6 +29,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     
     var controller: UITableViewController!
     var defaults: NSUserDefaults!
+    var dataManager: DataManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,11 +100,11 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         initialLoad = false
         takenCourses = NSMutableSet()
         plannedCourses = NSMutableSet()
-        let dataManager = DataManager.init()
+        dataManager = DataManager.init()
         dataManager.defaults = defaults
         fetchCoreData()
         dataManager.fetchCourses() { () in
-            self.courses = dataManager.courseArray
+            self.courses = self.dataManager.courseArray
             self.processTakenAndPlannedCourses()
             self.processCourses()
             self.saveCoreData()
@@ -116,9 +117,52 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         setupSegmentedControl()
         setupSeasonToggle()
         setupSearchBar()
+        setupPullToReload()
         processTakenAndPlannedCourses()
         processCourses()
         tableView.reloadData()
+    }
+    
+    func updateCourses() {
+        //store the Status information
+        var statusDict: [String: Status] = [:]
+        for course in courses {
+            statusDict[course.key()] = course.status
+        }
+        //delete all requests
+        let fetchRequest = NSFetchRequest(entityName: "Course")
+        do {
+            let results =
+                try managedContext.executeFetchRequest(fetchRequest)
+            for result in results {
+                managedContext.deleteObject(result as! NSManagedObject)
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        courses.removeAll()
+        desiredCourses.removeAll()
+        courseToNSManagedObject.removeAll()
+        courseEntities.removeAll()
+        takenCourses.removeAllObjects()
+        plannedCourses.removeAllObjects()
+        dataManager.courseArray.removeAll()
+        self.tableView.reloadData()
+        
+        for semester in dataManager.semesters {
+            defaults.setBool(false, forKey: semester)
+        }
+        
+        //refetch all courses
+        dataManager.fetchCourses() { () in
+            self.courses = self.dataManager.courseArray
+            self.recoverStatuses(statusDict)
+            self.processTakenAndPlannedCourses()
+            self.processCourses()
+            self.saveCoreData()
+            self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
+        }
     }
     
     func fetchCoreData() {
@@ -143,6 +187,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     func saveCoreData() {
         print("Saving")
         if courseEntities.count == 0 {
+            print("Creating")
             for course in courses {
                 createCourseEntity(course)
             }
@@ -178,6 +223,15 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         filterCourses()
     }
     
+    func recoverStatuses(dict: [String: Status]) {
+        for course in courses {
+            course.status = dict[course.key()] ?? .None
+            if course.status != .None {
+                print("\(course.key()): \(course.status.rawValue)")
+            }
+        }
+    }
+    
     func setupSegmentedControl() {
         let yearSelector = UISegmentedControl(frame: CGRectMake(20, 20, 150, 30))
         yearSelector.addTarget(self, action: #selector(HomeTableViewController.switchSemester), forControlEvents: UIControlEvents.ValueChanged)
@@ -197,6 +251,12 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         seasonToggle?.addTarget(self, action: #selector(HomeTableViewController.toggleSeason(_:)), forControlEvents: .TouchUpInside)
         seasonToggle!.setImage(UIImage(named: "fallIcon"), forState: .Normal)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: seasonToggle!)
+    }
+    
+    func setupPullToReload() {
+        refreshControl = UIRefreshControl()
+        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl!.addTarget(self, action: #selector(HomeTableViewController.updateCourses), forControlEvents: UIControlEvents.ValueChanged)
     }
     
     func toggleSeason(sender: UIButton) {

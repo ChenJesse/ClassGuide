@@ -45,10 +45,14 @@ public class DataManager: NSObject {
                         case .Success(let data):
                             print("success")
                             self.createCourses(JSON(data), semester: semester)
-                            if semester == self.semesters[self.semesters.count - 1] {
-                                completionHandler()
-                            }
                             self.defaults.setBool(true, forKey: semester) //we've succesfully fetched this semester
+                            var allSemestersCompleted = true
+                            for semester in self.semesters {
+                                if !self.defaults.boolForKey(semester) {
+                                    allSemestersCompleted = false
+                                }
+                            }
+                            if allSemestersCompleted { completionHandler() }
                         case .Failure(let error):
                             print(error)
                         }

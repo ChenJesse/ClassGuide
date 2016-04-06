@@ -34,6 +34,10 @@ public class Course: Hashable {
         }
     }
     
+    func key() -> String {
+        return "\(semester)\(subject)\(courseNumber)"
+    }
+    
     internal init(json: JSON, sem: String, stat: Status) {
         semester = Semester(rawValue: sem) ?? .Other
         subject = Subject(rawValue: json[APIKey.Subject.rawValue].stringValue) ?? .Other
