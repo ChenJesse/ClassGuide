@@ -45,7 +45,7 @@ public func printSpecialAttributes(course: Course) -> String {
 }
 
 public func checkFxxx(course: Course) -> Bool {
-    return course.courseNumber >= 4000 && course.courseNumber != 4820 && course.courseNumber != 4999 && course.courseNumber != 4410
+    return course.courseNumber >= 4000 && course.courseNumber != 4820 && course.courseNumber != 4999 && course.courseNumber != 4410 && !checkPracticum(course)
 }
 
 public func getThousandsDigit(course: Course) -> Int {

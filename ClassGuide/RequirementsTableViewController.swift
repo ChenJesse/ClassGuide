@@ -9,7 +9,6 @@
 import UIKit
 
 class RequirementsTableViewController: UITableViewController {
-    //MARK: All the Requirement objects individually
 
     var reqsAndTogglesAndKeys: [(Requirement, Bool, SettingsKey)]!
     
@@ -17,7 +16,7 @@ class RequirementsTableViewController: UITableViewController {
     var plannedCourses: NSMutableSet!
     
     var requirements: [Requirement] = []
-    var progress: [[(String, Float)]] = []
+    var progress: [[(String, Float, Priority)]] = []
     var settings: [String: Bool]!
     var defaults: NSUserDefaults!
         
@@ -26,7 +25,6 @@ class RequirementsTableViewController: UITableViewController {
         tableView.registerNib(UINib(nibName: "RequirementsTableViewCell", bundle: nil), forCellReuseIdentifier: "RequirementCell")
         tableView.backgroundColor = .blackColor()
         navigationItem.title = "Progress"
-        //tableView.allowsSelection = false;
         addRevealVCButton()
     }
     
@@ -59,6 +57,7 @@ class RequirementsTableViewController: UITableViewController {
         let desiredTuple = progress[indexPath.section][indexPath.row]
         cell.requirementLabel.text = desiredTuple.0
         cell.requirementLabel.adjustsFontSizeToFitWidth = true
+        cell.optionalImageView.image = (desiredTuple.2 == .Mandatory) ? UIImage(named: "mandatoryIcon") : UIImage(named: "optionalIcon")
         if (desiredTuple.1 == unsupportedCourseValue) { //course not suppported by app
             cell.isCSCourse = false
             cell.statusImageView.image = UIImage(named: "handIcon")
@@ -110,8 +109,8 @@ class RequirementsTableViewController: UITableViewController {
  
     func fetchProgress() {
         print("fetching progress")
-        requirements = []
-        progress = []
+        requirements.removeAll()
+        progress.removeAll()
         for tuple in reqsAndTogglesAndKeys {
             if settings[tuple.2.rawValue]! {
                 requirements.append(tuple.0)
@@ -126,7 +125,7 @@ class RequirementsTableViewController: UITableViewController {
     }
     
     func setCellAsIncomplete(cell: RequirementsTableViewCell) {
-        cell.percentLabel.text = "???%"
+        cell.percentLabel.text = "?%"
         cell.progressCircle.angle = 0
     }
     
@@ -136,7 +135,7 @@ class RequirementsTableViewController: UITableViewController {
     }
     
     func setCellAsIncompleteAnimated(cell: RequirementsTableViewCell) {
-        cell.percentLabel.text = "???%"
+        cell.percentLabel.text = "?%"
         cell.progressCircle.animateFromAngle(360, toAngle: 0, duration: 0.5, completion: nil)
     }
 }

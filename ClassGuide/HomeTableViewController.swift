@@ -9,59 +9,7 @@
 import UIKit
 import CoreData
 
-public enum Season {
-    case Fall
-    case Spring
-}
-
-protocol CoreDataDelegate: class {
-    var courseToNSManagedObject: [Course: NSManagedObject]! { get set }
-    var takenCourses: NSMutableSet! { get set }
-    var plannedCourses: NSMutableSet! { get set }
-    var managedContext: NSManagedObjectContext! { get set }
-    var courseEntities: [NSManagedObject]! { get set }
-    func handleChangedCourse(course: Course, status: Status)
-    func createCourseEntity(course: Course)
-}
-
-extension CoreDataDelegate {
-    func handleChangedCourse(course: Course, status: Status) {
-        if course.status == .PlanTo {
-            plannedCourses.removeObject(course)
-        } else if course.status == .Taken {
-            takenCourses.removeObject(course)
-        }
-        course.status = status
-        if course.status == .PlanTo {
-            plannedCourses.addObject(course)
-        } else if course.status == .Taken {
-            takenCourses.addObject(course)
-        }
-        managedContext.deleteObject(courseToNSManagedObject[course]!) //delete the old entity
-        createCourseEntity(course)
-    }
-    
-    func createCourseEntity(course: Course) {
-        let entity = NSEntityDescription.entityForName("Course", inManagedObjectContext: managedContext)
-        let courseEntity = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        courseEntity.setValue(course.semester.rawValue, forKey: "semester")
-        courseEntity.setValue(course.subject.rawValue, forKey: "subject")
-        courseEntity.setValue(course.courseNumber, forKey: "courseNumber")
-        courseEntity.setValue(course.distributionRequirement.rawValue, forKey: "distributionRequirement")
-        courseEntity.setValue(course.consent.rawValue, forKey: "consent")
-        courseEntity.setValue(course.titleShort, forKey: "titleShort")
-        courseEntity.setValue(course.titleLong, forKey: "titleLong")
-        courseEntity.setValue(course.courseID, forKey: "courseID")
-        courseEntity.setValue(course.description, forKey: "descr")
-        courseEntity.setValue(course.prerequisites, forKey: "prerequisites")
-        courseEntity.setValue(course.status.rawValue, forKey: "status")
-        courseEntity.setValue(course.instructors, forKey: "instructors")
-        courseEntities.append(courseEntity)
-        courseToNSManagedObject[course] = courseEntity
-    }
-}
-
-class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearchBarDelegate {
+class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSearchDelegate {
     
     var courses: [Course] = []
     var courseToNSManagedObject: [Course: NSManagedObject]! = [:]
@@ -79,8 +27,13 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     var yearIndex = 2
     var season: Season = .Fall
     
+    var controller: UITableViewController!
+    var defaults: NSUserDefaults!
+    var dataManager: DataManager!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        controller = self
         if (initialLoad) {
             handleInitialLoad()
         }
@@ -90,6 +43,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     }
     
     override func viewDidAppear(animated: Bool) {
+        addPanGesture()
         tableView.reloadData()
     }
 
@@ -146,18 +100,16 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         initialLoad = false
         takenCourses = NSMutableSet()
         plannedCourses = NSMutableSet()
-        let dataManager = DataManager.init()
+        dataManager = DataManager.init()
+        dataManager.defaults = defaults
         fetchCoreData()
-        if courseEntities.count == 0 {
-            print("Have to fetch courses from API")
-            dataManager.fetchCourses() { () in
-                self.courses = dataManager.courseArray
-                self.processTakenAndPlannedCourses()
-                self.processCourses()
-                self.saveCoreData()
-                self.tableView.reloadData()
-            }
-        } else { print("Didn't have to fetch") }
+        dataManager.fetchCourses() { () in
+            self.courses = self.dataManager.courseArray
+            self.processTakenAndPlannedCourses()
+            self.processCourses()
+            self.saveCoreData()
+            self.tableView.reloadData()
+        }
         navigationItem.title = "CS Courses"
         tableView.backgroundColor = .blackColor()
         tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
@@ -165,19 +117,52 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         setupSegmentedControl()
         setupSeasonToggle()
         setupSearchBar()
+        setupPullToReload()
         processTakenAndPlannedCourses()
         processCourses()
         tableView.reloadData()
     }
     
-    func setupSearchBar() {
-        searchBar = UISearchBar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 30))
-        searchBar.searchBarStyle = .Minimal
-        searchBar.tintColor = UIColor.cornellRed
-        let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = UIColor.cornellRed
-        searchBar.delegate = self
-        tableView.tableHeaderView = searchBar
+    func updateCourses() {
+        //store the Status information
+        var statusDict: [String: Status] = [:]
+        for course in courses {
+            statusDict[course.key()] = course.status
+        }
+        //delete all requests
+        let fetchRequest = NSFetchRequest(entityName: "Course")
+        do {
+            let results =
+                try managedContext.executeFetchRequest(fetchRequest)
+            for result in results {
+                managedContext.deleteObject(result as! NSManagedObject)
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        courses.removeAll()
+        desiredCourses.removeAll()
+        courseToNSManagedObject.removeAll()
+        courseEntities.removeAll()
+        takenCourses.removeAllObjects()
+        plannedCourses.removeAllObjects()
+        dataManager.courseArray.removeAll()
+        self.tableView.reloadData()
+        
+        for semester in dataManager.semesters {
+            defaults.setBool(false, forKey: semester)
+        }
+        
+        //refetch all courses
+        dataManager.fetchCourses() { () in
+            self.courses = self.dataManager.courseArray
+            self.recoverStatuses(statusDict)
+            self.processTakenAndPlannedCourses()
+            self.processCourses()
+            self.saveCoreData()
+            self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
+        }
     }
     
     func fetchCoreData() {
@@ -202,16 +187,12 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     func saveCoreData() {
         print("Saving")
         if courseEntities.count == 0 {
+            print("Creating")
             for course in courses {
                 createCourseEntity(course)
             }
         }
-        
-        do {
-            try managedContext.save()
-        } catch let error as NSError {
-            print("Could not save \(error), \(error.userInfo)")
-        }
+        save()
     }
     
     func processTakenAndPlannedCourses() {
@@ -239,17 +220,15 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         desiredCourses = courses.filter({ (c) -> Bool in
             return c.semester == semester
         })
-        if searchQuery != "" {
-            desiredCourses = desiredCourses.filter({ (c) -> Bool in
-                let options: NSStringCompareOptions = [.CaseInsensitiveSearch, .DiacriticInsensitiveSearch]
-                let courseNumberFound: () -> Bool = {
-                    return "\(c.courseNumber)".rangeOfString(self.searchQuery, options: options) != nil
-                }
-                let titleFound: () -> Bool = {
-                    return c.titleLong.rangeOfString(self.searchQuery, options: options) != nil
-                }
-                return (courseNumberFound() || titleFound())
-            })
+        filterCourses()
+    }
+    
+    func recoverStatuses(dict: [String: Status]) {
+        for course in courses {
+            course.status = dict[course.key()] ?? .None
+            if course.status != .None {
+                print("\(course.key()): \(course.status.rawValue)")
+            }
         }
     }
     
@@ -274,6 +253,12 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: seasonToggle!)
     }
     
+    func setupPullToReload() {
+        refreshControl = UIRefreshControl()
+        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl!.addTarget(self, action: #selector(HomeTableViewController.updateCourses), forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
     func toggleSeason(sender: UIButton) {
         let iconName = (season == .Fall) ? "springIcon" : "fallIcon"
         season = (season == .Fall) ? .Spring : .Fall
@@ -285,27 +270,19 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, UISearch
     func switchSemester(sender: UISegmentedControl) {
         yearIndex = sender.selectedSegmentIndex
         processCourses()
-        print(yearIndex)
         tableView.reloadData()
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        searchQuery = searchText
-        processCourses()
-        tableView.reloadData()
+        handleSearchBar(searchBar, textDidChange: searchText)
     }
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(true, animated: true)
+        handleSearchBarTextDidBeginEditing(searchBar)
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        searchBar.text = ""
-        searchQuery = ""
-        processCourses()
-        tableView.reloadData()
-        searchBar.resignFirstResponder()
-        searchBar.setShowsCancelButton(false, animated: true)
+        handleSearchBarCancelButtonClicked(searchBar)
     }
 
 }

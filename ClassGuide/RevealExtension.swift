@@ -16,6 +16,9 @@ extension UIViewController {
         menuButton.setImage(image, forState: .Normal)
         menuButton.addTarget(revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: .TouchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: menuButton)
+    }
+    
+    func addPanGesture() {
         self.view.addGestureRecognizer(revealViewController().panGestureRecognizer())
     }
     
