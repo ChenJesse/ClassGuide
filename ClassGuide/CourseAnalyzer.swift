@@ -41,6 +41,12 @@ public func printSpecialAttributes(course: Course) -> String {
     if checkCore(course) { specialString += "Core, " }
     if checkElective(course) { specialString += "Elective, " }
     //remove range
+    if specialString == "" {
+        specialString = "None"
+    } else {
+        specialString.chopSuffix(2)
+    }
+
     return specialString
 }
 

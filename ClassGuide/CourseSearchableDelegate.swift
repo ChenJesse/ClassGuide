@@ -60,7 +60,10 @@ extension CourseSearchDelegate {
                 let instructorFound: () -> Bool = {
                     return c.instructors.rangeOfString(self.searchQuery, options: options) != nil
                 }
-                return (courseNumberFound() || titleFound() || instructorFound())
+                let descriptionFound: () -> Bool = {
+                    return c.description.rangeOfString(self.searchQuery, options: options) != nil
+                }
+                return (courseNumberFound() || titleFound() || instructorFound() || descriptionFound())
             })
         }
     }

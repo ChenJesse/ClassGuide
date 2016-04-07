@@ -15,6 +15,7 @@ class SidebarTableViewController: UITableViewController {
     var requirementsVC: RequirementsTableViewController!
     var revealVC: SWRevealViewController!
     var settingsVC: SettingsTableViewController!
+    var infoVC: InfoViewController!
     var navController: UINavigationController!
     var settings: [String: Bool]!
     
@@ -91,6 +92,8 @@ class SidebarTableViewController: UITableViewController {
             requirementsVC.settings = settingsVC.settings
         case 3:
             desiredVC = settingsVC
+        case 4:
+            desiredVC = infoVC
         default:
             desiredVC = homeVC
         }

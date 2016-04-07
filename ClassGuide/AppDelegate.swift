@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     let manageVC = ManageTableViewController()
     let requirementsVC = RequirementsTableViewController()
     let settingsVC = SettingsTableViewController()
+    let infoVC = InfoViewController()
     
     let majorReqs = CSRequirements()
     let AIVector = AI()
@@ -99,6 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         sidebarVC.manageVC = manageVC
         sidebarVC.requirementsVC = requirementsVC
         sidebarVC.settingsVC = settingsVC
+        sidebarVC.infoVC = infoVC
         sidebarVC.navController = navigationController
         
         let reqsAndTogglesAndKeys: [(Requirement, Bool, SettingsKey)] = [

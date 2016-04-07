@@ -49,7 +49,7 @@ public class Course: Hashable {
         //TODO: Get courseID working again
         courseID = json[APIKey.CourseID.rawValue].intValue
         description = json[APIKey.Description.rawValue].stringValue
-        prerequisites = (json[APIKey.Prerequisites.rawValue].stringValue != "") ? json[APIKey.Prerequisites.rawValue].stringValue : "None"
+        prerequisites = (json[APIKey.Prerequisites.rawValue].stringValue != "") ? json[APIKey.Prerequisites.rawValue].stringValue : "Prerequisites: None"
         status = stat //initially nothing is taken
         processInstructors(json)
         instructors = instructors.chopSuffix(2) //remove last two characters
