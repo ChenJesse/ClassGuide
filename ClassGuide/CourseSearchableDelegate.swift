@@ -21,6 +21,7 @@ extension CourseSearchDelegate {
         searchBar = UISearchBar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 30))
         searchBar.searchBarStyle = .Minimal
         searchBar.tintColor = UIColor.cornellRed
+        searchBar.backgroundColor = .blackColor()
         let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.cornellRed
         searchBar.delegate = self as CourseSearchDelegate
@@ -28,7 +29,6 @@ extension CourseSearchDelegate {
     }
     
     func handleSearchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        print("text changed")
         searchQuery = searchText
         processCourses()
         controller.tableView.reloadData()
@@ -60,7 +60,10 @@ extension CourseSearchDelegate {
                 let instructorFound: () -> Bool = {
                     return c.instructors.rangeOfString(self.searchQuery, options: options) != nil
                 }
-                return (courseNumberFound() || titleFound() || instructorFound())
+                let descriptionFound: () -> Bool = {
+                    return c.description.rangeOfString(self.searchQuery, options: options) != nil
+                }
+                return (courseNumberFound() || titleFound() || instructorFound() || descriptionFound())
             })
         }
     }

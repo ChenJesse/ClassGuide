@@ -27,6 +27,10 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
         navigationItem.title = "Settings"
         addRevealVCButton()
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        addPanGesture()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

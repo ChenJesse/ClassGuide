@@ -36,6 +36,7 @@ class RequirementsTableViewController: UITableViewController {
         }
         fetchProgress()
         tableView.reloadData()
+        addPanGesture()
     }
 
     override func didReceiveMemoryWarning() {

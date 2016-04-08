@@ -77,6 +77,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
             image = UIImage(named: "checkIcon")
         }
         cell.statusImageView.image = image!
+        cell.backgroundColor = UIColor.cornellRed
         return cell
     }
     

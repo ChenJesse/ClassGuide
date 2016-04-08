@@ -41,14 +41,13 @@ class DetailViewController: UIViewController {
         semester.text = "Semester: \(course.semester.rawValue)"
         professors.text = "Instructors: \(course.instructors)"
         distribution.text = "Distribution requirement: \(course.distributionRequirement.rawValue)"
-        special.text = "Special requirement: " + printSpecialAttributes(course).chopSuffix(2)
+        special.text = "Special requirement: " + printSpecialAttributes(course)
         consent.text = "Consent: \(course.consent.rawValue)"
-        prerequisites.text = "Prerequisites: \(course.prerequisites)"
+        prerequisites.text = "\(course.prerequisites)"
         descriptionView.text = "Description: \(course.description)"
         courseStatusSelector.selectedSegmentIndex = course.status.rawValue
-        courseTitle.sizeToFit()
-        courseSubjectNumber.sizeToFit()
-        fullTitle.sizeToFit()
+        
+        prerequisites.adjustsFontSizeToFitWidth = true
     }
     
     @IBAction func statusChanged(sender: UISegmentedControl) {

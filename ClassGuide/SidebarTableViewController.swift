@@ -15,6 +15,7 @@ class SidebarTableViewController: UITableViewController {
     var requirementsVC: RequirementsTableViewController!
     var revealVC: SWRevealViewController!
     var settingsVC: SettingsTableViewController!
+    var infoVC: InfoViewController!
     var navController: UINavigationController!
     var settings: [String: Bool]!
     
@@ -26,6 +27,8 @@ class SidebarTableViewController: UITableViewController {
         tableView.delegate = self
         tableView.backgroundColor = UIColor.darkGrey
         tableView.separatorStyle = .SingleLine
+        tableView.separatorColor = UIColor.darkGrey
+        tableView.tableFooterView = UIView()
         tableView.registerNib(UINib(nibName: "SidebarTableViewCell", bundle: nil), forCellReuseIdentifier: "sidebarCell")
     }
 
@@ -65,6 +68,7 @@ class SidebarTableViewController: UITableViewController {
         default:
             break;
         }
+        cell.backgroundColor = .blackColor()
         
         return cell
     }
@@ -91,6 +95,8 @@ class SidebarTableViewController: UITableViewController {
             requirementsVC.settings = settingsVC.settings
         case 3:
             desiredVC = settingsVC
+        case 4:
+            desiredVC = infoVC
         default:
             desiredVC = homeVC
         }
