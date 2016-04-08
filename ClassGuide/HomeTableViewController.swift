@@ -285,5 +285,9 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         handleSearchBarCancelButtonClicked(searchBar)
     }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        handleSearchBarSearchButtonClicked(searchBar)
+    }
 
 }

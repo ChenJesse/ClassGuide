@@ -47,6 +47,11 @@ extension CourseSearchDelegate {
         searchBar.setShowsCancelButton(false, animated: true)
     }
     
+    func handleSearchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
+    }
+    
     func filterCourses() {
         if searchQuery != "" {
             desiredCourses = desiredCourses.filter({ (c) -> Bool in

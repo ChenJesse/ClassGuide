@@ -133,4 +133,8 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate, Course
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         handleSearchBarCancelButtonClicked(searchBar)
     }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        handleSearchBarSearchButtonClicked(searchBar)
+    }
 }
