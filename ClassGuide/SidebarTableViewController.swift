@@ -27,6 +27,8 @@ class SidebarTableViewController: UITableViewController {
         tableView.delegate = self
         tableView.backgroundColor = UIColor.darkGrey
         tableView.separatorStyle = .SingleLine
+        tableView.separatorColor = UIColor.darkGrey
+        tableView.tableFooterView = UIView()
         tableView.registerNib(UINib(nibName: "SidebarTableViewCell", bundle: nil), forCellReuseIdentifier: "sidebarCell")
     }
 
@@ -66,6 +68,7 @@ class SidebarTableViewController: UITableViewController {
         default:
             break;
         }
+        cell.backgroundColor = .blackColor()
         
         return cell
     }

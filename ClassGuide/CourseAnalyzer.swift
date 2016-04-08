@@ -40,11 +40,10 @@ public func printSpecialAttributes(course: Course) -> String {
     if checkIntroProgramming(course) { specialString += "Intro, " }
     if checkCore(course) { specialString += "Core, " }
     if checkElective(course) { specialString += "Elective, " }
-    //remove range
     if specialString == "" {
         specialString = "None"
     } else {
-        specialString.chopSuffix(2)
+        specialString = specialString.chopSuffix(2)
     }
 
     return specialString

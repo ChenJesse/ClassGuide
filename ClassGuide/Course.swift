@@ -52,7 +52,6 @@ public class Course: Hashable {
         prerequisites = (json[APIKey.Prerequisites.rawValue].stringValue != "") ? json[APIKey.Prerequisites.rawValue].stringValue : "Prerequisites: None"
         status = stat //initially nothing is taken
         processInstructors(json)
-        instructors = instructors.chopSuffix(2) //remove last two characters
     }
     
     convenience init(json: JSON, sem: String) {
@@ -77,6 +76,11 @@ public class Course: Hashable {
     func processInstructors(json: JSON) {
         for instructorJSON in json["enrollGroups"][0]["classSections"][0]["meetings"][0]["instructors"].arrayValue {
             instructors += "\(instructorJSON["firstName"].stringValue) \(instructorJSON["lastName"].stringValue), "
+        }
+        if instructors == "" {
+            instructors = "Unknown"
+        } else {
+            instructors = instructors.chopSuffix(2)
         }
     }
 }

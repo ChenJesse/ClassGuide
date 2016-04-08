@@ -46,9 +46,8 @@ class DetailViewController: UIViewController {
         prerequisites.text = "\(course.prerequisites)"
         descriptionView.text = "Description: \(course.description)"
         courseStatusSelector.selectedSegmentIndex = course.status.rawValue
-        courseTitle.sizeToFit()
-        courseSubjectNumber.sizeToFit()
-        fullTitle.sizeToFit()
+        
+        prerequisites.adjustsFontSizeToFitWidth = true
     }
     
     @IBAction func statusChanged(sender: UISegmentedControl) {
