@@ -1,7 +1,9 @@
 ## ClassGuide ##
 #### An app for recording progress towards completing your CS major ####
 
-![Alt text](/Screenshots/courses-screenshot.png)
-![Alt text](/Screenshots/detail-screenshot.png)
-![Alt text](/Screenshots/sidebar-screenshot.png)
-![Alt text](/Screenshots/requirements-screenshot.png)
+<img src="/Screenshots/courses-screenshot.png" width="240" height="620">
+<img src="/Screenshots/detail-screenshot.png" width="325" height="600">
+<img src="/Screenshots/sidebar-screenshot.png" width="260" height="620">
+
+<img src="/Screenshots/requirements-screenshot.png" width="325" height="600">
+
