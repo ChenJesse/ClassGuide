@@ -19,22 +19,19 @@ class RequirementsTableViewController: UITableViewController {
     var progress: [[(String, Float, Priority)]] = []
     var settings: [String: Bool]!
     var defaults: NSUserDefaults!
+    var mandatoryOnly = false
         
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerNib(UINib(nibName: "RequirementsTableViewCell", bundle: nil), forCellReuseIdentifier: "RequirementCell")
         tableView.backgroundColor = .blackColor()
-        navigationItem.title = "Progress"
+        mandatoryOnly = defaults.boolForKey("mandatory")
+        setupMandatoryToggle()
         addRevealVCButton()
     }
     
     override func viewDidAppear(animated: Bool) {
-        for tuple in reqsAndTogglesAndKeys {
-            if settings[tuple.2.rawValue]! {
-                tuple.0.calculateProgress(takenCourses, plannedCourses: plannedCourses)
-            }
-        }
-        fetchProgress()
+        calculateAndFetchProgress()
         tableView.reloadData()
         addPanGesture()
     }
@@ -68,6 +65,7 @@ class RequirementsTableViewController: UITableViewController {
             } else {
                 setCellAsIncomplete(cell)
             }
+            
         } else {
             cell.percentLabel.text = "\(Int(desiredTuple.1 * 100))%"
             let ceilingedProgress = (desiredTuple.1 > 1) ? 1 : desiredTuple.1
@@ -108,14 +106,23 @@ class RequirementsTableViewController: UITableViewController {
         header.textLabel?.textAlignment = .Center
     }
  
-    func fetchProgress() {
+    func calculateAndFetchProgress() {
         print("fetching progress")
+        for tuple in reqsAndTogglesAndKeys {
+            if settings[tuple.2.rawValue]! {
+                tuple.0.calculateProgress(takenCourses, plannedCourses: plannedCourses)
+            }
+        }
         requirements.removeAll()
         progress.removeAll()
         for tuple in reqsAndTogglesAndKeys {
             if settings[tuple.2.rawValue]! {
                 requirements.append(tuple.0)
-                progress.append(tuple.0.printProgress())
+                if mandatoryOnly {
+                    progress.append(tuple.0.printMandatoryProgress())
+                } else {
+                    progress.append(tuple.0.printAllProgress())
+                }
             }
         }
     }
@@ -138,5 +145,25 @@ class RequirementsTableViewController: UITableViewController {
     func setCellAsIncompleteAnimated(cell: RequirementsTableViewCell) {
         cell.percentLabel.text = "?%"
         cell.progressCircle.animateFromAngle(360, toAngle: 0, duration: 0.5, completion: nil)
+    }
+    
+    func setupMandatoryToggle() {
+        let mandatorySelector = UISegmentedControl(frame: CGRectMake(20, 20, 100, 30))
+        mandatorySelector.backgroundColor = .blackColor()
+        mandatorySelector.tintColor = UIColor.cornellRed
+        let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        mandatorySelector.setTitleTextAttributes(attributes, forState: .Normal)
+        mandatorySelector.insertSegmentWithTitle("All", atIndex: 0, animated: true)
+        mandatorySelector.insertSegmentWithTitle("M", atIndex: 1, animated: true)
+        mandatorySelector.addTarget(self, action: #selector(RequirementsTableViewController.switchMandatory), forControlEvents: UIControlEvents.ValueChanged)
+        mandatorySelector.selectedSegmentIndex = (defaults.boolForKey("mandatory")) ? 1 : 0
+        navigationItem.titleView = mandatorySelector
+    }
+    
+    func switchMandatory(sender: UISegmentedControl) {
+        mandatoryOnly = (sender.selectedSegmentIndex == 0) ? false : true
+        defaults.setBool(mandatoryOnly, forKey: "mandatory")
+        calculateAndFetchProgress()
+        tableView.reloadData()
     }
 }

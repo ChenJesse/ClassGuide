@@ -64,7 +64,11 @@ public class CSRequirements: Requirement {
         completed = taken111x && taken2110or2112 && taken2800 && taken3110 && taken3410 && taken4410 && taken4820 && projectFulfilled && electivesFulfilled >= electivesRequirement
     }
     
-    func printProgress() -> [(String, Float, Priority)] {
+    func printOptionalProgress() -> [(String, Float, Priority)] {
+        return []
+    }
+    
+    func printMandatoryProgress() -> [(String, Float, Priority)] {
         var progress: [(String, Float, Priority)] = []
         progress.append(("CS111x (Intro) ", taken111x ? 1 : 0, .Mandatory))
         progress.append(("CS2110/CS2112 (Intro) ", taken2110or2112 ? 1 : 0, .Mandatory))
@@ -80,6 +84,7 @@ public class CSRequirements: Requirement {
         progress.append(("3(Technical Electives, 3000+) ", unsupportedCourseValue, .Mandatory))
         progress.append(("3(External Specialization, 3000+) ", unsupportedCourseValue, .Mandatory))
         progress.append(("3 Credits Approved Elective) ", unsupportedCourseValue, .Mandatory))
+        
         return progress
     }
 }
