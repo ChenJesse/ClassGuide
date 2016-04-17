@@ -16,7 +16,7 @@ class RequirementsTableViewController: UITableViewController {
     var plannedCourses: NSMutableSet!
     
     var requirements: [Requirement] = []
-    var progress: [[(String, Float, Priority)]] = []
+    var progress: [[RequirementItem]] = []
     var settings: [String: Bool]!
     var defaults: NSUserDefaults!
     var mandatoryOnly = false
@@ -52,14 +52,14 @@ class RequirementsTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("RequirementCell", forIndexPath: indexPath) as! RequirementsTableViewCell
-        let desiredTuple = progress[indexPath.section][indexPath.row]
-        cell.requirementLabel.text = desiredTuple.0
+        let desiredItem = progress[indexPath.section][indexPath.row]
+        cell.requirementLabel.text = desiredItem.description
         cell.requirementLabel.adjustsFontSizeToFitWidth = true
-        cell.optionalImageView.image = (desiredTuple.2 == .Mandatory) ? UIImage(named: "mandatoryIcon") : UIImage(named: "optionalIcon")
-        if (desiredTuple.1 == unsupportedCourseValue) { //course not suppported by app
+        cell.optionalImageView.image = (desiredItem.priority == .Mandatory) ? UIImage(named: "mandatoryIcon") : UIImage(named: "optionalIcon")
+        if (desiredItem.percentage == unsupportedCourseValue) { //course not suppported by app
             cell.isCSCourse = false
             cell.statusImageView.image = UIImage(named: "handIcon")
-            let courseCompleted = defaults.boolForKey(desiredTuple.0)
+            let courseCompleted = defaults.boolForKey(desiredItem.description)
             if courseCompleted {
                 setCellAsCompleted(cell)
             } else {
@@ -67,8 +67,8 @@ class RequirementsTableViewController: UITableViewController {
             }
             
         } else {
-            cell.percentLabel.text = "\(Int(desiredTuple.1 * 100))%"
-            let ceilingedProgress = (desiredTuple.1 > 1) ? 1 : desiredTuple.1
+            cell.percentLabel.text = "\(Int(desiredItem.percentage * 100))%"
+            let ceilingedProgress = (desiredItem.percentage > 1) ? 1 : desiredItem.percentage
             cell.progressCircle.angle = Int(ceilingedProgress * 360)
             cell.statusImageView.image = UIImage(named: "noHandIcon")
             cell.isCSCourse = true

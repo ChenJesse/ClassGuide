@@ -48,15 +48,15 @@ class Renaissance: Requirement {
         completed = FxxxCourses >= FxxxRequirement && differentHundredths >= differentHundredthsRequirement && hundredthsIs2or8
     }
     
-    func printMandatoryProgress() -> [(String, Float, Priority)] {
-        var progress: [(String, Float, Priority)] = []
-        progress.append(("4(Fxxx) (Core) ", Float(FxxxCourses) / Float(FxxxRequirement), .Mandatory))
-        progress.append(("Fyxx & Fzxx | y != z (Core) ", Float(hundredthsIs2or8) / Float(differentHundredthsRequirement), .Mandatory))
-        progress.append(("Fyxx | y == 2 or 8 (Core) ", hundredthsIs2or8 ? 1 : 0, .Mandatory))
+    func printMandatoryProgress() -> [RequirementItem] {
+        var progress: [RequirementItem] = []
+        progress.append(RequirementItem(description: "4(Fxxx) (Core) ", percentage: Float(FxxxCourses) / Float(FxxxRequirement), type: .Mandatory))
+        progress.append(RequirementItem(description: "Fyxx & Fzxx | y != z (Core) ", percentage: Float(hundredthsIs2or8) / Float(differentHundredthsRequirement), type: .Mandatory))
+        progress.append(RequirementItem(description: "Fyxx | y == 2 or 8 (Core) ", percentage: hundredthsIs2or8 ? 1 : 0, type: .Mandatory))
         return progress
     }
     
-    func printOptionalProgress() -> [(String, Float, Priority)] {
+    func printOptionalProgress() -> [RequirementItem] {
         return []
     }
 }
@@ -126,25 +126,25 @@ class AI: Requirement {
         completed = takenCS4700 && takenCS4701 && takenF78xOrF75x && takenF7xxOr4300orF67xor5846
     }
     
-    func printMandatoryProgress() -> [(String, Float, Priority)] {
-        var progress: [(String, Float, Priority)] = []
-        progress.append(("CS4700 (Core) ", takenCS4700 ? 1 : 0, .Mandatory))
-        progress.append(("CS4701 (Core) ", takenCS4701 ? 1 : 0, .Mandatory))
-        progress.append(("F78x/F75x (Core) ", takenF78xOrF75x ? 1 : 0, .Mandatory))
-        progress.append(("F7xx/4300/F67x/5846 (Core) ", takenF7xxOr4300orF67xor5846 ? 1 : 0, .Mandatory))
+    func printMandatoryProgress() -> [RequirementItem] {
+        var progress: [RequirementItem] = []
+        progress.append(RequirementItem(description: "CS4700 (Core) ", percentage: takenCS4700 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS4701 (Core) ", percentage: takenCS4701 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "F78x/F75x (Core) ", percentage: takenF78xOrF75x ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "F7xx/4300/F67x/5846 (Core) ", percentage: takenF7xxOr4300orF67xor5846 ? 1 : 0, type: .Mandatory))
     
         return progress
     }
     
-    func printOptionalProgress() -> [(String, Float, Priority)] {
+    func printOptionalProgress() -> [RequirementItem] {
         //Human-Language Technology Track
-        var progress: [(String, Float, Priority)] = []
-        progress.append(("CSF74x/CS4300 (Human-Language Technology) ", takenF74xor4300 ? 1 : 0, .Optional))
-        progress.append(("LINGFxxx (Human-Language Technology) ", unsupportedCourseValue, .Optional))
-        progress.append(("LINGFxxx/CSF74x/CSF1110 (Human-Language Technology) ", unsupportedCourseValue, .Optional))
+        var progress: [RequirementItem] = []
+        progress.append(RequirementItem(description: "CSF74x/CS4300 (Human-Language Technology) ", percentage: takenF74xor4300 ? 1 : 0, type: .Optional))
+        progress.append(RequirementItem(description: "LINGFxxx (Human-Language Technology) ", percentage: unsupportedCourseValue, type: .Optional))
+        progress.append(RequirementItem(description: "LINGFxxx/CSF74x/CSF1110 (Human-Language Technology) ", percentage: unsupportedCourseValue, type: .Optional))
         //Machine Learning
-        progress.append(("CSF78x/CS4758/CS4850/STSCIFxxx (Machine Learning) ", unsupportedCourseValue, .Optional))
-        progress.append(("CS4300/CSF74x/F75x/F67x/CSF2xx (Machine Learning) ", taken4300orF74xorF75xorF67xorF2xx ? 1 : 0, .Optional))
+        progress.append(RequirementItem(description: "CSF78x/CS4758/CS4850/STSCIFxxx (Machine Learning) ", percentage: unsupportedCourseValue, type: .Optional))
+        progress.append(RequirementItem(description: "CS4300/CSF74x/F75x/F67x/CSF2xx (Machine Learning) ", percentage: taken4300orF74xorF75xorF67xorF2xx ? 1 : 0, type: .Optional))
         
         return progress
 
@@ -189,17 +189,17 @@ class CSE: Requirement {
         completed = (F2xxFulfilled >= requiredF2xx && taken2024 && taken2043)
     }
     
-    func printMandatoryProgress() -> [(String, Float, Priority)] {
-        var progress: [(String, Float, Priority)] = []
-        progress.append(("2(F2xx), CS4220 & CS6210 = 1 (Core) ", Float(F2xxFulfilled) / Float(requiredF2xx), .Mandatory))
-        progress.append(("OR3300/TAM3100/MATH4200/MATH4240/MATH4280/AEP4210/CEE3310/CEE3710/MAE3230 (Core) ", unsupportedCourseValue, .Mandatory))
-        progress.append(("CS2024 (Core) ", taken2024 ? 1 : 0, .Mandatory))
-        progress.append(("CS2043 (Core) ", taken2043 ? 1 : 0, .Mandatory))
+    func printMandatoryProgress() -> [RequirementItem] {
+        var progress: [RequirementItem] = []
+        progress.append(RequirementItem(description: "2(F2xx), CS4220 & CS6210 = 1 (Core) ", percentage: Float(F2xxFulfilled) / Float(requiredF2xx), type: .Mandatory))
+        progress.append(RequirementItem(description: "OR3300/TAM3100/MATH4200/MATH4240/MATH4280/AEP4210/CEE3310/CEE3710/MAE3230 (Core) ", percentage: unsupportedCourseValue, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS2024 (Core) ", percentage: taken2024 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS2043 (Core) ", percentage: taken2043 ? 1 : 0, type: .Mandatory))
         
         return progress
     }
     
-    func printOptionalProgress() -> [(String, Float, Priority)] {
+    func printOptionalProgress() -> [RequirementItem] {
         return []
     }
 }
@@ -254,17 +254,17 @@ class Graphics: Requirement {
         completed = taken4620 && taken4621 && takenF2xx && taken5625or5643or6620or6630or6640or6650 && takenF6xxor3152or4152or4154
     }
     
-    func printMandatoryProgress() -> [(String, Float, Priority)] {
-        var progress: [(String, Float, Priority)] = []
-        progress.append(("CS4620 (Core) ", taken4620 ? 1 : 0, .Mandatory))
-        progress.append(("CS621 (Core) ", taken4621 ? 1 : 0, .Mandatory))
-        progress.append(("CSF2xx (Core) ", takenF2xx ? 1 : 0, .Mandatory))
-        progress.append(("CS5625/CS5643/CS6620/CS6630/CS6640/CS6650 (Core) ", taken5625or5643or6620or6630or6640or6650 ? 1 : 0, .Mandatory))
-        progress.append(("CS56xx/CS3152/CS4152/CS5154 (Core) ", takenF6xxor3152or4152or4154 ? 1 : 0, .Mandatory))
+    func printMandatoryProgress() -> [RequirementItem] {
+        var progress: [RequirementItem] = []
+        progress.append(RequirementItem(description: "CS4620 (Core) ", percentage: taken4620 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS621 (Core) ", percentage: taken4621 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CSF2xx (Core) ", percentage: takenF2xx ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS5625/CS5643/CS6620/CS6630/CS6640/CS6650 (Core) ", percentage: taken5625or5643or6620or6630or6640or6650 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS56xx/CS3152/CS4152/CS5154 (Core) ", percentage: takenF6xxor3152or4152or4154 ? 1 : 0, type: .Mandatory))
         return progress
     }
     
-    func printOptionalProgress() -> [(String, Float, Priority)] {
+    func printOptionalProgress() -> [RequirementItem] {
         return []
     }
 }
@@ -301,15 +301,15 @@ class NS: Requirement {
         completed = x85xor4220Fulfilled >= requiredx85xor4220 && takenF76xor4758
     }
     
-    func printMandatoryProgress() -> [(String, Float, Priority)] {
-        var progress: [(String, Float, Priority)] = []
-        progress.append(("CSx86x/INFO4220 (Core) ", unsupportedCourseValue, .Mandatory))
-        progress.append(("CSF76x/4758 (Core) ", takenF76xor4758 ? 1 : 0, .Mandatory))
-        progress.append(("ORIEx350/ECON4010/ECON4020/SOC3040/SOC4250/SOC5270/CSF84x/INFO4220 (Core) ", unsupportedCourseValue,.Mandatory))
+    func printMandatoryProgress() -> [RequirementItem] {
+        var progress: [RequirementItem] = []
+        progress.append(RequirementItem(description: "CSx86x/INFO4220 (Core) ", percentage: unsupportedCourseValue, type: .Mandatory))
+        progress.append(RequirementItem(description: "CSF76x/4758 (Core) ", percentage: takenF76xor4758 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "ORIEx350/ECON4010/ECON4020/SOC3040/SOC4250/SOC5270/CSF84x/INFO4220 (Core) ", percentage: unsupportedCourseValue,type: .Mandatory))
         return progress
     }
     
-    func printOptionalProgress() -> [(String, Float, Priority)] {
+    func printOptionalProgress() -> [RequirementItem] {
         return []
     }
 }
@@ -357,17 +357,17 @@ class PL: Requirement {
         completed = takenF110 && taken4120 && taken4121 && taken4860or5114or5860orF810or6110 && taken202x
     }
 
-    func printMandatoryProgress() -> [(String, Float, Priority)] {
-        var progress: [(String, Float, Priority)] = []
-        progress.append(("CSF110 (Core) ", takenF110 ? 1 : 0, .Mandatory))
-        progress.append(("CS4120 (Core) ", taken4120 ? 1 : 0, .Mandatory))
-        progress.append(("CS4121 (Core) ", taken4121 ? 1 : 0, .Mandatory))
-        progress.append(("CS4860/CS5114/CS5860/CSF810/CS6110 (Core) ", taken4860or5114or5860orF810or6110 ? 1 : 0, .Mandatory))
-        progress.append(("CS202x (Core) ", taken202x ? 1 : 0, .Mandatory))
+    func printMandatoryProgress() -> [RequirementItem] {
+        var progress: [RequirementItem] = []
+        progress.append(RequirementItem(description: "CSF110 (Core) ", percentage: takenF110 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS4120 (Core) ", percentage: taken4120 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS4121 (Core) ", percentage: taken4121 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS4860/CS5114/CS5860/CSF810/CS6110 (Core) ", percentage: taken4860or5114or5860orF810or6110 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS202x (Core) ", percentage: taken202x ? 1 : 0, type: .Mandatory))
         return progress
     }
     
-    func printOptionalProgress() -> [(String, Float, Priority)] {
+    func printOptionalProgress() -> [RequirementItem] {
         return []
     }
 }
@@ -421,16 +421,16 @@ class SE: Requirement {
         completed = taken5150or5152 && practicumsFulfilled >= requiredPracticums && taken4152or4154orF45xor5300or5412or5414or5625or5643or6620or6630or6650
     }
 
-    func printMandatoryProgress() -> [(String, Float, Priority)] {
-        var progress: [(String, Float, Priority)] = []
-        progress.append(("CS5150/CS5152 (Core) ", taken5150or5152 ? 1 : 0, .Mandatory))
-        progress.append(("2(Practicums) (Core) ", Float(practicumsFulfilled) / Float(requiredPracticums), .Mandatory))
-        progress.append(("CS4152/CS4154/CSF45x/CS5300/CS5412/CS5414/CS5625/CS5643/CS6620/CS6630/CS6650 (Core) ",
-            taken4152or4154orF45xor5300or5412or5414or5625or5643or6620or6630or6650 ? 1 : 0, .Mandatory))
+    func printMandatoryProgress() -> [RequirementItem] {
+        var progress: [RequirementItem] = []
+        progress.append(RequirementItem(description: "CS5150/CS5152 (Core) ", percentage: taken5150or5152 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "2(Practicums) (Core) ", percentage: Float(practicumsFulfilled) / Float(requiredPracticums), type: .Mandatory))
+        progress.append(RequirementItem(description: "CS4152/CS4154/CSF45x/CS5300/CS5412/CS5414/CS5625/CS5643/CS6620/CS6630/CS6650 (Core) ",
+            percentage: taken4152or4154orF45xor5300or5412or5414or5625or5643or6620or6630or6650 ? 1 : 0, type: .Mandatory))
         return progress
     }
     
-    func printOptionalProgress() -> [(String, Float, Priority)] {
+    func printOptionalProgress() -> [RequirementItem] {
         return []
     }
 }
@@ -516,22 +516,22 @@ class SD: Requirement {
         completed = taken4411 && taken4321 && F4xxorF12xorF32xor5300Fulfilled >= requiredF4xxorF12xorF32xor5300
     }
     
-    func printMandatoryProgress() -> [(String, Float, Priority)] {
-        var progress: [(String, Float, Priority)] = []
-        progress.append(("CS4411/CS4321 (Core) ", (taken4411 || taken4321) ? 1 : 0, .Mandatory))
-        progress.append(("3(CSF4xx/CSF12x/CSF32x/CS5300) (Core) ", Float(F4xxorF12xorF32xor5300Fulfilled) / Float(requiredF4xxorF12xorF32xor5300), .Mandatory))
+    func printMandatoryProgress() -> [RequirementItem] {
+        var progress: [RequirementItem] = []
+        progress.append(RequirementItem(description: "CS4411/CS4321 (Core) ", percentage: (taken4411 || taken4321) ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "3(CSF4xx/CSF12x/CSF32x/CS5300) (Core) ", percentage: Float(F4xxorF12xorF32xor5300Fulfilled) / Float(requiredF4xxorF12xorF32xor5300), type: .Mandatory))
         return progress
     }
     
-    func printOptionalProgress() -> [(String, Float, Priority)] {
-        var progress: [(String, Float, Priority)] = []
-        progress.append(("CS4411 (Operating Systems, Security & Trustworthy Systems) ", taken4411 ? 1 : 0, .Optional))
-        progress.append(("CS5430 (Security & Trustworthy Systems) ", taken5430 ? 1 : 0, .Optional))
-        progress.append(("CS5412/CS5414 (Security & Trustworthy Systems) ", taken5412or5414 ? 1 : 0, .Optional))
-        progress.append(("CS4830/CS4860/MATH3360 (Security & Trustworthy Systems) ", unsupportedCourseValue, .Optional))
-        progress.append(("CS4321 (Data-Intensive Computing) ", taken4321 ? 1 : 0, .Optional))
-        progress.append(("CS4320 & CS5300 (Data-Intensive Computing) ", (taken4320 && taken5300) ? 1 : 0, .Optional))
-        progress.append(("Extra CSF78x/CS4758/CS4300/CS6740 (Data-Intensive Computing) ", takenExtraCSF78xor4758or4300or6740 ? 1 : 0, .Optional))
+    func printOptionalProgress() -> [RequirementItem] {
+        var progress: [RequirementItem] = []
+        progress.append(RequirementItem(description: "CS4411 (Operating Systems, Security & Trustworthy Systems) ", percentage: taken4411 ? 1 : 0, type: .Optional))
+        progress.append(RequirementItem(description: "CS5430 (Security & Trustworthy Systems) ", percentage: taken5430 ? 1 : 0, type: .Optional))
+        progress.append(RequirementItem(description: "CS5412/CS5414 (Security & Trustworthy Systems) ", percentage: taken5412or5414 ? 1 : 0, type: .Optional))
+        progress.append(RequirementItem(description: "CS4830/CS4860/MATH3360 (Security & Trustworthy Systems) ", percentage: unsupportedCourseValue, type: .Optional))
+        progress.append(RequirementItem(description: "CS4321 (Data-Intensive Computing) ", percentage: taken4321 ? 1 : 0, type: .Optional))
+        progress.append(RequirementItem(description: "CS4320 & CS5300 (Data-Intensive Computing) ", percentage: (taken4320 && taken5300) ? 1 : 0, type: .Optional))
+        progress.append(RequirementItem(description: "Extra CSF78x/CS4758/CS4300/CS6740 (Data-Intensive Computing) ", percentage: takenExtraCSF78xor4758or4300or6740 ? 1 : 0, type: .Optional))
         return progress
     }
 }
@@ -557,15 +557,15 @@ class Theory: Requirement {
         completed = taken481x
     }
     
-    func printMandatoryProgress() -> [(String, Float, Priority)] {
-        var progress: [(String, Float, Priority)] = []
-        progress.append(("CS481x (Core) ", taken481x ? 1 : 0, .Mandatory))
-        progress.append(("2(CSF8xx/ORIE6330/ORIE6335) (Core) ", unsupportedCourseValue, .Mandatory))
-        progress.append(("MATHTHxx/MATH4010/CS4860 (Core) (M0", unsupportedCourseValue, .Mandatory))
+    func printMandatoryProgress() -> [RequirementItem] {
+        var progress: [RequirementItem] = []
+        progress.append(RequirementItem(description: "CS481x (Core) ", percentage: taken481x ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "2(CSF8xx/ORIE6330/ORIE6335) (Core) ", percentage: unsupportedCourseValue, type: .Mandatory))
+        progress.append(RequirementItem(description: "MATHTHxx/MATH4010/CS4860 (Core) (M0", percentage: unsupportedCourseValue, type: .Mandatory))
         return progress
     }
     
-    func printOptionalProgress() -> [(String, Float, Priority)] {
+    func printOptionalProgress() -> [RequirementItem] {
         return []
     }
 }

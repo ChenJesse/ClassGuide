@@ -64,26 +64,26 @@ public class CSRequirements: Requirement {
         completed = taken111x && taken2110or2112 && taken2800 && taken3110 && taken3410 && taken4410 && taken4820 && projectFulfilled && electivesFulfilled >= electivesRequirement
     }
     
-    func printOptionalProgress() -> [(String, Float, Priority)] {
+    func printOptionalProgress() -> [RequirementItem] {
         return []
     }
     
-    func printMandatoryProgress() -> [(String, Float, Priority)] {
-        var progress: [(String, Float, Priority)] = []
-        progress.append(("CS111x (Intro) ", taken111x ? 1 : 0, .Mandatory))
-        progress.append(("CS2110/CS2112 (Intro) ", taken2110or2112 ? 1 : 0, .Mandatory))
-        progress.append(("CS2800 (Core) ", taken2800 ? 1 : 0, .Mandatory))
-        progress.append(("CS3110 (Core) ", taken3110 ? 1 : 0, .Mandatory))
-        progress.append(("CS3410 (Core) ", taken3410 ? 1 : 0, .Mandatory))
-        progress.append(("CS4410 (Core) ", taken4410 ? 1 : 0, .Mandatory))
-        progress.append(("CS4820 (Core) ", taken4820 ? 1 : 0, .Mandatory))
-        progress.append(("Project Course (Core) ", projectFulfilled ? 1 : 0, .Mandatory))
-        progress.append(("3(CS4000+) (Electives) ", Float(electivesFulfilled) / Float(electivesRequirement), .Mandatory))
-        progress.append(("Calculus Sequence ", unsupportedCourseValue, .Mandatory))
-        progress.append(("Probability Course ", unsupportedCourseValue, .Mandatory))
-        progress.append(("3(Technical Electives, 3000+) ", unsupportedCourseValue, .Mandatory))
-        progress.append(("3(External Specialization, 3000+) ", unsupportedCourseValue, .Mandatory))
-        progress.append(("3 Credits Approved Elective) ", unsupportedCourseValue, .Mandatory))
+    func printMandatoryProgress() -> [RequirementItem] {
+        var progress: [RequirementItem] = []
+        progress.append(RequirementItem(description: "CS111x (Intro) ", percentage: taken111x ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS2110/CS2112 (Intro) ", percentage: taken2110or2112 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS2800 (Core) ", percentage: taken2800 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS3110 (Core) ", percentage: taken3110 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS3410 (Core) ", percentage: taken3410 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS4410 (Core) ", percentage: taken4410 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CS4820 (Core) ", percentage: taken4820 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "Project Course (Core) ", percentage: projectFulfilled ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "3(CS4000+) (Electives) ", percentage: Float(electivesFulfilled) / Float(electivesRequirement), type: .Mandatory))
+        progress.append(RequirementItem(description: "Calculus Sequence ", percentage: unsupportedCourseValue, type: .Mandatory))
+        progress.append(RequirementItem(description: "Probability Course ", percentage: unsupportedCourseValue, type: .Mandatory))
+        progress.append(RequirementItem(description: "3(Technical Electives, 3000+) ", percentage: unsupportedCourseValue, type: .Mandatory))
+        progress.append(RequirementItem(description: "3(External Specialization, 3000+) ", percentage: unsupportedCourseValue, type: .Mandatory))
+        progress.append(RequirementItem(description: "3 Credits Approved Elective) ", percentage: unsupportedCourseValue, type: .Mandatory))
         
         return progress
     }
