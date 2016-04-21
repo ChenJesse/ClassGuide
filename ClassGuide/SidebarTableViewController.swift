@@ -30,6 +30,8 @@ class SidebarTableViewController: UITableViewController {
         tableView.separatorColor = UIColor.darkGrey
         tableView.tableFooterView = UIView()
         tableView.registerNib(UINib(nibName: "SidebarTableViewCell", bundle: nil), forCellReuseIdentifier: "sidebarCell")
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
