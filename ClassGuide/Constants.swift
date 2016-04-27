@@ -11,7 +11,7 @@ import Foundation
 let courseCellHeight = CGFloat(60)
 let settingsCellHeight = CGFloat(65)
 let requirementsCellHeight = CGFloat(70)
-let sidebarCellHeight = CGFloat(75)
+let sidebarCellHeight = CGFloat(100)
 let unsupportedCourseValue = Float(-1.0)
 
 let tabNumber = 5
