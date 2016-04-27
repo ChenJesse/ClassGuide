@@ -25,6 +25,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var descriptionView: UITextView!
     @IBOutlet weak var semester: UILabel!
     
+    @IBOutlet weak var asdf: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
