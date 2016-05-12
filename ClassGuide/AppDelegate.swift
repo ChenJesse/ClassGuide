@@ -115,9 +115,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
             (SDVector, SDToggled, .SD),
             (theoryVector, theoryToggled, .Theory)]
         
+        requirementsVC.sidebarVC = sidebarVC
+        requirementsVC.settingsVC = settingsVC
         requirementsVC.reqsAndTogglesAndKeys = reqsAndTogglesAndKeys
         requirementsVC.defaults = defaults
         
+        settingsVC.sidebarVC = sidebarVC
+        settingsVC.requirementsVC = requirementsVC
         settingsVC.reqsAndTogglesAndKeys = reqsAndTogglesAndKeys
         settingsVC.settings = settings
         settingsVC.defaults = defaults

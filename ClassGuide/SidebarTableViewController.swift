@@ -61,10 +61,10 @@ class SidebarTableViewController: UITableViewController {
             cell.categoryLabel.text = "Requirements"
         case 3:
             cell.iconImageView.image = UIImage(named: "settingsIcon")
-            cell.categoryLabel.text = "Settings"
+            cell.categoryLabel.text = "Vector Settings"
         case 4:
             cell.iconImageView.image = UIImage(named: "informationIcon")
-            cell.categoryLabel.text = "Information"
+            cell.categoryLabel.text = "App Guide"
         default:
             break;
         }
@@ -85,15 +85,8 @@ class SidebarTableViewController: UITableViewController {
             desiredVC = homeVC
         case 1:
             desiredVC = manageVC
-            manageVC.takenCourses = homeVC.takenCourses
-            manageVC.plannedCourses = homeVC.plannedCourses
-            manageVC.courseEntities = homeVC.courseEntities
-            manageVC.courseToNSManagedObject = homeVC.courseToNSManagedObject
         case 2:
             desiredVC = requirementsVC
-            requirementsVC.plannedCourses = homeVC.plannedCourses
-            requirementsVC.takenCourses = homeVC.takenCourses
-            requirementsVC.settings = settingsVC.settings
         case 3:
             desiredVC = settingsVC
         case 4:
@@ -105,6 +98,25 @@ class SidebarTableViewController: UITableViewController {
     }
     
     func selectionHandler(desiredVC: UIViewController) {
+        switch (desiredVC) {
+        case homeVC:
+            break
+        case manageVC:
+            manageVC.takenCourses = homeVC.takenCourses
+            manageVC.plannedCourses = homeVC.plannedCourses
+            manageVC.courseEntities = homeVC.courseEntities
+            manageVC.courseToNSManagedObject = homeVC.courseToNSManagedObject
+        case requirementsVC:
+            requirementsVC.plannedCourses = homeVC.plannedCourses
+            requirementsVC.takenCourses = homeVC.takenCourses
+            requirementsVC.settings = settingsVC.settings
+        case settingsVC:
+            break
+        case infoVC:
+            break
+        default:
+            break;
+        }
         if let front = self.revealVC.frontViewController {
             if desiredVC == front {
                 self.revealVC.setFrontViewPosition(.Left, animated: true)

@@ -14,6 +14,9 @@ protocol SettingsDelegate {
 
 class SettingsTableViewController: UITableViewController, SettingsDelegate {
 
+    var sidebarVC: SidebarTableViewController!
+    var requirementsVC: RequirementsTableViewController!
+    
     var reqsAndTogglesAndKeys: [(Requirement, Bool, SettingsKey)]!
     var settings: [String: Bool]!
     var defaults: NSUserDefaults!
@@ -30,6 +33,7 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
         navigationItem.title = "Settings"
         addRevealVCButton()
         populateCellTapped()
+        setupRequirementsButton()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -57,13 +61,16 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
         cell.settingLabel.text = reqsAndTogglesAndKeys[indexPath.row].0.title
         cell.settingLabel.adjustsFontSizeToFitWidth = true
         cell.toggleSwitch.on = reqsAndTogglesAndKeys[indexPath.row].1
+        cell.descriptionLabel.text = SettingsKey.getDescription(reqsAndTogglesAndKeys[indexPath.row].2)
+        cell.descriptionLabel.hidden = !cellTapped[indexPath.row]
+        cell.descriptionLabel.adjustsFontSizeToFitWidth = true
         cell.selectionStyle = .None
         return cell
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if cellTapped[indexPath.row] {
-            return settingsCellHeight + 50
+            return settingsCellHeight + 100
         }
         return settingsCellHeight
     }
@@ -71,8 +78,21 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tappedIndexPath = indexPath
         cellTapped[indexPath.row] = !cellTapped[indexPath.row]
+        
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! SettingsTableViewCell
+        
+        if !cellTapped[indexPath.row] {
+            cell.descriptionLabel.hidden = !(self.cellTapped[indexPath.row])
+        }
+        cell.rotateArrow()
+        
         tableView.beginUpdates()
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        CATransaction.setCompletionBlock {
+            if self.cellTapped[indexPath.row] {
+                cell.descriptionLabel.hidden = !(self.cellTapped[indexPath.row])
+            }
+        }
         tableView.endUpdates()
     }
     
@@ -88,5 +108,17 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
         for _ in 1...vectorNum {
             cellTapped.append(false)
         }
+    }
+    
+    func setupRequirementsButton() {
+        let requirementsButton = UIButton(frame: CGRectMake(20, 20, 30, 30))
+        let requirementsImage = UIImage(named: "majorsIcon")
+        requirementsButton.setImage(requirementsImage, forState: .Normal)
+        requirementsButton.addTarget(self, action: #selector(SettingsTableViewController.jumpToRequirements), forControlEvents: .TouchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: requirementsButton)
+    }
+    
+    func jumpToRequirements() {
+        sidebarVC.selectionHandler(requirementsVC)
     }
 }

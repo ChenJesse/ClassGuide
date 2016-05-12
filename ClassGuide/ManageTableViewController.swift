@@ -30,6 +30,8 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate, Course
         tableView.backgroundColor = .blackColor()
         navigationItem.title = "Manage"
         self.editButtonItem().tintColor = .whiteColor()
+        self.editButtonItem().image = UIImage(named: "editingIcon")
+        self.editButtonItem().title = ""
         navigationItem.rightBarButtonItem = self.editButtonItem()
         refreshCourses()
         addRevealVCButton()
@@ -100,6 +102,18 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate, Course
         if editingStyle == .Delete {
             handleChangedCourse(desiredCourses[indexPath.row], status: .None)
             refreshCourses()
+        }
+    }
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated:animated)
+        if editing {
+            self.editButtonItem().title = ""
+            self.editButtonItem().image = UIImage(named: "finishedEditingIcon")
+        }
+        else {
+            self.editButtonItem().title = ""
+            self.editButtonItem().image = UIImage(named: "editingIcon")
         }
     }
     

@@ -11,9 +11,12 @@ import UIKit
 class SettingsTableViewCell: UITableViewCell {
     
     var delegate: SettingsDelegate!
+    var expanded = false
     
     @IBOutlet weak var toggleSwitch: UISwitch!
     @IBOutlet weak var settingLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var arrowImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,5 +29,15 @@ class SettingsTableViewCell: UITableViewCell {
     
     @IBAction func switchToggled(sender: UISwitch) {
         delegate.handleToggle(self)
+    }
+    
+    func rotateArrow() {
+        if !expanded {
+            arrowImageView.transform = CGAffineTransformMakeRotation((180.0 * CGFloat(M_PI)) / 180.0)
+        } else {
+            arrowImageView.transform = CGAffineTransformMakeRotation(0)
+        }
+        expanded = !expanded
+            
     }
 }

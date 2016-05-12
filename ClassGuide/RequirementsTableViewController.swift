@@ -9,7 +9,9 @@
 import UIKit
 
 class RequirementsTableViewController: UITableViewController {
-
+    
+    var sidebarVC: SidebarTableViewController!
+    var settingsVC: SettingsTableViewController!
     var reqsAndTogglesAndKeys: [(Requirement, Bool, SettingsKey)]!
     
     var takenCourses: NSMutableSet!
@@ -27,6 +29,7 @@ class RequirementsTableViewController: UITableViewController {
         tableView.backgroundColor = .blackColor()
         mandatoryOnly = defaults.boolForKey("mandatory")
         setupMandatoryToggle()
+        setupSettingsButton()
         addRevealVCButton()
     }
     
@@ -160,10 +163,22 @@ class RequirementsTableViewController: UITableViewController {
         navigationItem.titleView = mandatorySelector
     }
     
+    func setupSettingsButton() {
+        let settingsButton = UIButton(frame: CGRectMake(20, 20, 30, 30))
+        let settingsImage = UIImage(named: "settingsIcon")
+        settingsButton.setImage(settingsImage, forState: .Normal)
+        settingsButton.addTarget(self, action: #selector(RequirementsTableViewController.jumpToSettings), forControlEvents: .TouchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
+    }
+    
     func switchMandatory(sender: UISegmentedControl) {
         mandatoryOnly = (sender.selectedSegmentIndex == 0) ? false : true
         defaults.setBool(mandatoryOnly, forKey: "mandatory")
         calculateAndFetchProgress()
         tableView.reloadData()
+    }
+    
+    func jumpToSettings() {
+        sidebarVC.selectionHandler(settingsVC)
     }
 }

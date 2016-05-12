@@ -8,11 +8,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="65" id="KGk-i7-Jjw" customClass="SettingsTableViewCell" customModule="ClassGuide" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="115" id="KGk-i7-Jjw" customClass="SettingsTableViewCell" customModule="ClassGuide" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="114"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMB-jt-I00">
@@ -23,31 +23,52 @@
                         </connections>
                     </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requirement" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7w-8t-Qtn">
-                        <rect key="frame" x="14" y="19" width="206" height="28"/>
+                        <rect key="frame" x="46" y="16" width="180" height="31"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="206" id="MSS-Lw-HtH"/>
-                            <constraint firstAttribute="height" constant="28" id="RLh-TF-gn0"/>
+                            <constraint firstAttribute="height" constant="31" id="59n-u5-pYF"/>
+                            <constraint firstAttribute="width" constant="180" id="6uf-FR-nIh"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5U-WO-DLz">
+                        <rect key="frame" x="13" y="64" width="295" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EW1-ck-S5a">
+                        <rect key="frame" x="13" y="24" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="RAi-pt-ptZ"/>
+                            <constraint firstAttribute="width" constant="15" id="f10-zj-Nou"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="n7w-8t-Qtn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="11" id="5SP-bt-CAM"/>
-                    <constraint firstItem="n7w-8t-Qtn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="6" id="KYY-p6-leD"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="SMB-jt-I00" secondAttribute="trailing" constant="14" id="PHs-b8-hzI"/>
-                    <constraint firstItem="SMB-jt-I00" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="erb-Pf-eBv"/>
-                    <constraint firstItem="SMB-jt-I00" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="gZb-vR-6t1"/>
+                    <constraint firstItem="n7w-8t-Qtn" firstAttribute="leading" secondItem="EW1-ck-S5a" secondAttribute="trailing" constant="18" id="1Za-7Z-iKD"/>
+                    <constraint firstItem="SMB-jt-I00" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="6FX-KI-Dbc"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="S5U-WO-DLz" secondAttribute="trailing" constant="4" id="8XQ-36-S55"/>
+                    <constraint firstItem="EW1-ck-S5a" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="AbR-de-Vge"/>
+                    <constraint firstItem="S5U-WO-DLz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="FuF-xv-Rsx"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="SMB-jt-I00" secondAttribute="trailing" constant="14" id="J5F-Jy-ASu"/>
+                    <constraint firstItem="EW1-ck-S5a" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="16" id="acq-D7-qkE"/>
+                    <constraint firstItem="n7w-8t-Qtn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="e7J-R6-Z4u"/>
+                    <constraint firstItem="S5U-WO-DLz" firstAttribute="top" secondItem="n7w-8t-Qtn" secondAttribute="bottom" constant="17" id="xbI-pZ-7DZ"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.61176470589999998" green="0.1960784314" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
             <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
             <connections>
+                <outlet property="arrowImageView" destination="EW1-ck-S5a" id="RBn-6L-Z21"/>
+                <outlet property="descriptionLabel" destination="S5U-WO-DLz" id="8FZ-0J-s34"/>
                 <outlet property="settingLabel" destination="n7w-8t-Qtn" id="b0z-O8-10m"/>
                 <outlet property="toggleSwitch" destination="SMB-jt-I00" id="8L6-ax-6bi"/>
             </connections>
             <point key="canvasLocation" x="368" y="311.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="arrowIcon" width="128" height="128"/>
+    </resources>
 </document>

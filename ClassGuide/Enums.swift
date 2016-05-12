@@ -75,16 +75,41 @@ public enum Season {
 }
 
 public enum SettingsKey: String {
-    case CS = "major"
-    case AI = "AI"
-    case Renaissance = "Renaissance"
-    case CSE = "CSE"
-    case Graphics = "Graphics"
-    case NS = "NS"
-    case PL = "PL"
-    case SE = "SE"
-    case SD = "SD"
-    case Theory = "Theory"
+    case CS =           "major"
+    case AI =           "AI"
+    case Renaissance =  "Renaissance"
+    case CSE =          "CSE"
+    case Graphics =     "Graphics"
+    case NS =           "NS"
+    case PL =           "PL"
+    case SE =           "SE"
+    case SD =           "SD"
+    case Theory =       "Theory"
+    
+    static func getDescription(key: SettingsKey) -> String {
+        switch key {
+        case .CS:
+            return majorDescription
+        case .AI:
+            return AIDescription
+        case .Renaissance:
+            return renaissanceDescription
+        case .CSE:
+            return CSEDescription
+        case .Graphics:
+            return graphicsDescription
+        case .NS:
+            return NSDescription
+        case .PL:
+            return PLDescription
+        case .SE:
+            return SEDescription
+        case .SD:
+            return SDDescription
+        case .Theory:
+            return theoryDescription
+        }
+    }
 }
 
 public enum Priority {
