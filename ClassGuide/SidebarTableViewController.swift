@@ -69,6 +69,7 @@ class SidebarTableViewController: UITableViewController {
             break;
         }
         cell.backgroundColor = .blackColor()
+        cell.selectionStyle = .None
         
         return cell
     }

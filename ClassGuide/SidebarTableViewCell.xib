@@ -15,12 +15,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="358" height="109"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lUZ-dt-TxB">
-                        <rect key="frame" x="33" y="34" width="35" height="41"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="35" id="rE7-zd-umZ"/>
-                        </constraints>
-                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NQz-xs-AUY">
                         <rect key="frame" x="76" y="22" width="1" height="37"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -28,26 +22,32 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SS2-E5-BKn">
                         <rect key="frame" x="85" y="34" width="129" height="41"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="129" id="qoh-nW-zsa"/>
+                            <constraint firstAttribute="width" constant="129" id="PhR-N5-oVx"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="17"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lUZ-dt-TxB">
+                        <rect key="frame" x="33" y="33" width="35" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="35" id="9w7-CQ-sR0"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 <color key="tintColor" red="0.61176470589999998" green="0.1960784314" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="SS2-E5-BKn" firstAttribute="leading" secondItem="NQz-xs-AUY" secondAttribute="trailing" constant="8" symbolic="YES" id="0D6-kn-kHJ"/>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="bottom" secondItem="SS2-E5-BKn" secondAttribute="bottom" id="28x-LS-d12"/>
-                    <constraint firstItem="NQz-xs-AUY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="14" id="2bE-1l-eBn"/>
-                    <constraint firstItem="SS2-E5-BKn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="85" id="7XN-6P-k9B"/>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9J1-R1-Hqt"/>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="26" id="Noa-83-B1t"/>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="25" id="jbn-Hd-yl0"/>
-                    <constraint firstItem="NQz-xs-AUY" firstAttribute="leading" secondItem="lUZ-dt-TxB" secondAttribute="trailing" constant="8" symbolic="YES" id="nMU-we-jh4"/>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="top" secondItem="SS2-E5-BKn" secondAttribute="top" id="oBg-pi-8ND"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="NQz-xs-AUY" secondAttribute="bottom" constant="42" id="qq8-f0-BF1"/>
+                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="25" id="0uP-VL-KvK"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="NQz-xs-AUY" secondAttribute="bottom" constant="42" id="2Nh-Se-uI7"/>
+                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="25" id="5N5-My-De5"/>
+                    <constraint firstItem="SS2-E5-BKn" firstAttribute="leading" secondItem="NQz-xs-AUY" secondAttribute="trailing" constant="8" symbolic="YES" id="6G6-1m-aI8"/>
+                    <constraint firstItem="SS2-E5-BKn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="26" id="6Zy-Sr-21D"/>
+                    <constraint firstItem="SS2-E5-BKn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="85" id="EJI-z0-IXQ"/>
+                    <constraint firstItem="NQz-xs-AUY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="14" id="KHO-ng-xLZ"/>
+                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="centerY" secondItem="SS2-E5-BKn" secondAttribute="centerY" id="R14-kp-cgu"/>
+                    <constraint firstItem="NQz-xs-AUY" firstAttribute="leading" secondItem="lUZ-dt-TxB" secondAttribute="trailing" constant="8" symbolic="YES" id="fyo-Lz-QMb"/>
+                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mOZ-5R-lkI"/>
                 </constraints>
             </tableViewCellContentView>
             <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
@@ -55,7 +55,7 @@
                 <outlet property="categoryLabel" destination="SS2-E5-BKn" id="dAH-FV-yuX"/>
                 <outlet property="iconImageView" destination="lUZ-dt-TxB" id="4fU-DK-vRB"/>
             </connections>
-            <point key="canvasLocation" x="217.5" y="594"/>
+            <point key="canvasLocation" x="217" y="594"/>
         </tableViewCell>
     </objects>
 </document>

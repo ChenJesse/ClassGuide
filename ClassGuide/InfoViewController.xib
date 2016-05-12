@@ -208,12 +208,12 @@
         </imageView>
     </objects>
     <resources>
-        <image name="checkIcon" width="30" height="30"/>
+        <image name="checkIcon" width="15" height="15"/>
         <image name="handIcon" width="20" height="20"/>
         <image name="mandatoryIcon" width="37" height="37"/>
         <image name="noHandIcon" width="37" height="37"/>
         <image name="optionalIcon" width="37" height="37"/>
-        <image name="planIcon" width="30" height="30"/>
-        <image name="questionmarkIcon" width="30" height="30"/>
+        <image name="planIcon" width="25" height="25"/>
+        <image name="questionmarkIcon" width="15" height="15"/>
     </resources>
 </document>

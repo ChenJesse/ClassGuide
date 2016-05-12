@@ -18,14 +18,18 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     var settings: [String: Bool]!
     var defaults: NSUserDefaults!
     let vectorNum = 10
+    
+    var cellTapped: [Bool] = []
+    var tappedIndexPath: NSIndexPath?
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.allowsSelection = false
+        //tableView.allowsSelection = false
         tableView.backgroundColor = .blackColor()
         tableView.registerNib(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
         navigationItem.title = "Settings"
         addRevealVCButton()
+        populateCellTapped()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -53,11 +57,23 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
         cell.settingLabel.text = reqsAndTogglesAndKeys[indexPath.row].0.title
         cell.settingLabel.adjustsFontSizeToFitWidth = true
         cell.toggleSwitch.on = reqsAndTogglesAndKeys[indexPath.row].1
+        cell.selectionStyle = .None
         return cell
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if cellTapped[indexPath.row] {
+            return settingsCellHeight + 50
+        }
         return settingsCellHeight
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tappedIndexPath = indexPath
+        cellTapped[indexPath.row] = !cellTapped[indexPath.row]
+        tableView.beginUpdates()
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        tableView.endUpdates()
     }
     
     func handleToggle(cell: SettingsTableViewCell) {
@@ -66,5 +82,11 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
         reqsAndTogglesAndKeys[row].1 = !(reqsAndTogglesAndKeys[row].1)
         settings[reqsAndTogglesAndKeys[row].2.rawValue] = reqsAndTogglesAndKeys[row].1
         defaults.setBool(reqsAndTogglesAndKeys[row].1, forKey: reqsAndTogglesAndKeys[row].2.rawValue)
+    }
+    
+    func populateCellTapped() {
+        for _ in 1...vectorNum {
+            cellTapped.append(false)
+        }
     }
 }
