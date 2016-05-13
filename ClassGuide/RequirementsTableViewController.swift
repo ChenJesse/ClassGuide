@@ -22,15 +22,18 @@ class RequirementsTableViewController: UITableViewController {
     var settings: [String: Bool]!
     var defaults: NSUserDefaults!
     var mandatoryOnly = false
-        
+    
+    var cellTapped: [Bool] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerNib(UINib(nibName: "RequirementsTableViewCell", bundle: nil), forCellReuseIdentifier: "RequirementCell")
-        tableView.backgroundColor = .blackColor()
+        tableView.backgroundColor  = UIColor.maroon
         mandatoryOnly = defaults.boolForKey("mandatory")
         setupMandatoryToggle()
         setupSettingsButton()
         addRevealVCButton()
+        populateCellTapped()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -92,25 +95,59 @@ class RequirementsTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return requirements[section].title
-    }
-    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return requirementsCellHeight
     }
     
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.contentView.backgroundColor = .blackColor()
-        header.alpha = 1.0 //make the header transparent
-        header.textLabel!.textColor = .whiteColor()
-        header.textLabel!.font = .systemFontOfSize(17)
-        header.textLabel?.textAlignment = .Center
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if cellTapped[section] {
+            return settingsCellHeight + 100
+        }
+        return settingsCellHeight
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = NSBundle.mainBundle().loadNibNamed("SettingsTableViewCell", owner: self, options: nil)[0] as! SettingsTableViewCell
+        let containerView = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, settingsCellHeight + 100))
+        cell.settingLabel.text = requirements[section].title
+        cell.descriptionLabel.text = SettingsKey.getDescription(reqsAndTogglesAndKeys[section].2)
+        cell.toggleSwitch.hidden = true
+        cell.section = section
+        
+        if cellTapped[section] { cell.rotateArrow() }
+        
+        cell.backgroundColor = UIColor.maroon.colorWithAlphaComponent(0.75)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(RequirementsTableViewController.headerClicked(_:)))
+        cell.addGestureRecognizer(tapGestureRecognizer)
+        
+        cell.frame = containerView.frame
+        cell.setNeedsLayout()
+        cell.layoutIfNeeded()
+        
+        cell.container = containerView
+        containerView.addSubview(cell)
+        containerView.clipsToBounds = true
+        return containerView
+    }
+    
+    func headerClicked(tap: UITapGestureRecognizer) {
+        let header = tap.view as! SettingsTableViewCell
+        
+        cellTapped[header.section!] = !cellTapped[header.section!]
+        tableView.beginUpdates()
+        CATransaction.setCompletionBlock {
+            self.tableView.reloadData()
+        }
+        tableView.endUpdates()
     }
  
     func calculateAndFetchProgress() {
-        print("fetching progress")
         for tuple in reqsAndTogglesAndKeys {
             if settings[tuple.2.rawValue]! {
                 tuple.0.calculateProgress(takenCourses, plannedCourses: plannedCourses)
@@ -180,5 +217,11 @@ class RequirementsTableViewController: UITableViewController {
     
     func jumpToSettings() {
         sidebarVC.selectionHandler(settingsVC)
+    }
+    
+    func populateCellTapped() {
+        for _ in 1...vectorNum {
+            cellTapped.append(false)
+        }
     }
 }

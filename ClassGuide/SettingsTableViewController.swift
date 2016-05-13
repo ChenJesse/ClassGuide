@@ -20,11 +20,9 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     var reqsAndTogglesAndKeys: [(Requirement, Bool, SettingsKey)]!
     var settings: [String: Bool]!
     var defaults: NSUserDefaults!
-    let vectorNum = 10
     
     var cellTapped: [Bool] = []
-    var tappedIndexPath: NSIndexPath?
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //tableView.allowsSelection = false
@@ -76,7 +74,6 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tappedIndexPath = indexPath
         cellTapped[indexPath.row] = !cellTapped[indexPath.row]
         
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! SettingsTableViewCell

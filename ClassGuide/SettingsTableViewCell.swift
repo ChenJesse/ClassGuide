@@ -12,6 +12,8 @@ class SettingsTableViewCell: UITableViewCell {
     
     var delegate: SettingsDelegate!
     var expanded = false
+    var section: Int?
+    var container: UIView?
     
     @IBOutlet weak var toggleSwitch: UISwitch!
     @IBOutlet weak var settingLabel: UILabel!

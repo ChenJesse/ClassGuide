@@ -15,6 +15,7 @@ let sidebarCellHeight = CGFloat(100)
 let unsupportedCourseValue = Float(-1.0)
 
 let tabNumber = 5
+let vectorNum = 10
 
 let majorDescription = "Computer science majors take courses covering algorithms, data structures, logic, programming languages, systems, and theory. Electives include artificial intelligence, computer graphics, computer vision, cryptography, databases, networks, and scientific computing."
 let renaissanceDescription = "Encourages breadth of study across computer science, including education in fundamentals beyond the core that support multiple pursuits."
