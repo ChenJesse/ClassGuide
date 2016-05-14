@@ -12,6 +12,7 @@ import Foundation
 
 public class CSRequirements: Requirement {
     let title = "CS Major Requirements"
+    let key = SettingsKey.CS
     //MARK: Requirement number that must be fulfilled in each category
     let requiredCourses = 11
     var completed = false
@@ -83,7 +84,7 @@ public class CSRequirements: Requirement {
         progress.append(RequirementItem(description: "Probability Course ", percentage: unsupportedCourseValue, type: .Mandatory))
         progress.append(RequirementItem(description: "3(Technical Electives, 3000+) ", percentage: unsupportedCourseValue, type: .Mandatory))
         progress.append(RequirementItem(description: "3(External Specialization, 3000+) ", percentage: unsupportedCourseValue, type: .Mandatory))
-        progress.append(RequirementItem(description: "3 Credits Approved Elective) ", percentage: unsupportedCourseValue, type: .Mandatory))
+        progress.append(RequirementItem(description: "3 Credits Approved Elective ", percentage: unsupportedCourseValue, type: .Mandatory))
         
         return progress
     }

@@ -10,6 +10,7 @@ import Foundation
 
 protocol Requirement {
     var title: String { get }
+    var key: SettingsKey { get }
     var requiredCourses: Int { get }
     var completed: Bool { get set }
     func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet)

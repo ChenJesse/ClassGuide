@@ -10,6 +10,7 @@ import Foundation
 
 class Renaissance: Requirement {
     let title = "Renaissance"
+    let key = SettingsKey.Renaissance
     let requiredCourses = 4
     var completed: Bool = false
     let FxxxRequirement = 4
@@ -63,6 +64,7 @@ class Renaissance: Requirement {
 
 class AI: Requirement {
     let title = "Artificial Intelligence"
+    let key = SettingsKey.AI
     let requiredCourses = 4
     var completed: Bool = false
     var takenCS4700 = false
@@ -153,6 +155,7 @@ class AI: Requirement {
 
 class CSE: Requirement {
     let title = "Computational Science and Engineering"
+    let key = SettingsKey.CSE
     let requiredCourses = 4
     var completed: Bool = false
     let requiredF2xx = 2
@@ -206,6 +209,7 @@ class CSE: Requirement {
 
 class Graphics: Requirement {
     let title = "Graphics"
+    let key = SettingsKey.Graphics
     let requiredCourses = 5
     var completed: Bool = false
     
@@ -271,6 +275,7 @@ class Graphics: Requirement {
 
 class NS: Requirement {
     let title = "Network Science"
+    let key = SettingsKey.NS
     let requiredCourses = 4
     var completed: Bool = false
     let requiredx85xor4220 = 2
@@ -316,6 +321,7 @@ class NS: Requirement {
 
 class PL: Requirement {
     let title = "Programming Languages"
+    let key = SettingsKey.PL
     let requiredCourses = 5
     var completed: Bool = false
     
@@ -374,6 +380,7 @@ class PL: Requirement {
 
 class SE: Requirement {
     let title = "Software Engineering"
+    let key = SettingsKey.SE
     let requiredCourses = 5
     var completed: Bool = false
     let requiredPracticums = 2
@@ -437,6 +444,7 @@ class SE: Requirement {
 
 class SD: Requirement {
     let title = "System / Databases"
+    let key = SettingsKey.SD
     let requiredCourses: Int = 4
     var completed: Bool = false
     var requiredF4xxorF12xorF32xor5300 = 3
@@ -538,6 +546,7 @@ class SD: Requirement {
 
 class Theory: Requirement {
     let title = "Theory"
+    let key = SettingsKey.Theory
     let requiredCourses: Int = 4
     var completed: Bool = false
     

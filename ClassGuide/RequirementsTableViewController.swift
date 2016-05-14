@@ -115,7 +115,7 @@ class RequirementsTableViewController: UITableViewController {
         let cell = NSBundle.mainBundle().loadNibNamed("SettingsTableViewCell", owner: self, options: nil)[0] as! SettingsTableViewCell
         let containerView = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, settingsCellHeight + 100))
         cell.settingLabel.text = requirements[section].title
-        cell.descriptionLabel.text = SettingsKey.getDescription(reqsAndTogglesAndKeys[section].2)
+        cell.descriptionLabel.text = SettingsKey.getDescription(requirements[section].key)
         cell.toggleSwitch.hidden = true
         cell.section = section
         
