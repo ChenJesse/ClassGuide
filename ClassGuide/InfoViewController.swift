@@ -15,11 +15,12 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addRevealVCButton()
-        aboutTextView.scrollRangeToVisible(NSMakeRange(0, 0))
+        aboutTextView.scrollRangeToVisible(NSMakeRange(0, 1))
     }
     
     override func viewDidAppear(animated: Bool) {
         addPanGesture()
+        aboutTextView.scrollRangeToVisible(NSMakeRange(0, 1))
     }
 
     override func didReceiveMemoryWarning() {

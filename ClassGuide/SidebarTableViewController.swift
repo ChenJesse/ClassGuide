@@ -15,7 +15,7 @@ class SidebarTableViewController: UITableViewController {
     var requirementsVC: RequirementsTableViewController!
     var revealVC: SWRevealViewController!
     var settingsVC: SettingsTableViewController!
-    var infoVC: InfoViewController!
+    var infoVC: SymbolViewController!
     var navController: UINavigationController!
     var settings: [String: Bool]!
     

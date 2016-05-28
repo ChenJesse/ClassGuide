@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     let manageVC = ManageTableViewController()
     let requirementsVC = RequirementsTableViewController()
     let settingsVC = SettingsTableViewController()
-    let infoVC = InfoViewController()
+    let infoVC = SymbolViewController()
     
     let majorReqs = CSRequirements()
     let AIVector = AI()
