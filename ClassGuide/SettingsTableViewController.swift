@@ -17,7 +17,7 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     var sidebarVC: SidebarTableViewController!
     var requirementsVC: RequirementsTableViewController!
     
-    var reqsAndTogglesAndKeys: [(Requirement, Bool, SettingsKey)]!
+    var wrappers: [ReqWrapper]!
     var settings: [String: Bool]!
     var defaults: NSUserDefaults!
     
@@ -56,10 +56,10 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SettingsCell", forIndexPath: indexPath) as! SettingsTableViewCell
         cell.delegate = self
-        cell.settingLabel.text = reqsAndTogglesAndKeys[indexPath.row].0.title
+        cell.settingLabel.text = wrappers[indexPath.row].req.title
         cell.settingLabel.adjustsFontSizeToFitWidth = true
-        cell.toggleSwitch.on = reqsAndTogglesAndKeys[indexPath.row].1
-        cell.descriptionLabel.text = SettingsKey.getDescription(reqsAndTogglesAndKeys[indexPath.row].2)
+        cell.toggleSwitch.on = wrappers[indexPath.row].toggled
+        cell.descriptionLabel.text = SettingsKey.getDescription(wrappers[indexPath.row].key)
         cell.descriptionLabel.hidden = !cellTapped[indexPath.row]
         cell.descriptionLabel.adjustsFontSizeToFitWidth = true
         cell.selectionStyle = .None
@@ -96,9 +96,10 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     func handleToggle(cell: SettingsTableViewCell) {
         let indexPath = tableView.indexPathForCell(cell)
         let row = indexPath!.row
-        reqsAndTogglesAndKeys[row].1 = !(reqsAndTogglesAndKeys[row].1)
-        settings[reqsAndTogglesAndKeys[row].2.rawValue] = reqsAndTogglesAndKeys[row].1
-        defaults.setBool(reqsAndTogglesAndKeys[row].1, forKey: reqsAndTogglesAndKeys[row].2.rawValue)
+        let wrapper = wrappers[row]
+        wrapper.toggled = !(wrapper.toggled)
+        settings[wrapper.key.rawValue] = wrapper.toggled
+        defaults.setBool(wrapper.toggled, forKey: wrapper.key.rawValue)
     }
     
     func populateCellTapped() {

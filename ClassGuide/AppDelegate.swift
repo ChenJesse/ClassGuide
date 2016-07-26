@@ -104,26 +104,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         sidebarVC.infoVC = infoVC
         sidebarVC.navController = navigationController
         
-        let reqsAndTogglesAndKeys: [(Requirement, Bool, SettingsKey)] = [
-            (majorReqs, CSToggled, .CS),
-            (AIVector, AIToggled, .AI),
-            (renaissanceVector, renaissanceToggled, .Renaissance),
-            (CSEVector, CSEToggled, .CSE),
-            (graphicsVector, graphicsToggled, .Graphics),
-            (NSVector, NSToggled, .NS),
-            (PLVector, PLToggled, .PL),
-            (SEVector, SEToggled, .SE),
-            (SDVector, SDToggled, .SD),
-            (theoryVector, theoryToggled, .Theory)]
+        let wrappers: [ReqWrapper] = [
+            ReqWrapper(req: majorReqs, toggled: CSToggled, key: .CS),
+            ReqWrapper(req: AIVector, toggled: AIToggled, key: .AI),
+            ReqWrapper(req: renaissanceVector, toggled: renaissanceToggled, key: .Renaissance),
+            ReqWrapper(req: CSEVector, toggled: CSEToggled, key: .CSE),
+            ReqWrapper(req: graphicsVector, toggled: graphicsToggled, key: .Graphics),
+            ReqWrapper(req: NSVector, toggled: NSToggled, key: .NS),
+            ReqWrapper(req: PLVector, toggled: PLToggled, key: .PL),
+            ReqWrapper(req: SEVector, toggled: SEToggled, key: .SE),
+            ReqWrapper(req: SDVector, toggled: SDToggled, key: .SD),
+            ReqWrapper(req: theoryVector, toggled: theoryToggled, key: .Theory)
+        ]
         
         requirementsVC.sidebarVC = sidebarVC
         requirementsVC.settingsVC = settingsVC
-        requirementsVC.reqsAndTogglesAndKeys = reqsAndTogglesAndKeys
+        requirementsVC.wrappers = wrappers
         requirementsVC.defaults = defaults
         
         settingsVC.sidebarVC = sidebarVC
         settingsVC.requirementsVC = requirementsVC
-        settingsVC.reqsAndTogglesAndKeys = reqsAndTogglesAndKeys
+        settingsVC.wrappers = wrappers
         settingsVC.settings = settings
         settingsVC.defaults = defaults
     }

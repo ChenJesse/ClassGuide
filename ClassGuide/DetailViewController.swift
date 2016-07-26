@@ -21,7 +21,6 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var distribution: UILabel!
     @IBOutlet weak var special: UILabel!
     @IBOutlet weak var consent: UILabel!
-    @IBOutlet weak var prerequisites: UITextView!
     @IBOutlet weak var descriptionView: UITextView!
     @IBOutlet weak var semester: UILabel!
     
@@ -44,8 +43,7 @@ class DetailViewController: UIViewController {
         distribution.text = "Distribution requirement: \(course.distributionRequirement.rawValue)"
         special.text = "Special requirement: " + printSpecialAttributes(course)
         consent.text = "Consent: \(course.consent.rawValue)"
-        prerequisites.text = "\(course.prerequisites)"
-        descriptionView.text = "Description: \(course.description)"
+        descriptionView.text = "\(course.prerequisites) \n \nDescription: \(course.description)"
         courseStatusSelector.selectedSegmentIndex = course.status.rawValue
     }
     

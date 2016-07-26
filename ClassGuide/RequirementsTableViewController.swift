@@ -12,7 +12,7 @@ class RequirementsTableViewController: UITableViewController {
     
     var sidebarVC: SidebarTableViewController!
     var settingsVC: SettingsTableViewController!
-    var reqsAndTogglesAndKeys: [(Requirement, Bool, SettingsKey)]!
+    var wrappers: [ReqWrapper]!
     
     var takenCourses: NSMutableSet!
     var plannedCourses: NSMutableSet!
@@ -148,20 +148,20 @@ class RequirementsTableViewController: UITableViewController {
     }
  
     func calculateAndFetchProgress() {
-        for tuple in reqsAndTogglesAndKeys {
-            if settings[tuple.2.rawValue]! {
-                tuple.0.calculateProgress(takenCourses, plannedCourses: plannedCourses)
+        for wrapper in wrappers {
+            if settings[wrapper.key.rawValue]! {
+                wrapper.req.calculateProgress(takenCourses, plannedCourses: plannedCourses)
             }
         }
         requirements.removeAll()
         progress.removeAll()
-        for tuple in reqsAndTogglesAndKeys {
-            if settings[tuple.2.rawValue]! {
-                requirements.append(tuple.0)
+        for wrapper in wrappers {
+            if settings[wrapper.key.rawValue]! {
+                requirements.append(wrapper.req)
                 if mandatoryOnly {
-                    progress.append(tuple.0.printMandatoryProgress())
+                    progress.append(wrapper.req.printMandatoryProgress())
                 } else {
-                    progress.append(tuple.0.printAllProgress())
+                    progress.append(wrapper.req.printAllProgress())
                 }
             }
         }

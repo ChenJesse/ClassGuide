@@ -19,6 +19,7 @@
 		604A76151CE81DBD00EED876 /* SymbolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604A76141CE81DBD00EED876 /* SymbolViewController.swift */; };
 		60608E741CA5895E00D7C9D7 /* ManageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60608E721CA5895E00D7C9D7 /* ManageTableViewController.swift */; };
 		60608E751CA5895E00D7C9D7 /* ManageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60608E731CA5895E00D7C9D7 /* ManageTableViewController.xib */; };
+		607803561D46F42B00583192 /* ReqWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607803551D46F42B00583192 /* ReqWrapper.swift */; };
 		6089212A1CAB4C3C0039F8F9 /* RequirementsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608921281CAB4C3C0039F8F9 /* RequirementsTableViewController.swift */; };
 		6089212B1CAB4C3C0039F8F9 /* RequirementsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 608921291CAB4C3C0039F8F9 /* RequirementsTableViewController.xib */; };
 		6089212E1CAB4E050039F8F9 /* RequirementsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6089212C1CAB4E050039F8F9 /* RequirementsTableViewCell.swift */; };
@@ -94,6 +95,7 @@
 		604A76161CE826DB00EED876 /* AboutHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutHeaderView.xib; sourceTree = "<group>"; };
 		60608E721CA5895E00D7C9D7 /* ManageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageTableViewController.swift; sourceTree = "<group>"; };
 		60608E731CA5895E00D7C9D7 /* ManageTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ManageTableViewController.xib; sourceTree = "<group>"; };
+		607803551D46F42B00583192 /* ReqWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReqWrapper.swift; sourceTree = "<group>"; };
 		608921281CAB4C3C0039F8F9 /* RequirementsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequirementsTableViewController.swift; sourceTree = "<group>"; };
 		608921291CAB4C3C0039F8F9 /* RequirementsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequirementsTableViewController.xib; sourceTree = "<group>"; };
 		6089212C1CAB4E050039F8F9 /* RequirementsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequirementsTableViewCell.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				6036A40A1CA460CC00C8C113 /* CSRequirements.swift */,
 				60A8281C1CAA2DD80021247B /* Vector.swift */,
 				60E9E5A31CC313F300E0E1D2 /* RequirementItem.swift */,
+				607803551D46F42B00583192 /* ReqWrapper.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				60A985CA1CA1C8D6006024CA /* AppDelegate.swift in Sources */,
 				60A109AD1CA3BA8A00E6D2E8 /* RevealExtension.swift in Sources */,
 				604A76151CE81DBD00EED876 /* SymbolViewController.swift in Sources */,
+				607803561D46F42B00583192 /* ReqWrapper.swift in Sources */,
 				6023F5F41CB1C8B10070E340 /* CourseSearchableDelegate.swift in Sources */,
 				60DE62D81CA4CC5900AAFB32 /* SidebarTableViewCell.swift in Sources */,
 				60E9E5A41CC313F400E0E1D2 /* RequirementItem.swift in Sources */,
