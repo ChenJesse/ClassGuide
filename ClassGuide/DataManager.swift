@@ -38,12 +38,12 @@ public class DataManager: NSObject {
     public func fetchCourses(completionHandler: () -> ()) {
         for semester in semesters {
             if !defaults.boolForKey(semester) {
-                print("Getting \(semester)")
+                print("GETTING \(semester)")
                 let _ = Alamofire.request(.GET, Router.Classes, parameters: ["roster": semester, "subject": "CS"])
                     .responseJSON { response in
                         switch response.result {
                         case .Success(let data):
-                            print("success")
+                            print("SUCCESS")
                             self.createCourses(JSON(data), semester: semester)
                             self.defaults.setBool(true, forKey: semester) //we've succesfully fetched this semester
                             var allSemestersCompleted = true
@@ -57,8 +57,10 @@ public class DataManager: NSObject {
                             print(error)
                         }
                     }
-            } else { print("Not getting \(semester)") }
+            } else { print("NOT GETTING \(semester)") }
         }
+        
+        
     }
     
     internal func createCourses(json: JSON, semester: String) {

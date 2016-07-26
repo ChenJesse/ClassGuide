@@ -21,7 +21,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var distribution: UILabel!
     @IBOutlet weak var special: UILabel!
     @IBOutlet weak var consent: UILabel!
-    @IBOutlet weak var prerequisites: UILabel!
+    @IBOutlet weak var prerequisites: UITextView!
     @IBOutlet weak var descriptionView: UITextView!
     @IBOutlet weak var semester: UILabel!
     
@@ -47,8 +47,6 @@ class DetailViewController: UIViewController {
         prerequisites.text = "\(course.prerequisites)"
         descriptionView.text = "Description: \(course.description)"
         courseStatusSelector.selectedSegmentIndex = course.status.rawValue
-        
-        prerequisites.adjustsFontSizeToFitWidth = true
     }
     
     @IBAction func statusChanged(sender: UISegmentedControl) {

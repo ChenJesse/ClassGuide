@@ -89,6 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         homeVC.saveCoreData()
     }
     
+    //Manages the references between the ViewControllers
     func viewControllerSetup() {
         homeVC.managedContext = managedContext
         homeVC.defaults = defaults
@@ -219,10 +220,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
             }
         }
     }
-    
-    
-
-
-
 }
-
