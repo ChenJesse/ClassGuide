@@ -9,6 +9,7 @@
 import Foundation
 
 protocol Requirement {
+    static var sharedInstance: Requirement { get }
     var title: String { get }
     var key: SettingsKey { get }
     var requiredCourses: Int { get }
@@ -19,7 +20,6 @@ protocol Requirement {
     func resetProgress()
     func printMandatoryProgress() -> [RequirementItem]
     func printOptionalProgress() -> [RequirementItem]
-    
 }
 
 extension Requirement {

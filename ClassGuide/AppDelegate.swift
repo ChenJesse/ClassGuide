@@ -26,16 +26,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     let settingsVC = SettingsTableViewController()
     let infoVC = SymbolViewController()
     
-    let majorReqs = CSRequirements()
-    let AIVector = AI()
-    let renaissanceVector = Renaissance()
-    let CSEVector = CSE()
-    let graphicsVector = Graphics()
-    let NSVector = NS()
-    let PLVector = PL()
-    let SEVector = SE()
-    let SDVector = SD()
-    let theoryVector = Theory()
+    let majorReqs = CSRequirements.sharedInstance as! CSRequirements
+    let AIVector = AI.sharedInstance as! AI
+    let renaissanceVector = Renaissance.sharedInstance as! Renaissance
+    let CSEVector = CSE.sharedInstance as! CSE
+    let graphicsVector = Graphics.sharedInstance as! Graphics
+    let NSVector = NS.sharedInstance as! NS
+    let PLVector = PL.sharedInstance as! PL
+    let SEVector = SE.sharedInstance as! SE
+    let SDVector = SD.sharedInstance as! SD
+    let theoryVector = Theory.sharedInstance as! Theory
     
     var settings: [String: Bool] = [:]
 

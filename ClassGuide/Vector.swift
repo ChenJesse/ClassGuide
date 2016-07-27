@@ -9,6 +9,7 @@
 import Foundation
 
 class Renaissance: Requirement {
+    static let sharedInstance = Renaissance() as Requirement
     let title = "Renaissance"
     let key = SettingsKey.Renaissance
     let requiredCourses = 4
@@ -63,6 +64,7 @@ class Renaissance: Requirement {
 }
 
 class AI: Requirement {
+    static let sharedInstance = AI() as Requirement
     let title = "Artificial Intelligence"
     let key = SettingsKey.AI
     let requiredCourses = 4
@@ -154,6 +156,7 @@ class AI: Requirement {
 }
 
 class CSE: Requirement {
+    static let sharedInstance = CSE() as Requirement
     let title = "Computational Science and Engineering"
     let key = SettingsKey.CSE
     let requiredCourses = 4
@@ -208,6 +211,7 @@ class CSE: Requirement {
 }
 
 class Graphics: Requirement {
+    static let sharedInstance = Graphics() as Requirement
     let title = "Graphics"
     let key = SettingsKey.Graphics
     let requiredCourses = 5
@@ -274,6 +278,7 @@ class Graphics: Requirement {
 }
 
 class NS: Requirement {
+    static let sharedInstance = NS() as Requirement
     let title = "Network Science"
     let key = SettingsKey.NS
     let requiredCourses = 4
@@ -320,6 +325,7 @@ class NS: Requirement {
 }
 
 class PL: Requirement {
+    static let sharedInstance = PL() as Requirement
     let title = "Programming Languages"
     let key = SettingsKey.PL
     let requiredCourses = 5
@@ -379,6 +385,7 @@ class PL: Requirement {
 }
 
 class SE: Requirement {
+    static let sharedInstance = SE() as Requirement
     let title = "Software Engineering"
     let key = SettingsKey.SE
     let requiredCourses = 5
@@ -443,6 +450,7 @@ class SE: Requirement {
 }
 
 class SD: Requirement {
+    static let sharedInstance = SD() as Requirement
     let title = "System / Databases"
     let key = SettingsKey.SD
     let requiredCourses: Int = 4
@@ -545,6 +553,7 @@ class SD: Requirement {
 }
 
 class Theory: Requirement {
+    static let sharedInstance = Theory() as Requirement
     let title = "Theory"
     let key = SettingsKey.Theory
     let requiredCourses: Int = 4

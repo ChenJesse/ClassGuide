@@ -11,6 +11,7 @@ import Foundation
 //All the project courses that are not practicums (practicums are a subset)
 
 public class CSRequirements: Requirement {
+    static let sharedInstance = CSRequirements() as Requirement
     let title = "CS Major Requirements"
     let key = SettingsKey.CS
     //MARK: Requirement number that must be fulfilled in each category
