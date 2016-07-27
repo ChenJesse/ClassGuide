@@ -38,16 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
     let theoryVector = Theory()
     
     var settings: [String: Bool] = [:]
-    var CSToggled: Bool!
-    var AIToggled: Bool!
-    var renaissanceToggled: Bool!
-    var CSEToggled: Bool!
-    var graphicsToggled: Bool!
-    var NSToggled: Bool!
-    var PLToggled: Bool!
-    var SEToggled: Bool!
-    var SDToggled: Bool!
-    var theoryToggled: Bool!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -57,7 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         UINavigationBar.appearance().barStyle = .Black
         appDelegate = self
         managedContext = appDelegate.managedObjectContext
-        settingsSetup()
         viewControllerSetup()
         revealVCSetup()
         
@@ -105,21 +94,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         sidebarVC.navController = navigationController
         
         let wrappers: [ReqWrapper] = [
-            ReqWrapper(req: majorReqs, toggled: CSToggled, key: .CS),
-            ReqWrapper(req: AIVector, toggled: AIToggled, key: .AI),
-            ReqWrapper(req: renaissanceVector, toggled: renaissanceToggled, key: .Renaissance),
-            ReqWrapper(req: CSEVector, toggled: CSEToggled, key: .CSE),
-            ReqWrapper(req: graphicsVector, toggled: graphicsToggled, key: .Graphics),
-            ReqWrapper(req: NSVector, toggled: NSToggled, key: .NS),
-            ReqWrapper(req: PLVector, toggled: PLToggled, key: .PL),
-            ReqWrapper(req: SEVector, toggled: SEToggled, key: .SE),
-            ReqWrapper(req: SDVector, toggled: SDToggled, key: .SD),
-            ReqWrapper(req: theoryVector, toggled: theoryToggled, key: .Theory)
+            ReqWrapper(req: majorReqs, key: .CS),
+            ReqWrapper(req: AIVector, key: .AI),
+            ReqWrapper(req: renaissanceVector, key: .Renaissance),
+            ReqWrapper(req: CSEVector, key: .CSE),
+            ReqWrapper(req: graphicsVector, key: .Graphics),
+            ReqWrapper(req: NSVector, key: .NS),
+            ReqWrapper(req: PLVector, key: .PL),
+            ReqWrapper(req: SEVector, key: .SE),
+            ReqWrapper(req: SDVector, key: .SD),
+            ReqWrapper(req: theoryVector, key: .Theory)
         ]
+        
+        for wrapper in wrappers {
+            settings[wrapper.key.rawValue] = wrapper.toggled
+        }
         
         requirementsVC.sidebarVC = sidebarVC
         requirementsVC.settingsVC = settingsVC
         requirementsVC.wrappers = wrappers
+        requirementsVC.settings = settings
         requirementsVC.defaults = defaults
         
         settingsVC.sidebarVC = sidebarVC
@@ -134,29 +128,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         revealVC.setFrontViewController(navigationController, animated: false)
         revealVC.setRearViewController(sidebarVC, animated: true)
         window?.rootViewController = revealVC
-    }
-    
-    func settingsSetup() {
-        CSToggled = defaults.objectForKey(SettingsKey.CS.rawValue) as? Bool ?? true
-        AIToggled = defaults.objectForKey(SettingsKey.AI.rawValue) as? Bool ?? true
-        renaissanceToggled = defaults.objectForKey(SettingsKey.Renaissance.rawValue) as? Bool ?? true
-        CSEToggled = defaults.objectForKey(SettingsKey.CSE.rawValue) as? Bool ?? true
-        graphicsToggled = defaults.objectForKey(SettingsKey.Graphics.rawValue) as? Bool ?? true
-        NSToggled = defaults.objectForKey(SettingsKey.NS.rawValue) as? Bool ?? true
-        PLToggled = defaults.objectForKey(SettingsKey.PL.rawValue) as? Bool ?? true
-        SEToggled = defaults.objectForKey(SettingsKey.SE.rawValue) as? Bool ?? true
-        SDToggled = defaults.objectForKey(SettingsKey.SD.rawValue) as? Bool ?? true
-        theoryToggled = defaults.objectForKey(SettingsKey.Theory.rawValue) as? Bool ?? true
-        settings[SettingsKey.CS.rawValue] = CSToggled
-        settings[SettingsKey.AI.rawValue] = AIToggled
-        settings[SettingsKey.Renaissance.rawValue] = renaissanceToggled
-        settings[SettingsKey.CSE.rawValue] = CSEToggled
-        settings[SettingsKey.Graphics.rawValue] = graphicsToggled
-        settings[SettingsKey.NS.rawValue] = NSToggled
-        settings[SettingsKey.PL.rawValue] = PLToggled
-        settings[SettingsKey.SE.rawValue] = SEToggled
-        settings[SettingsKey.SD.rawValue] = SDToggled
-        settings[SettingsKey.Theory.rawValue] = theoryToggled
     }
     
     // MARK: - Core Data stack

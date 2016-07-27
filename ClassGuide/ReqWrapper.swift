@@ -13,9 +13,10 @@ class ReqWrapper {
     var toggled: Bool
     let key: SettingsKey
     
-    init(req: Requirement, toggled: Bool, key: SettingsKey) {
+    init(req: Requirement, key: SettingsKey) {
+        let defaults = (UIApplication.sharedApplication().delegate as! AppDelegate).defaults
         self.req = req
-        self.toggled = toggled
+        self.toggled = defaults.objectForKey(key.rawValue) as? Bool ?? true
         self.key = key
     }
 }
