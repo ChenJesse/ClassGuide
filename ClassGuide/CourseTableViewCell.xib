@@ -27,26 +27,28 @@
                             <constraint firstAttribute="width" constant="25" id="e7F-JP-px7"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqf-6h-bN1">
-                        <rect key="frame" x="21" y="22" width="51" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqf-6h-bN1">
+                        <rect key="frame" x="21" y="21" width="51" height="18"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.1959459459" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="51" id="uCl-kp-dWO"/>
+                            <constraint firstAttribute="width" constant="51" id="Aa1-JE-zhL"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" red="0.61363636363636365" green="0.19489535645221961" blue="0.1721278045291082" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
+                    <constraint firstItem="ip2-Tv-o9t" firstAttribute="leading" secondItem="dqf-6h-bN1" secondAttribute="trailing" constant="23" id="NIs-pg-cTi"/>
+                    <constraint firstItem="dqf-6h-bN1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="13" id="WYv-Ea-UsM"/>
                     <constraint firstItem="7Jp-wP-FU5" firstAttribute="leading" secondItem="ip2-Tv-o9t" secondAttribute="trailing" constant="14" id="Wd4-Dn-d4H"/>
                     <constraint firstAttribute="trailingMargin" secondItem="7Jp-wP-FU5" secondAttribute="trailing" constant="17" id="Yh3-I1-nkG"/>
                     <constraint firstItem="7Jp-wP-FU5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="9" id="bYd-uo-Qw9"/>
-                    <constraint firstItem="dqf-6h-bN1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="13" id="cEE-gh-GeW"/>
-                    <constraint firstItem="dqf-6h-bN1" firstAttribute="centerY" secondItem="ip2-Tv-o9t" secondAttribute="centerY" id="hUF-nR-Y6e"/>
                     <constraint firstItem="ip2-Tv-o9t" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="qfP-YP-Rp7"/>
                     <constraint firstItem="ip2-Tv-o9t" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="rB0-Oo-gN2"/>
-                    <constraint firstItem="ip2-Tv-o9t" firstAttribute="leading" secondItem="dqf-6h-bN1" secondAttribute="trailing" constant="23" id="roQ-v3-DjR"/>
                     <constraint firstItem="ip2-Tv-o9t" firstAttribute="centerY" secondItem="7Jp-wP-FU5" secondAttribute="centerY" id="uC3-Ob-cy2"/>
+                    <constraint firstItem="dqf-6h-bN1" firstAttribute="centerY" secondItem="ip2-Tv-o9t" secondAttribute="centerY" id="yxY-ua-9eF"/>
                 </constraints>
             </tableViewCellContentView>
             <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
