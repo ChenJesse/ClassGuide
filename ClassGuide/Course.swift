@@ -73,6 +73,21 @@ public class Course: Hashable {
         instructors = savedCourse.valueForKey("instructors") as! String
     }
     
+    init(number: Int) {
+        semester = .Other
+        subject = .Other
+        courseNumber = number
+        distributionRequirement = .None
+        consent = .None
+        titleShort = ""
+        titleLong = ""
+        courseID =  0
+        description = ""
+        prerequisites = ""
+        status = .None
+        instructors = ""
+    }
+    
     func processInstructors(json: JSON) {
         for instructorJSON in json["enrollGroups"][0]["classSections"][0]["meetings"][0]["instructors"].arrayValue {
             instructors += "\(instructorJSON["firstName"].stringValue) \(instructorJSON["lastName"].stringValue), "
