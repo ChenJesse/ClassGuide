@@ -53,7 +53,7 @@
 		60BF5B7A1CB5FCD800299C80 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60BF5B781CB5FCD800299C80 /* InfoViewController.xib */; };
 		60C76A9E1CA5F0EF0030A7B4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C76A9C1CA5F0EF0030A7B4 /* DetailViewController.swift */; };
 		60C76A9F1CA5F0EF0030A7B4 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60C76A9D1CA5F0EF0030A7B4 /* DetailViewController.xib */; };
-		60D10DD31CB0AE080053D971 /* CoreDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D10DD21CB0AE080053D971 /* CoreDelegateProtocol.swift */; };
+		60D10DD31CB0AE080053D971 /* CoreDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D10DD21CB0AE080053D971 /* CoreDataDelegate.swift */; };
 		60D10DD51CB0AE430053D971 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D10DD41CB0AE430053D971 /* Enums.swift */; };
 		60D10DD71CB0AEC10053D971 /* Requirement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D10DD61CB0AEC10053D971 /* Requirement.swift */; };
 		60DE62D81CA4CC5900AAFB32 /* SidebarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DE62D61CA4CC5900AAFB32 /* SidebarTableViewCell.swift */; };
@@ -136,7 +136,7 @@
 		60BF5B781CB5FCD800299C80 /* InfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewController.xib; sourceTree = "<group>"; };
 		60C76A9C1CA5F0EF0030A7B4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		60C76A9D1CA5F0EF0030A7B4 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
-		60D10DD21CB0AE080053D971 /* CoreDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDelegateProtocol.swift; sourceTree = "<group>"; };
+		60D10DD21CB0AE080053D971 /* CoreDataDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataDelegate.swift; sourceTree = "<group>"; };
 		60D10DD41CB0AE430053D971 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		60D10DD61CB0AEC10053D971 /* Requirement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requirement.swift; sourceTree = "<group>"; };
 		60DE62D61CA4CC5900AAFB32 /* SidebarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarTableViewCell.swift; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 				6042D7D31CA78C6A00273B20 /* StringExtension.swift */,
 				60AFAAFC1CACD00A0008371F /* KDCircularProgress.swift */,
 				604139D71CAED3D1008C6B72 /* Constants.swift */,
-				60D10DD21CB0AE080053D971 /* CoreDelegateProtocol.swift */,
+				60D10DD21CB0AE080053D971 /* CoreDataDelegate.swift */,
 				60D10DD41CB0AE430053D971 /* Enums.swift */,
 				60D10DD61CB0AEC10053D971 /* Requirement.swift */,
 				6023F5F31CB1C8B10070E340 /* CourseSearchableDelegate.swift */,
@@ -553,7 +553,7 @@
 				60C76A9E1CA5F0EF0030A7B4 /* DetailViewController.swift in Sources */,
 				60A8281D1CAA2DD80021247B /* Vector.swift in Sources */,
 				60B7C6221CA1CF3300B9D190 /* DataManager.swift in Sources */,
-				60D10DD31CB0AE080053D971 /* CoreDelegateProtocol.swift in Sources */,
+				60D10DD31CB0AE080053D971 /* CoreDataDelegate.swift in Sources */,
 				60AFAAFD1CACD00A0008371F /* KDCircularProgress.swift in Sources */,
 				60B7C6261CA1D86E00B9D190 /* Course.swift in Sources */,
 				60B359281CA73AC300A63524 /* CourseAnalyzer.swift in Sources */,

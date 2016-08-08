@@ -11,15 +11,8 @@
             <rect key="frame" x="0.0" y="0.0" width="423" height="161"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="83Y-ZH-rfL">
-                    <rect key="frame" x="16" y="32" width="391" height="58"/>
-                    <string key="text">ClassGuide helps Cornell CS students with keeping track of the courses they have taken, and calculates their progress towards completing major and vector requirements. If you have any questions or feedback, please contact jmc622@cornell.edu.</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRz-f3-0t3">
-                    <rect key="frame" x="16" y="98" width="391" height="30"/>
+                    <rect key="frame" x="16" y="112" width="391" height="30"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.65540540540000003" colorSpace="calibratedRGB"/>
                     <size key="titleShadowOffset" width="4" height="0.0"/>
                     <state key="normal" title="Cornell CS Major Information">
@@ -29,16 +22,24 @@
                         <action selector="majorButtonClicked:" destination="os2-ez-E8X" eventType="touchUpInside" id="N8x-w1-Gai"/>
                     </connections>
                 </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="w3U-PV-OuQ">
+                    <rect key="frame" x="16" y="25" width="391" height="83"/>
+                    <color key="backgroundColor" red="0.61176470589999998" green="0.1960784314" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <string key="text">ClassGuide helps Cornell CS students with keeping track of the courses they have taken, and calculates their progress towards completing major and vector requirements.</string>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
             <color key="backgroundColor" red="0.61176470589999998" green="0.1960784314" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="83Y-ZH-rfL" firstAttribute="centerX" secondItem="os2-ez-E8X" secondAttribute="centerX" id="Tdy-KS-O7v"/>
-                <constraint firstAttribute="trailing" secondItem="83Y-ZH-rfL" secondAttribute="trailing" constant="16" id="Yia-zM-vXJ"/>
-                <constraint firstItem="83Y-ZH-rfL" firstAttribute="top" secondItem="os2-ez-E8X" secondAttribute="top" constant="32" id="Yvl-0O-Aqv"/>
-                <constraint firstItem="83Y-ZH-rfL" firstAttribute="leading" secondItem="os2-ez-E8X" secondAttribute="leading" constant="16" id="eWT-Cd-z2l"/>
-                <constraint firstItem="NRz-f3-0t3" firstAttribute="top" secondItem="83Y-ZH-rfL" secondAttribute="bottom" constant="8" symbolic="YES" id="pnf-ZK-nUi"/>
-                <constraint firstItem="83Y-ZH-rfL" firstAttribute="leading" secondItem="NRz-f3-0t3" secondAttribute="leading" id="tHR-Xo-IcW"/>
-                <constraint firstItem="83Y-ZH-rfL" firstAttribute="trailing" secondItem="NRz-f3-0t3" secondAttribute="trailing" id="wKW-F0-79A"/>
+                <constraint firstAttribute="bottom" secondItem="NRz-f3-0t3" secondAttribute="bottom" constant="19" id="7jt-Hb-Zgj"/>
+                <constraint firstItem="w3U-PV-OuQ" firstAttribute="trailing" secondItem="NRz-f3-0t3" secondAttribute="trailing" id="FFt-u8-OFx"/>
+                <constraint firstItem="w3U-PV-OuQ" firstAttribute="leading" secondItem="NRz-f3-0t3" secondAttribute="leading" id="L5A-3D-tlS"/>
+                <constraint firstItem="NRz-f3-0t3" firstAttribute="top" secondItem="w3U-PV-OuQ" secondAttribute="bottom" constant="4" id="OBf-BV-FkN"/>
+                <constraint firstItem="w3U-PV-OuQ" firstAttribute="centerX" secondItem="os2-ez-E8X" secondAttribute="centerX" id="aRF-er-KRA"/>
+                <constraint firstItem="w3U-PV-OuQ" firstAttribute="leading" secondItem="os2-ez-E8X" secondAttribute="leading" constant="16" id="sLa-0C-soT"/>
+                <constraint firstItem="w3U-PV-OuQ" firstAttribute="top" secondItem="os2-ez-E8X" secondAttribute="top" constant="25" id="wXB-WH-0XE"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
