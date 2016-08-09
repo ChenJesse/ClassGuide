@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -16,38 +16,38 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NQz-xs-AUY">
-                        <rect key="frame" x="76" y="22" width="1" height="37"/>
+                        <rect key="frame" x="76" y="23" width="1" height="62"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SS2-E5-BKn">
-                        <rect key="frame" x="85" y="34" width="129" height="41"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="129" id="PhR-N5-oVx"/>
+                            <constraint firstAttribute="width" constant="1" id="oN9-eu-ve5"/>
                         </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lUZ-dt-TxB">
+                        <rect key="frame" x="24" y="33" width="35" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="35" id="2ux-iW-Qlr"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SS2-E5-BKn">
+                        <rect key="frame" x="93" y="33" width="234" height="42"/>
                         <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="17"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lUZ-dt-TxB">
-                        <rect key="frame" x="33" y="33" width="35" height="43"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="35" id="9w7-CQ-sR0"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                <color key="backgroundColor" red="0.61363636359999996" green="0.19489535650000001" blue="0.17212780450000001" alpha="1" colorSpace="calibratedRGB"/>
                 <color key="tintColor" red="0.61176470589999998" green="0.1960784314" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="25" id="0uP-VL-KvK"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="NQz-xs-AUY" secondAttribute="bottom" constant="42" id="2Nh-Se-uI7"/>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="25" id="5N5-My-De5"/>
-                    <constraint firstItem="SS2-E5-BKn" firstAttribute="leading" secondItem="NQz-xs-AUY" secondAttribute="trailing" constant="8" symbolic="YES" id="6G6-1m-aI8"/>
-                    <constraint firstItem="SS2-E5-BKn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="26" id="6Zy-Sr-21D"/>
-                    <constraint firstItem="SS2-E5-BKn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="85" id="EJI-z0-IXQ"/>
-                    <constraint firstItem="NQz-xs-AUY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="14" id="KHO-ng-xLZ"/>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="centerY" secondItem="SS2-E5-BKn" secondAttribute="centerY" id="R14-kp-cgu"/>
-                    <constraint firstItem="NQz-xs-AUY" firstAttribute="leading" secondItem="lUZ-dt-TxB" secondAttribute="trailing" constant="8" symbolic="YES" id="fyo-Lz-QMb"/>
-                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mOZ-5R-lkI"/>
+                    <constraint firstItem="SS2-E5-BKn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="25" id="DdM-sO-2fh"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="SS2-E5-BKn" secondAttribute="bottom" constant="26" id="E4N-4s-9S6"/>
+                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="centerY" secondItem="NQz-xs-AUY" secondAttribute="centerY" id="FKc-CQ-LrT"/>
+                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="25" id="HHQ-U9-Xa0"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="SS2-E5-BKn" secondAttribute="trailing" constant="23" id="LvI-wb-hB8"/>
+                    <constraint firstItem="SS2-E5-BKn" firstAttribute="leading" secondItem="NQz-xs-AUY" secondAttribute="trailing" constant="16" id="QBz-1p-Jfh"/>
+                    <constraint firstItem="NQz-xs-AUY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="15" id="Ynk-3k-wmf"/>
+                    <constraint firstItem="NQz-xs-AUY" firstAttribute="leading" secondItem="lUZ-dt-TxB" secondAttribute="trailing" constant="17" id="jlQ-FB-FMQ"/>
+                    <constraint firstItem="lUZ-dt-TxB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="mRt-vF-jQo"/>
+                    <constraint firstItem="NQz-xs-AUY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rpP-Mr-ath"/>
                 </constraints>
             </tableViewCellContentView>
             <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>

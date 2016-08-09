@@ -64,6 +64,8 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("HomeCell", forIndexPath: indexPath) as! CourseTableViewCell
         let thisCourse = desiredCourses[indexPath.row]
+        cell.course = thisCourse
+        cell.parentTable = self
         cell.courseCodeLabel.text = thisCourse.subject.rawValue + "\(thisCourse.courseNumber)"
         cell.courseTitleLabel.text = thisCourse.titleShort
         cell.courseTitleLabel.adjustsFontSizeToFitWidth = true
