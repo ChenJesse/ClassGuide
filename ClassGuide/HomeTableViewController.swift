@@ -66,6 +66,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         let thisCourse = desiredCourses[indexPath.row]
         cell.course = thisCourse
         cell.parentTable = self
+        cell.coreDataDelegate = self
         cell.courseCodeLabel.text = thisCourse.subject.rawValue + "\(thisCourse.courseNumber)"
         cell.courseTitleLabel.text = thisCourse.titleShort
         cell.courseTitleLabel.adjustsFontSizeToFitWidth = true
