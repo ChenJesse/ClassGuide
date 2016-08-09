@@ -15,6 +15,7 @@ class CourseTableViewCell: UITableViewCell {
     @IBOutlet weak var statusImageView: UIImageView!
     var course: Course!
     var parentTable: UITableViewController!
+    var coreDataDelegate: CoreDataDelegate!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,11 +32,11 @@ class CourseTableViewCell: UITableViewCell {
     func imageTapped() {
         switch (course.status) {
         case .None:
-            course.status = .PlanTo
+            coreDataDelegate.handleChangedCourse(course, status: .PlanTo)
         case .PlanTo:
-            course.status = .Taken
+            coreDataDelegate.handleChangedCourse(course, status: .Taken)
         case .Taken:
-            course.status = .None
+            coreDataDelegate.handleChangedCourse(course, status: .None)
         }
         parentTable.tableView.reloadData()
     }
