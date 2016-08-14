@@ -23,6 +23,7 @@ class CourseTableViewCell: UITableViewCell {
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action: #selector(self.imageTapped))
         statusImageView.userInteractionEnabled = true
         statusImageView.addGestureRecognizer(tapGestureRecognizer)
+        //courseCodeLabel.addDropShadowToView(courseCodeLabel)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

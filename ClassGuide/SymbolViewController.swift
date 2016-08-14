@@ -29,6 +29,7 @@ class SymbolViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         collectionView.reloadData()
         self.view.addSubview(collectionView)
+        normalizeNavBar()
         addRevealVCButton()
     }
     

@@ -14,3 +14,19 @@ extension UIColor {
     @nonobjc static let darkGreen = UIColor(red: 0.0/255.0, green: 153.0/255.0, blue: 0.0/255.0, alpha: 1.0)
     @nonobjc static let maroon = UIColor(red: 102.0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
 }
+
+extension UIView {
+    func addDropShadowToView(targetView: UIView?) {
+        targetView!.layer.masksToBounds =  false
+        targetView!.layer.shadowColor = UIColor.blackColor().CGColor;
+        targetView!.layer.shadowOffset = CGSizeMake(0.1, 0.1)
+        targetView!.layer.shadowOpacity = 1.0
+    }
+}
+
+extension UIViewController {
+    public func normalizeNavBar() {
+        navigationController?.navigationBarHidden = false
+        navigationController?.hidesBarsOnSwipe = false
+    }
+}

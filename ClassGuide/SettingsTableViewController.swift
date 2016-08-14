@@ -25,10 +25,10 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tableView.allowsSelection = false
         tableView.backgroundColor = .blackColor()
         tableView.registerNib(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
         navigationItem.title = "Settings"
+        normalizeNavBar()
         addRevealVCButton()
         populateCellTapped()
         setupRequirementsButton()

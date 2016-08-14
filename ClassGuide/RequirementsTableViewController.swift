@@ -29,6 +29,7 @@ class RequirementsTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.registerNib(UINib(nibName: "RequirementsTableViewCell", bundle: nil), forCellReuseIdentifier: "RequirementCell")
         tableView.backgroundColor  = UIColor.maroon
+        normalizeNavBar()
         mandatoryOnly = defaults.boolForKey("mandatory")
         setupMandatoryToggle()
         setupSettingsButton()

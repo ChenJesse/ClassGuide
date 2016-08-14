@@ -49,8 +49,6 @@
 		60B7C6261CA1D86E00B9D190 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B7C6251CA1D86E00B9D190 /* Course.swift */; };
 		60B7C6281CA1DD6000B9D190 /* Instructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B7C6271CA1DD6000B9D190 /* Instructor.swift */; };
 		60B7C62B1CA20DD400B9D190 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60B7C6291CA20DD400B9D190 /* Model.xcdatamodeld */; };
-		60BF5B791CB5FCD800299C80 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BF5B771CB5FCD800299C80 /* InfoViewController.swift */; };
-		60BF5B7A1CB5FCD800299C80 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60BF5B781CB5FCD800299C80 /* InfoViewController.xib */; };
 		60C76A9E1CA5F0EF0030A7B4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C76A9C1CA5F0EF0030A7B4 /* DetailViewController.swift */; };
 		60C76A9F1CA5F0EF0030A7B4 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60C76A9D1CA5F0EF0030A7B4 /* DetailViewController.xib */; };
 		60D10DD31CB0AE080053D971 /* CoreDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D10DD21CB0AE080053D971 /* CoreDataDelegate.swift */; };
@@ -132,8 +130,6 @@
 		60B7C6251CA1D86E00B9D190 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		60B7C6271CA1DD6000B9D190 /* Instructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instructor.swift; sourceTree = "<group>"; };
 		60B7C62A1CA20DD400B9D190 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		60BF5B771CB5FCD800299C80 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		60BF5B781CB5FCD800299C80 /* InfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewController.xib; sourceTree = "<group>"; };
 		60C76A9C1CA5F0EF0030A7B4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		60C76A9D1CA5F0EF0030A7B4 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		60D10DD21CB0AE080053D971 /* CoreDataDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataDelegate.swift; sourceTree = "<group>"; };
@@ -235,8 +231,6 @@
 				608921291CAB4C3C0039F8F9 /* RequirementsTableViewController.xib */,
 				609C20271CAC597400C98782 /* SettingsTableViewController.swift */,
 				609C20291CAC597D00C98782 /* SettingsTableViewController.xib */,
-				60BF5B771CB5FCD800299C80 /* InfoViewController.swift */,
-				60BF5B781CB5FCD800299C80 /* InfoViewController.xib */,
 				604A76141CE81DBD00EED876 /* SymbolViewController.swift */,
 				600AB1EB1CE99D0000DF46F5 /* AboutHeaderView.swift */,
 				604A76161CE826DB00EED876 /* AboutHeaderView.xib */,
@@ -471,7 +465,6 @@
 				604A76131CE8127500EED876 /* SymbolCollectionViewCell.xib in Resources */,
 				60608E751CA5895E00D7C9D7 /* ManageTableViewController.xib in Resources */,
 				6089212B1CAB4C3C0039F8F9 /* RequirementsTableViewController.xib in Resources */,
-				60BF5B7A1CB5FCD800299C80 /* InfoViewController.xib in Resources */,
 				60A985D11CA1C8D6006024CA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,7 +542,6 @@
 				6089212A1CAB4C3C0039F8F9 /* RequirementsTableViewController.swift in Sources */,
 				60B7C61F1CA1CD9D00B9D190 /* CourseTableViewCell.swift in Sources */,
 				608921361CAB75BA0039F8F9 /* SettingsTableViewCell.swift in Sources */,
-				60BF5B791CB5FCD800299C80 /* InfoViewController.swift in Sources */,
 				60C76A9E1CA5F0EF0030A7B4 /* DetailViewController.swift in Sources */,
 				60A8281D1CAA2DD80021247B /* Vector.swift in Sources */,
 				60B7C6221CA1CF3300B9D190 /* DataManager.swift in Sources */,

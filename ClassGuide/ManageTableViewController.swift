@@ -33,6 +33,7 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate, Course
         self.editButtonItem().image = UIImage(named: "editingIcon")
         self.editButtonItem().title = ""
         navigationItem.rightBarButtonItem = self.editButtonItem()
+        normalizeNavBar()
         refreshCourses()
         addRevealVCButton()
         setupSearchBar()

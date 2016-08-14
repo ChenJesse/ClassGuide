@@ -39,11 +39,11 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         }
         processCourses()
         tableView.reloadData()
-        
     }
     
     override func viewDidAppear(animated: Bool) {
         addPanGesture()
+        navigationController?.hidesBarsOnSwipe = true
         tableView.reloadData()
     }
 
@@ -291,6 +291,10 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         handleSearchBarSearchButtonClicked(searchBar)
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return (self.navigationController?.navigationBarHidden)!
     }
 
 }
