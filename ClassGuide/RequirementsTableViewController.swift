@@ -62,6 +62,11 @@ class RequirementsTableViewController: UITableViewController {
         let desiredItem = progress[indexPath.section][indexPath.row]
         cell.requirementLabel.text = desiredItem.description
         cell.requirementLabel.adjustsFontSizeToFitWidth = true
+        var courseNumbers = ""
+        desiredItem.courses.forEach { (course: Course) in
+            courseNumbers += "\(course.courseNumber), "
+        }
+        cell.courseLabel.text = courseNumbers.chopSuffix(2)
         cell.optionalImageView.image = (desiredItem.priority == .Mandatory) ? UIImage(named: "mandatoryIcon") : UIImage(named: "optionalIcon")
         if (desiredItem.supported == .Unsupported) {
             cell.isCSCourse = false
