@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SwiftSpinner
 
 class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSearchDelegate {
     
@@ -129,6 +130,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     
     func updateCourses() {
         //store the Status information
+        SwiftSpinner.show("Fetching courses")
         var statusDict: [String: Status] = [:]
         for course in courses {
             statusDict[course.key()] = course.status
@@ -153,7 +155,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         dataManager.courseArray.removeAll()
         self.tableView.reloadData()
         
-        for semester in dataManager.semesters {
+        dataManager.semesters.forEach { semester in
             defaults.setBool(false, forKey: semester)
         }
         
@@ -165,6 +167,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
             self.processCourses()
             self.saveCoreData()
             self.tableView.reloadData()
+            SwiftSpinner.hide()
             self.refreshControl?.endRefreshing()
         }
     }
@@ -259,6 +262,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     
     func setupPullToReload() {
         refreshControl = UIRefreshControl()
+        //refreshControl?.addSubview(SwiftSpinner())
         refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl!.addTarget(self, action: #selector(HomeTableViewController.updateCourses), forControlEvents: UIControlEvents.ValueChanged)
     }

@@ -8,16 +8,40 @@
 
 import Foundation
 
-class RequirementItem {
+public class RequirementItem {
     
+    var fulfillment: Int
+    var satisfied: Int
     var description: String
     var percentage: Float
     var priority: Priority
+    var supported: CourseSupport
+    var completed: Bool
+    var courses: [Course]
     
-    internal init(description: String, percentage: Float, type: Priority) {
+    public init(fulfillment: Int, description: String, type: Priority, supported: CourseSupport) {
+        self.fulfillment = fulfillment
+        self.satisfied = 0
         self.description = description
-        self.percentage = percentage
+        self.percentage = 0
         self.priority = type
+        self.supported = supported
+        self.completed = false
+        self.courses = []
     }
     
+    func reset() {
+        satisfied = 0
+        percentage = 0
+        completed = false
+    }
+    
+    func increment(course: Course) {
+        courses.append(course)
+        satisfied += 1
+        if !completed {
+            percentage = Float(satisfied) / Float(fulfillment)
+            completed = (percentage >= 1.0)
+        }
+    }
 }

@@ -21,7 +21,7 @@ extension CourseSearchDelegate {
         searchBar = UISearchBar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 30))
         searchBar.searchBarStyle = .Minimal
         searchBar.tintColor = UIColor.cornellRed
-        searchBar.backgroundColor = UIColor.darkGrey
+        searchBar.backgroundColor = UIColor.blackColor()
         let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.cornellRed
         searchBar.delegate = self as CourseSearchDelegate

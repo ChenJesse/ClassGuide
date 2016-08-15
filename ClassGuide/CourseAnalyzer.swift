@@ -53,18 +53,18 @@ public func checkFxxx(course: Course) -> Bool {
     return course.courseNumber >= 4000 && course.courseNumber != 4820 && course.courseNumber != 4090 && course.courseNumber != 4999 && course.courseNumber != 4410 && !checkPracticum(course)
 }
 
-public func getThousandsDigit(course: Course) -> Int {
+public func getThousands(course: Course) -> Int {
     return course.courseNumber / 1000
 }
 
-public func getHundredthsDigit(course: Course) -> Int {
+public func getHundredths(course: Course) -> Int {
     return ((course.courseNumber % 1000) / 100)
 }
 
-public func getTenthsDigit(course: Course) -> Int {
+public func getTenths(course: Course) -> Int {
     return (course.courseNumber % 100) / 10
 }
 
-public func getOnesDigit(course: Course) -> Int {
+public func getOnes(course: Course) -> Int {
     return (course.courseNumber % 10)
 }

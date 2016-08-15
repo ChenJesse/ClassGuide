@@ -3,6 +3,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 pod 'Alamofire', '~> 3.1.5'
 pod 'SwiftyJSON', '~> 2.3.2'
+pod 'SwiftSpinner'
 
 target 'ClassGuide' do
 

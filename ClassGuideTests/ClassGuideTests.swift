@@ -35,27 +35,29 @@ class ClassGuideTests: XCTestCase {
             Course(number: 4411),
             Course(number: 4000),
             Course(number: 4003),
-            Course(number: 4002)
+            Course(number: 4002),
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken111x)
-        XCTAssert(req.taken2110or2112)
-        XCTAssert(req.taken3110)
-        XCTAssert(req.taken3410)
-        XCTAssert(req.taken4410)
-        XCTAssert(req.taken4820)
-        XCTAssertEqual(req.electivesFulfilled, 3)
+        XCTAssert(req.taken111x.completed)
+        XCTAssert(req.taken2110or2112.completed)
+        XCTAssert(req.taken3110.completed)
+        XCTAssert(req.taken3410.completed)
+        XCTAssert(req.taken4410.completed)
+        XCTAssert(req.taken4820.completed)
+        XCTAssert(req.takenProject.completed)
+        XCTAssertEqual(req.takenElectives.satisfied, 3)
         
         let plannedCourses: [Course] = [Course(number: 2112)]
         
         req.calculateProgress(NSMutableSet(), plannedCourses: NSMutableSet(array: plannedCourses))
-        XCTAssert(!req.taken111x)
-        XCTAssert(req.taken2110or2112)
-        XCTAssert(!req.taken3110)
-        XCTAssert(!req.taken3410)
-        XCTAssert(!req.taken4410)
-        XCTAssert(!req.taken4820)
-        XCTAssertEqual(req.electivesFulfilled, 0)
+        XCTAssert(!req.taken111x.completed)
+        XCTAssert(req.taken2110or2112.completed)
+        XCTAssert(!req.taken3110.completed)
+        XCTAssert(!req.taken3410.completed)
+        XCTAssert(!req.taken4410.completed)
+        XCTAssert(!req.taken4820.completed)
+        XCTAssert(!req.takenProject.completed)
+        XCTAssertEqual(req.takenElectives.satisfied, 0)
     }
     
     func testRenaissance() {
@@ -71,14 +73,14 @@ class ClassGuideTests: XCTestCase {
             Course(number: 5112)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssertEqual(req.FxxxCourses, 4)
-        XCTAssertEqual(req.differentHundredths, 2)
-        XCTAssert(!req.hundredthsIs2or8)
+        XCTAssertEqual(req.FxxxCourses.satisfied, 4)
+        XCTAssertEqual(req.differentHundredths.satisfied, 2)
+        XCTAssert(!req.hundredthsIs2or8.completed)
         takenCourses.append(Course(number: 4200))
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssertEqual(req.FxxxCourses, 5)
-        XCTAssertEqual(req.differentHundredths, 3)
-        XCTAssert(req.hundredthsIs2or8)
+        XCTAssertEqual(req.FxxxCourses.satisfied, 5)
+        XCTAssertEqual(req.differentHundredths.satisfied, 3)
+        XCTAssert(req.hundredthsIs2or8.completed)
     }
     
     func testAI() {
@@ -92,12 +94,12 @@ class ClassGuideTests: XCTestCase {
             Course(number: 4300)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.takenCS4700)
-        XCTAssert(req.takenCS4701)
-        XCTAssert(req.takenF78xOrF75x)
-        XCTAssert(req.takenF7xxOr4300orF67xor5846)
-        XCTAssert(req.takenF74xor4300)
-        XCTAssert(req.taken4300orF74xorF75xorF67xorF2xx)
+        XCTAssert(req.takenCS4700.completed)
+        XCTAssert(req.takenCS4701.completed)
+        XCTAssert(req.takenF78xOrF75x.completed)
+        XCTAssert(req.takenF7xxOr4300orF67xor5846.completed)
+        XCTAssert(req.takenF74xor4300.completed)
+        XCTAssert(req.taken4300orF74xorF75xorF67xorF2xx.completed)
         
         takenCourses = [
             Course(number: 4700),
@@ -108,12 +110,12 @@ class ClassGuideTests: XCTestCase {
         ]
         
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.takenCS4700)
-        XCTAssert(req.takenCS4701)
-        XCTAssert(req.takenF78xOrF75x)
-        XCTAssert(req.takenF7xxOr4300orF67xor5846)
-        XCTAssert(req.takenF74xor4300)
-        XCTAssert(req.taken4300orF74xorF75xorF67xorF2xx)
+        XCTAssert(req.takenCS4700.completed)
+        XCTAssert(req.takenCS4701.completed)
+        XCTAssert(req.takenF78xOrF75x.completed)
+        XCTAssert(req.takenF7xxOr4300orF67xor5846.completed)
+        XCTAssert(req.takenF74xor4300.completed)
+        XCTAssert(req.taken4300orF74xorF75xorF67xorF2xx.completed)
     }
     
     func testCSE() {
@@ -123,29 +125,28 @@ class ClassGuideTests: XCTestCase {
             Course(number: 6210)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssertEqual(req.F2xxFulfilled, 1)
+        XCTAssertEqual(req.F2xxFulfilled.satisfied, 1)
         takenCourses = [
             Course(number: 4220),
             Course(number: 4222)
         ]
         
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssertEqual(req.F2xxFulfilled, 2)
+        XCTAssertEqual(req.F2xxFulfilled.satisfied, 2)
         takenCourses = [
             Course(number: 6220),
             Course(number: 4222)
         ]
         
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssertEqual(req.F2xxFulfilled, 2)
+        XCTAssertEqual(req.F2xxFulfilled.satisfied, 2)
         takenCourses = [
             Course(number: 2024),
             Course(number: 2022)
         ]
         
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken2024)
-        XCTAssert(req.taken2022)
+        XCTAssertEqual(req.taken20xx.satisfied, 2)
     }
     
     func testGraphics() {
@@ -155,23 +156,23 @@ class ClassGuideTests: XCTestCase {
             Course(number: 4621)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken4620)
-        XCTAssert(req.taken4621)
+        XCTAssert(req.taken4620.completed)
+        XCTAssert(req.taken4621.completed)
         takenCourses = [
             Course(number: 4222)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.takenF2xx)
+        XCTAssert(req.takenF2xx.completed)
         takenCourses = [
             Course(number: 6620)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken5625or5643or6620or6630or6640or6650)
-        XCTAssert(!req.takenF6xxor3152or4152or4154)
+        XCTAssert(req.taken5625or5643or6620or6630or6640or6650.completed)
+        XCTAssert(!req.takenF6xxor3152or4152or4154.completed)
         takenCourses.append(Course(number: 4666))
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken5625or5643or6620or6630or6640or6650)
-        XCTAssert(req.takenF6xxor3152or4152or4154)
+        XCTAssert(req.taken5625or5643or6620or6630or6640or6650.completed)
+        XCTAssert(req.takenF6xxor3152or4152or4154.completed)
     }
     
     func testNS() {
@@ -181,12 +182,12 @@ class ClassGuideTests: XCTestCase {
             Course(number: 4220)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssertEqual(req.x85xor4220Fulfilled, 2)
+        XCTAssertEqual(req.x85xor4220Fulfilled.satisfied, 2)
         takenCourses = [
             Course(number: 4788)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.takenF78xor4758)
+        XCTAssert(req.takenF78xor4758.completed)
     }
     
     func testPL() {
@@ -195,20 +196,20 @@ class ClassGuideTests: XCTestCase {
             Course(number: 4110)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.takenF110)
+        XCTAssert(req.takenF110.completed)
         takenCourses.append(Course(number: 4120))
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken4120)
+        XCTAssert(req.taken4120.completed)
         takenCourses.append(Course(number: 4121))
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken4121)
+        XCTAssert(req.taken4121.completed)
         takenCourses = [
             Course(number: 5114),
             Course(number: 2022)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken4860or5114or5860orF810or6110)
-        XCTAssert(req.taken202x)
+        XCTAssert(req.taken4860or5114or5860orF810or6110.completed)
+        XCTAssert(req.taken202x.completed)
     }
     
     func testSE() {
@@ -220,9 +221,9 @@ class ClassGuideTests: XCTestCase {
             Course(number: 6620)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken5150or5152)
-        XCTAssertEqual(req.practicumsFulfilled, 2)
-        XCTAssert(req.taken4152or4154orF45xor5300or5412or5414or5625or5643or6620or6630or6650)
+        XCTAssert(req.taken5150or5152.completed)
+        XCTAssertEqual(req.practicumsFulfilled.satisfied, 2)
+        XCTAssert(req.taken4152or4154orF45xor5300or5412or5414or5625or5643or6620or6630or6650.completed)
         takenCourses = [
             Course(number: 5150),
             Course(number: 4321),
@@ -230,9 +231,9 @@ class ClassGuideTests: XCTestCase {
             Course(number: 4455)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken5150or5152)
-        XCTAssertEqual(req.practicumsFulfilled, 1)
-        XCTAssert(req.taken4152or4154orF45xor5300or5412or5414or5625or5643or6620or6630or6650)
+        XCTAssert(req.taken5150or5152.completed)
+        XCTAssertEqual(req.practicumsFulfilled.satisfied, 1)
+        XCTAssert(req.taken4152or4154orF45xor5300or5412or5414or5625or5643or6620or6630or6650.completed)
     }
     
     func testSD() {
@@ -241,19 +242,22 @@ class ClassGuideTests: XCTestCase {
             Course(number: 4411),
             Course(number: 4444),
             Course(number: 4129),
-            Course(number: 5320)
+            Course(number: 5320),
+            Course(number: 4780)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken4411)
-        XCTAssertEqual(req.F4xxorF12xorF32xor5300Fulfilled, 3)
+        XCTAssert(req.taken4411.completed)
+        XCTAssert(req.takenExtraCSF78xor4758or4300or6740.completed)
+        XCTAssert(req.F4xxorF12xorF32xor5300Fulfilled.completed)
+        XCTAssertEqual(req.F4xxorF12xorF32xor5300Fulfilled.satisfied, 3)
         takenCourses = [
             Course(number: 4444),
             Course(number: 4320),
             Course(number: 4320)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssertEqual(req.F4xxorF12xorF32xor5300Fulfilled, 2)
-        XCTAssert(req.taken4320)
+        XCTAssertEqual(req.F4xxorF12xorF32xor5300Fulfilled.satisfied, 2)
+        XCTAssert(req.taken4320or5300.completed)
         takenCourses = [
             Course(number: 4411),
             Course(number: 5430),
@@ -262,11 +266,13 @@ class ClassGuideTests: XCTestCase {
             Course(number: 5300)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken4411)
-        XCTAssert(req.taken5430)
-        XCTAssert(req.taken5412or5414)
-        XCTAssert(req.taken4320)
-        XCTAssert(req.taken5300)
+        XCTAssert(req.taken4411.completed)
+        XCTAssert(req.taken5430.completed)
+        XCTAssert(req.taken5412or5414.completed)
+        XCTAssert(req.taken4320or5300.completed)
+        takenCourses = [
+        
+        ]
     }
     
     func testTheory() {
@@ -275,12 +281,12 @@ class ClassGuideTests: XCTestCase {
             Course(number: 4811)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(req.taken481x)
+        XCTAssert(req.taken481x.completed)
         takenCourses = [
             Course(number: 6810)
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
-        XCTAssert(!req.taken481x)
+        XCTAssert(!req.taken481x.completed)
     }
     
     func testPerformanceExample() {

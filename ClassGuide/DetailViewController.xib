@@ -30,7 +30,7 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="88" id="hlD-eh-arx"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -50,7 +50,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="54p-74-f2f"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -60,7 +60,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="DKl-OQ-wJG"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -70,7 +70,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="1cs-7f-tQI"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -80,7 +80,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="1RK-pT-fo4"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -105,7 +105,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="Lud-zg-wen"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -114,7 +114,7 @@
                     <color key="backgroundColor" red="0.61176470589999998" green="0.1960784314" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Semester" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nvx-06-MTx">
@@ -123,7 +123,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="W0x-Xz-ZPQ"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>

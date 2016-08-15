@@ -9,11 +9,11 @@
 import Foundation
 
 class ReqWrapper {
-    let req: Requirement
+    let req: ReqSet
     var toggled: Bool
     let key: SettingsKey
     
-    init(req: Requirement, key: SettingsKey) {
+    init(req: ReqSet, key: SettingsKey) {
         let defaults = (UIApplication.sharedApplication().delegate as! AppDelegate).defaults
         self.req = req
         self.toggled = defaults.objectForKey(key.rawValue) as? Bool ?? true

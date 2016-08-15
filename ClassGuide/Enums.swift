@@ -116,3 +116,8 @@ public enum Priority {
     case Mandatory
     case Optional
 }
+
+public enum CourseSupport {
+    case Supported
+    case Unsupported
+}

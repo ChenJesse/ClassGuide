@@ -17,7 +17,7 @@ class RequirementsTableViewController: UITableViewController {
     var takenCourses: NSMutableSet!
     var plannedCourses: NSMutableSet!
     
-    var requirements: [Requirement] = []
+    var requirements: [ReqSet] = []
     var progress: [[RequirementItem]] = []
     var settings: [String: Bool]!
     var defaults: NSUserDefaults!
@@ -63,7 +63,7 @@ class RequirementsTableViewController: UITableViewController {
         cell.requirementLabel.text = desiredItem.description
         cell.requirementLabel.adjustsFontSizeToFitWidth = true
         cell.optionalImageView.image = (desiredItem.priority == .Mandatory) ? UIImage(named: "mandatoryIcon") : UIImage(named: "optionalIcon")
-        if (desiredItem.percentage == unsupportedCourseValue) { //course not suppported by app
+        if (desiredItem.supported == .Unsupported) {
             cell.isCSCourse = false
             cell.statusImageView.image = UIImage(named: "handIcon")
             let courseCompleted = defaults.boolForKey(desiredItem.description)

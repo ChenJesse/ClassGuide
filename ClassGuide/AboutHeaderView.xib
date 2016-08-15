@@ -14,6 +14,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRz-f3-0t3">
                     <rect key="frame" x="16" y="112" width="391" height="30"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.65540540540000003" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <size key="titleShadowOffset" width="4" height="0.0"/>
                     <state key="normal" title="Cornell CS Major Information">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -27,7 +28,7 @@
                     <color key="backgroundColor" red="0.61176470589999998" green="0.1960784314" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                     <string key="text">ClassGuide helps Cornell CS students with keeping track of the courses they have taken, and calculates their progress towards completing major and vector requirements.</string>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
             </subviews>
