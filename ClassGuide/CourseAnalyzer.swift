@@ -50,7 +50,7 @@ public func printSpecialAttributes(course: Course) -> String {
 }
 
 public func checkFxxx(course: Course) -> Bool {
-    return course.courseNumber >= 4000 && course.courseNumber != 4820 && course.courseNumber != 4999 && course.courseNumber != 4410 && !checkPracticum(course)
+    return course.courseNumber >= 4000 && course.courseNumber != 4820 && course.courseNumber != 4090 && course.courseNumber != 4999 && course.courseNumber != 4410 && !checkPracticum(course)
 }
 
 public func getThousandsDigit(course: Course) -> Int {
@@ -65,6 +65,6 @@ public func getTenthsDigit(course: Course) -> Int {
     return (course.courseNumber % 100) / 10
 }
 
-public func getonesDigit(course: Course) -> Int {
+public func getOnesDigit(course: Course) -> Int {
     return (course.courseNumber % 10)
 }

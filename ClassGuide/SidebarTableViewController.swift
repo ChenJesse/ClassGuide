@@ -31,6 +31,10 @@ class SidebarTableViewController: UITableViewController {
         tableView.tableFooterView = UIView()
         tableView.registerNib(UINib(nibName: "SidebarTableViewCell", bundle: nil), forCellReuseIdentifier: "sidebarCell")
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        normalizeNavBar()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

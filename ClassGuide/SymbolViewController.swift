@@ -29,12 +29,12 @@ class SymbolViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         collectionView.reloadData()
         self.view.addSubview(collectionView)
-        normalizeNavBar()
         addRevealVCButton()
     }
     
     override func viewDidAppear(animated: Bool) {
         addPanGesture()
+        normalizeNavBar()
     }
 
     override func didReceiveMemoryWarning() {

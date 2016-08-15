@@ -28,7 +28,6 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
         tableView.backgroundColor = .blackColor()
         tableView.registerNib(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
         navigationItem.title = "Settings"
-        normalizeNavBar()
         addRevealVCButton()
         populateCellTapped()
         setupRequirementsButton()
@@ -36,6 +35,7 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     
     override func viewDidAppear(animated: Bool) {
         addPanGesture()
+        normalizeNavBar()
     }
 
     override func didReceiveMemoryWarning() {

@@ -116,7 +116,7 @@ class AI: Requirement {
     func analyzeCourse(course: Course) {
         if course.courseNumber == 4700 { takenCS4700 = true }
         else if course.courseNumber == 4701 { takenCS4701 = true }
-        else if checkF78xOrF75x(course) { takenF78xOrF75x = true }
+        else if !takenF78xOrF75x && checkF78xOrF75x(course) { takenF78xOrF75x = true }
         else if checkF7xxor4300orF67xor5846(course) {
             takenF7xxOr4300orF67xor5846 = true
             if (checkFxxx(course) && getHundredthsDigit(course) == 7) || course.courseNumber == 4300 {
@@ -162,9 +162,11 @@ class CSE: Requirement {
     let requiredCourses = 4
     var completed: Bool = false
     let requiredF2xx = 2
+    let requiredProgrammingClasses = 3
     
     var seenF2xx: [Int] = []
     var F2xxFulfilled = 0
+    var taken2022 = false
     var taken2024 = false
     var taken2043 = false
     
@@ -181,6 +183,8 @@ class CSE: Requirement {
             taken2024 = true
         } else if course.courseNumber == 2043 {
             taken2043 = true
+        } else if course.courseNumber == 2022 {
+            taken2022 = true
         }
     }
     
@@ -192,7 +196,17 @@ class CSE: Requirement {
     }
     
     func checkCompletion() {
-        completed = (F2xxFulfilled >= requiredF2xx && taken2024 && taken2043)
+        var programmingClasses = 0
+        if taken2024 {
+            programmingClasses += 1
+        }
+        if taken2022 {
+            programmingClasses += 1
+        }
+        if taken2043 {
+            programmingClasses += 1
+        }
+        completed = (F2xxFulfilled >= requiredF2xx && programmingClasses >= requiredProgrammingClasses)
     }
     
     func printMandatoryProgress() -> [RequirementItem] {
@@ -226,8 +240,13 @@ class Graphics: Requirement {
     func analyzeCourse(course: Course) {
         if (course.courseNumber == 4620) { taken4620 = true }
         else if (course.courseNumber == 4621) { taken4621 = true }
+        else if checkF2xx(course) { takenF2xx = true }
         else if check5625or5643or6620or6630or6640or6650(course) { taken5625or5643or6620or6630or6640or6650 = true }
         else if checkF6xxor3152or4152or4154(course) { takenF6xxor3152or4152or4154 = true }
+    }
+    
+    func checkF2xx(course: Course) -> Bool {
+        return (checkFxxx(course) && getHundredthsDigit(course) == 2)
     }
     
     func checkF6xxor3152or4152or4154(course: Course) -> Bool {
@@ -287,34 +306,34 @@ class NS: Requirement {
     
     var x85xor4220Fulfilled = 0
     var seen: [Int] = []
-    var takenF76xor4758 = false
+    var takenF78xor4758 = false
     
     
     func analyzeCourse(course: Course) {
         let isFxxx = checkFxxx(course)
-        if (isFxxx && !seen.contains(course.courseNumber) &&
-            (getTenthsDigit(course) == 8 && getonesDigit(course) == 5) || course.courseNumber == 4220)  {
+        if (!seen.contains(course.courseNumber) &&
+            (getHundredthsDigit(course) == 8 && getTenthsDigit(course) == 5) || course.courseNumber == 4220)  {
             seen.append(course.courseNumber)
             x85xor4220Fulfilled += 1
         } else if (isFxxx && ((getHundredthsDigit(course) == 7 && getTenthsDigit(course) == 8) || course.courseNumber == 4758)) {
-            takenF76xor4758 = true
+            takenF78xor4758 = true
         }
     }
     
     func resetProgress() {
         x85xor4220Fulfilled = 0
         seen.removeAll()
-        takenF76xor4758 = false
+        takenF78xor4758 = false
     }
     
     func checkCompletion() {
-        completed = x85xor4220Fulfilled >= requiredx85xor4220 && takenF76xor4758
+        completed = x85xor4220Fulfilled >= requiredx85xor4220 && takenF78xor4758
     }
     
     func printMandatoryProgress() -> [RequirementItem] {
         var progress: [RequirementItem] = []
         progress.append(RequirementItem(description: "CSx86x/INFO4220 (Core) ", percentage: unsupportedCourseValue, type: .Mandatory))
-        progress.append(RequirementItem(description: "CSF76x/4758 (Core) ", percentage: takenF76xor4758 ? 1 : 0, type: .Mandatory))
+        progress.append(RequirementItem(description: "CSF76x/4758 (Core) ", percentage: takenF78xor4758 ? 1 : 0, type: .Mandatory))
         progress.append(RequirementItem(description: "ORIEx350/ECON4010/ECON4020/SOC3040/SOC4250/SOC5270/CSF84x/INFO4220 (Core) ", percentage: unsupportedCourseValue,type: .Mandatory))
         return progress
     }
@@ -342,7 +361,7 @@ class PL: Requirement {
         let thousandsDigit = getThousandsDigit(course)
         let hundredthsDigit = getHundredthsDigit(course)
         let tenthsDigit = getTenthsDigit(course)
-        let onesDigit = getonesDigit(course)
+        let onesDigit = getOnesDigit(course)
         if isFxxx && hundredthsDigit == 1 && tenthsDigit == 1 && onesDigit == 0 {
             takenF110 = true
         } else if course.courseNumber == 4120 {
@@ -352,7 +371,9 @@ class PL: Requirement {
         } else if (course.courseNumber == 4860 || course.courseNumber == 5114 || course.courseNumber == 5860 ||
                     (isFxxx && hundredthsDigit == 8 && tenthsDigit == 1 && onesDigit == 0) || course.courseNumber == 6110) {
             taken4860or5114or5860orF810or6110 = true
-        } else if (thousandsDigit == 2 && hundredthsDigit == 0 && tenthsDigit == 2) {
+        }
+        
+        if (thousandsDigit == 2 && hundredthsDigit == 0 && tenthsDigit == 2) {
             taken202x = true
         }
     }

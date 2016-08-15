@@ -25,7 +25,7 @@ extension UIView {
 }
 
 extension UIViewController {
-    public func normalizeNavBar() {
+    func normalizeNavBar() {
         navigationController?.navigationBarHidden = false
         navigationController?.hidesBarsOnSwipe = false
     }

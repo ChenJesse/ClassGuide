@@ -33,7 +33,6 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate, Course
         self.editButtonItem().image = UIImage(named: "editingIcon")
         self.editButtonItem().title = ""
         navigationItem.rightBarButtonItem = self.editButtonItem()
-        normalizeNavBar()
         refreshCourses()
         addRevealVCButton()
         setupSearchBar()
@@ -43,6 +42,7 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate, Course
     override func viewDidAppear(animated: Bool) {
         addPanGesture()
         refreshCourses()
+        normalizeNavBar()
     }
 
     override func didReceiveMemoryWarning() {

@@ -29,7 +29,6 @@ class RequirementsTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.registerNib(UINib(nibName: "RequirementsTableViewCell", bundle: nil), forCellReuseIdentifier: "RequirementCell")
         tableView.backgroundColor  = UIColor.maroon
-        normalizeNavBar()
         mandatoryOnly = defaults.boolForKey("mandatory")
         setupMandatoryToggle()
         setupSettingsButton()
@@ -39,6 +38,7 @@ class RequirementsTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         calculateAndFetchProgress()
+        navigationController?.hidesBarsOnSwipe = true
         tableView.reloadData()
         addPanGesture()
     }
@@ -122,7 +122,7 @@ class RequirementsTableViewController: UITableViewController {
         
         if cellTapped[section] { cell.rotateArrow() }
         
-        cell.backgroundColor = UIColor.maroon.colorWithAlphaComponent(0.75)
+        cell.backgroundColor = UIColor.maroon.colorWithAlphaComponent(0.85)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(RequirementsTableViewController.headerClicked(_:)))
         cell.addGestureRecognizer(tapGestureRecognizer)
@@ -224,5 +224,9 @@ class RequirementsTableViewController: UITableViewController {
         for _ in 1...vectorNum {
             cellTapped.append(false)
         }
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return (self.navigationController?.navigationBarHidden)!
     }
 }
