@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SwiftSpinner
 
 class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSearchDelegate {
     
@@ -39,11 +40,11 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         }
         processCourses()
         tableView.reloadData()
-        
     }
     
     override func viewDidAppear(animated: Bool) {
         addPanGesture()
+        //navigationController?.hidesBarsOnSwipe = true
         tableView.reloadData()
     }
 
@@ -80,7 +81,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
             image = UIImage(named: "checkIcon")
         }
         cell.statusImageView.image = image!
-        cell.backgroundColor = UIColor.cornellRed
+        //cell.backgroundColor = UIColor.cornellRed
         return cell
     }
     
@@ -92,7 +93,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         backButton.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
         navigationItem.backBarButtonItem = backButton
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        navigationController?.navigationBar.tintColor = UIColor.cornellRed
+        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -115,7 +116,8 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
             self.tableView.reloadData()
         }
         navigationItem.title = "CS Courses"
-        tableView.backgroundColor = .blackColor()
+        navigationController?.navigationBar.backgroundColor = UIColor.lightGrey
+        //tableView.backgroundColor = .white()
         tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")
         addRevealVCButton()
         setupSegmentedControl()
@@ -129,6 +131,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     
     func updateCourses() {
         //store the Status information
+        SwiftSpinner.show("Fetching courses")
         var statusDict: [String: Status] = [:]
         for course in courses {
             statusDict[course.key()] = course.status
@@ -153,7 +156,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         dataManager.courseArray.removeAll()
         self.tableView.reloadData()
         
-        for semester in dataManager.semesters {
+        dataManager.semesters.forEach { semester in
             defaults.setBool(false, forKey: semester)
         }
         
@@ -165,6 +168,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
             self.processCourses()
             self.saveCoreData()
             self.tableView.reloadData()
+            SwiftSpinner.hide()
             self.refreshControl?.endRefreshing()
         }
     }
@@ -237,10 +241,10 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     }
     
     func setupSegmentedControl() {
-        let yearSelector = UISegmentedControl(frame: CGRectMake(20, 20, 150, 30))
+        let yearSelector = UISegmentedControl(frame: CGRectMake(20, 20, 100, 30))
         yearSelector.addTarget(self, action: #selector(HomeTableViewController.switchSemester), forControlEvents: UIControlEvents.ValueChanged)
-        yearSelector.backgroundColor = .blackColor()
-        yearSelector.tintColor = UIColor.cornellRed
+        yearSelector.backgroundColor = UIColor.cornellRed
+        yearSelector.tintColor = UIColor.blackColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         yearSelector.setTitleTextAttributes(attributes, forState: .Normal)
         yearSelector.insertSegmentWithTitle("'14", atIndex: 0, animated: true)
@@ -259,6 +263,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     
     func setupPullToReload() {
         refreshControl = UIRefreshControl()
+        //refreshControl?.addSubview(SwiftSpinner())
         refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl!.addTarget(self, action: #selector(HomeTableViewController.updateCourses), forControlEvents: UIControlEvents.ValueChanged)
     }
@@ -292,5 +297,9 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         handleSearchBarSearchButtonClicked(searchBar)
     }
+    
+//    override func prefersStatusBarHidden() -> Bool {
+//        return (self.navigationController?.navigationBarHidden)!
+//    }
 
 }

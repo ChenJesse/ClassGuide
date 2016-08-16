@@ -22,7 +22,7 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-qD-eeH">
                         <rect key="frame" x="23" y="62" width="134" height="103"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -36,7 +36,7 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <color key="backgroundColor" red="0.61176470589999998" green="0.1960784314" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.61363636359999996" green="0.19489535650000001" blue="0.17212780450000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="zPi-l5-APu" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="13" id="3LP-cu-vQ9"/>
                 <constraint firstAttribute="trailing" secondItem="KL0-qD-eeH" secondAttribute="trailing" constant="23" id="Gg3-yj-31H"/>

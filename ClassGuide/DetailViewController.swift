@@ -24,9 +24,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var descriptionView: UITextView!
     @IBOutlet weak var semester: UILabel!
     
-    @IBOutlet weak var asdf: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        normalizeNavBar()
         setup()
     }
 
@@ -45,9 +45,17 @@ class DetailViewController: UIViewController {
         consent.text = "Consent: \(course.consent.rawValue)"
         descriptionView.text = "\(course.prerequisites) \n \nDescription: \(course.description)"
         courseStatusSelector.selectedSegmentIndex = course.status.rawValue
+        
+        let gesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(DetailViewController.swipeLeft(_:)))
+        gesture.direction = .Right
+        self.view.addGestureRecognizer(gesture)
     }
     
     @IBAction func statusChanged(sender: UISegmentedControl) {
         delegate.handleChangedCourse(course, status: Status(rawValue: sender.selectedSegmentIndex)!)
+    }
+    
+    func swipeLeft(gesture: UISwipeGestureRecognizer) {
+        navigationController?.popViewControllerAnimated(true)
     }
 }

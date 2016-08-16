@@ -25,8 +25,7 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tableView.allowsSelection = false
-        tableView.backgroundColor = .blackColor()
+        tableView.backgroundColor = UIColor.lightGrey
         tableView.registerNib(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
         navigationItem.title = "Settings"
         addRevealVCButton()
@@ -36,6 +35,7 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     
     override func viewDidAppear(animated: Bool) {
         addPanGesture()
+        normalizeNavBar()
     }
 
     override func didReceiveMemoryWarning() {

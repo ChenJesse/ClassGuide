@@ -1,28 +1,23 @@
 //
-//  Requirement.swift
+//  ReqSet.swift
 //  ClassGuide
 //
-//  Created by Jesse Chen on 4/2/16.
+//  Created by Jesse Chen on 8/15/16.
 //  Copyright © 2016 Jesse Chen. All rights reserved.
 //
 
 import Foundation
 
-protocol Requirement {
-    static var sharedInstance: Requirement { get }
+protocol ReqSet {
+    static var sharedInstance: ReqSet { get }
     var title: String { get }
     var key: SettingsKey { get }
-    var requiredCourses: Int { get }
-    var completed: Bool { get set }
-    func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet)
+    var reqItems: [RequirementItem]! { get set }
     func analyzeCourse(course: Course)
-    func checkCompletion()
     func resetProgress()
-    func printMandatoryProgress() -> [RequirementItem]
-    func printOptionalProgress() -> [RequirementItem]
 }
 
-extension Requirement {
+extension ReqSet {
     func calculateProgress(takenCourses: NSMutableSet, plannedCourses: NSMutableSet) {
         resetProgress()
         var relevantCourses: [Course] = []
@@ -40,5 +35,18 @@ extension Requirement {
         progress.appendContentsOf(printOptionalProgress())
         
         return progress
+    }
+    
+    func printMandatoryProgress() -> [RequirementItem] {
+        return reqItems.filter({ (item: RequirementItem) in return item.priority == .Mandatory })
+    }
+    
+    func printOptionalProgress() -> [RequirementItem] {
+        return reqItems.filter({ (item: RequirementItem) in return item.priority == .Optional })
+    }
+    
+    func checkCompletion() -> Bool {
+        let boolArray: [Bool] = reqItems.map( {(item: RequirementItem) in item.completed } )
+        return !boolArray.contains(false)
     }
 }

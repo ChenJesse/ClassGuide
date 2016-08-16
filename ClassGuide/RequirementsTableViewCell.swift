@@ -15,6 +15,7 @@ class RequirementsTableViewCell: UITableViewCell {
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var optionalImageView: UIImageView!
     @IBOutlet weak var progressCircle: KDCircularProgress!
+    @IBOutlet weak var courseLabel: UILabel!
     var isCSCourse: Bool!
     
     

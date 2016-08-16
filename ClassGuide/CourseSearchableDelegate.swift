@@ -18,12 +18,12 @@ protocol CourseSearchDelegate: UISearchBarDelegate {
 
 extension CourseSearchDelegate {
     func setupSearchBar() {
-        searchBar = UISearchBar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 30))
+        searchBar = UISearchBar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 35))
         searchBar.searchBarStyle = .Minimal
         searchBar.tintColor = UIColor.cornellRed
-        searchBar.backgroundColor = UIColor.darkGrey
+        searchBar.backgroundColor = UIColor.lightGrey
         let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = UIColor.cornellRed
+        textFieldInsideSearchBar?.textColor = UIColor.whiteColor()
         searchBar.delegate = self as CourseSearchDelegate
         controller.tableView.tableHeaderView = searchBar
     }
