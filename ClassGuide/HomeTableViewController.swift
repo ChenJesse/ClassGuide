@@ -241,7 +241,7 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
     }
     
     func setupSegmentedControl() {
-        let yearSelector = UISegmentedControl(frame: CGRectMake(20, 20, 100, 30))
+        let yearSelector = UISegmentedControl(frame: CGRectMake(20, 20, 150, 30))
         yearSelector.addTarget(self, action: #selector(HomeTableViewController.switchSemester), forControlEvents: UIControlEvents.ValueChanged)
         yearSelector.backgroundColor = UIColor.cornellRed
         yearSelector.tintColor = UIColor.blackColor()
