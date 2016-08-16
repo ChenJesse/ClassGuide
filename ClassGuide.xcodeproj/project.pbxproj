@@ -10,8 +10,6 @@
 		600AB1EC1CE99D0000DF46F5 /* AboutHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600AB1EB1CE99D0000DF46F5 /* AboutHeaderView.swift */; };
 		6023F5F41CB1C8B10070E340 /* CourseSearchableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6023F5F31CB1C8B10070E340 /* CourseSearchableDelegate.swift */; };
 		6036A40B1CA460CC00C8C113 /* CSRequirements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6036A40A1CA460CC00C8C113 /* CSRequirements.swift */; };
-		6036A44F1CA4793300C8C113 /* CourseDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6036A44D1CA4793300C8C113 /* CourseDetailTableViewCell.swift */; };
-		6036A4501CA4793300C8C113 /* CourseDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6036A44E1CA4793300C8C113 /* CourseDetailTableViewCell.xib */; };
 		604139D81CAED3D1008C6B72 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604139D71CAED3D1008C6B72 /* Constants.swift */; };
 		6042D7D41CA78C6A00273B20 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042D7D31CA78C6A00273B20 /* StringExtension.swift */; };
 		604A76121CE8127500EED876 /* SymbolCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604A76101CE8127500EED876 /* SymbolCollectionViewCell.swift */; };
@@ -91,8 +89,6 @@
 		600AB1EB1CE99D0000DF46F5 /* AboutHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutHeaderView.swift; sourceTree = "<group>"; };
 		6023F5F31CB1C8B10070E340 /* CourseSearchableDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseSearchableDelegate.swift; sourceTree = "<group>"; };
 		6036A40A1CA460CC00C8C113 /* CSRequirements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSRequirements.swift; sourceTree = "<group>"; };
-		6036A44D1CA4793300C8C113 /* CourseDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseDetailTableViewCell.swift; sourceTree = "<group>"; };
-		6036A44E1CA4793300C8C113 /* CourseDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseDetailTableViewCell.xib; sourceTree = "<group>"; };
 		604139D71CAED3D1008C6B72 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6042D7D31CA78C6A00273B20 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		604A76101CE8127500EED876 /* SymbolCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymbolCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -361,8 +357,6 @@
 				60DE62D71CA4CC5900AAFB32 /* SidebarTableViewCell.xib */,
 				60B7C61D1CA1CD9D00B9D190 /* CourseTableViewCell.swift */,
 				60B7C61E1CA1CD9D00B9D190 /* CourseTableViewCell.xib */,
-				6036A44D1CA4793300C8C113 /* CourseDetailTableViewCell.swift */,
-				6036A44E1CA4793300C8C113 /* CourseDetailTableViewCell.xib */,
 				6089212C1CAB4E050039F8F9 /* RequirementsTableViewCell.swift */,
 				6089212D1CAB4E050039F8F9 /* RequirementsTableViewCell.xib */,
 				608921341CAB75BA0039F8F9 /* SettingsTableViewCell.swift */,
@@ -489,7 +483,6 @@
 				609359F51CE82AE900909D31 /* AboutHeaderView.xib in Resources */,
 				60A985D41CA1C8D6006024CA /* LaunchScreen.storyboard in Resources */,
 				609C202A1CAC597D00C98782 /* SettingsTableViewController.xib in Resources */,
-				6036A4501CA4793300C8C113 /* CourseDetailTableViewCell.xib in Resources */,
 				60B7C61C1CA1CC4F00B9D190 /* HomeTableViewController.xib in Resources */,
 				60B7C6201CA1CD9D00B9D190 /* CourseTableViewCell.xib in Resources */,
 				60DE62D91CA4CC5900AAFB32 /* SidebarTableViewCell.xib in Resources */,
@@ -585,7 +578,6 @@
 				60B359281CA73AC300A63524 /* CourseAnalyzer.swift in Sources */,
 				605373FF1D62554100BCD7EB /* NS.swift in Sources */,
 				60A109A81CA3B7D200E6D2E8 /* SWRevealViewController.m in Sources */,
-				6036A44F1CA4793300C8C113 /* CourseDetailTableViewCell.swift in Sources */,
 				60A109B41CA3C21200E6D2E8 /* SidebarTableViewController.swift in Sources */,
 				600AB1EC1CE99D0000DF46F5 /* AboutHeaderView.swift in Sources */,
 				605373F51D62551200BCD7EB /* PL.swift in Sources */,

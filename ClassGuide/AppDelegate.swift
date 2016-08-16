@@ -44,7 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SWRevealViewControllerDel
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         navigationController.navigationBarHidden = false
         UINavigationBar.appearance().translucent = false
-        UINavigationBar.appearance().barStyle = .Black
+        UINavigationBar.appearance().barTintColor = UIColor.cornellRed
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 17.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 17.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
+
         appDelegate = self
         managedContext = appDelegate.managedObjectContext
         viewControllerSetup()

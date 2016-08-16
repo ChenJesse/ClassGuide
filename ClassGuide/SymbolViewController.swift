@@ -21,6 +21,7 @@ class SymbolViewController: UIViewController {
         layout.sectionInset = UIEdgeInsetsMake(10, 0, 20, 0)
         layout.headerReferenceSize = CGSize(width: UIScreen.mainScreen().bounds.width, height: 160)
         collectionView = UICollectionView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height - 64), collectionViewLayout: layout)
+        collectionView.backgroundColor = UIColor.lightGrey
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.registerNib(UINib(nibName: "SymbolCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "SymbolCell")

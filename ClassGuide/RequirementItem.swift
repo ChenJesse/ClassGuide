@@ -34,6 +34,7 @@ public class RequirementItem {
         satisfied = 0
         percentage = 0
         completed = false
+        courses.removeAll()
     }
     
     func increment(course: Course) {

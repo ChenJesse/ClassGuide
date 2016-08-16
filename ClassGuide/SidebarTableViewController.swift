@@ -25,7 +25,7 @@ class SidebarTableViewController: UITableViewController {
         let inset = UIEdgeInsetsMake(64, 0, 0, 0)
         tableView.contentInset = inset
         tableView.delegate = self
-        tableView.backgroundColor = .blackColor()
+        tableView.backgroundColor = UIColor.lightGrey
         tableView.separatorStyle = .SingleLine
         tableView.separatorColor = UIColor.darkGrey
         tableView.tableFooterView = UIView()
@@ -72,7 +72,7 @@ class SidebarTableViewController: UITableViewController {
         default:
             break;
         }
-        cell.backgroundColor = .blackColor()
+        cell.backgroundColor = UIColor.lightGrey
         cell.selectionStyle = .None
         
         return cell

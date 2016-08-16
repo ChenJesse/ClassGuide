@@ -27,7 +27,7 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate, Course
         super.viewDidLoad()
         controller = self
         tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "CourseCell")
-        tableView.backgroundColor = .blackColor()
+        tableView.backgroundColor = UIColor.lightGrey
         navigationItem.title = "Manage"
         self.editButtonItem().tintColor = .whiteColor()
         self.editButtonItem().image = UIImage(named: "editingIcon")

@@ -28,7 +28,7 @@ class RequirementsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerNib(UINib(nibName: "RequirementsTableViewCell", bundle: nil), forCellReuseIdentifier: "RequirementCell")
-        tableView.backgroundColor  = UIColor.maroon
+        tableView.backgroundColor  = UIColor.lightGrey
         mandatoryOnly = defaults.boolForKey("mandatory")
         setupMandatoryToggle()
         setupSettingsButton()
@@ -38,7 +38,7 @@ class RequirementsTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         calculateAndFetchProgress()
-        navigationController?.hidesBarsOnSwipe = true
+        //navigationController?.hidesBarsOnSwipe = true
         tableView.reloadData()
         addPanGesture()
     }
@@ -127,7 +127,7 @@ class RequirementsTableViewController: UITableViewController {
         
         if cellTapped[section] { cell.rotateArrow() }
         
-        cell.backgroundColor = UIColor.maroon.colorWithAlphaComponent(0.85)
+        cell.backgroundColor = UIColor.cornellRed.colorWithAlphaComponent(0.90)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(RequirementsTableViewController.headerClicked(_:)))
         cell.addGestureRecognizer(tapGestureRecognizer)
@@ -195,8 +195,8 @@ class RequirementsTableViewController: UITableViewController {
     
     func setupMandatoryToggle() {
         let mandatorySelector = UISegmentedControl(frame: CGRectMake(20, 20, 100, 30))
-        mandatorySelector.backgroundColor = .blackColor()
-        mandatorySelector.tintColor = UIColor.cornellRed
+        mandatorySelector.backgroundColor = UIColor.cornellRed
+        mandatorySelector.tintColor = UIColor.blackColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         mandatorySelector.setTitleTextAttributes(attributes, forState: .Normal)
         mandatorySelector.insertSegmentWithTitle("All", atIndex: 0, animated: true)
@@ -231,7 +231,7 @@ class RequirementsTableViewController: UITableViewController {
         }
     }
     
-    override func prefersStatusBarHidden() -> Bool {
-        return (self.navigationController?.navigationBarHidden)!
-    }
+//    override func prefersStatusBarHidden() -> Bool {
+//        return (self.navigationController?.navigationBarHidden)!
+//    }
 }
