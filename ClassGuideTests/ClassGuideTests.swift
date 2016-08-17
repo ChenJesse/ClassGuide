@@ -257,7 +257,7 @@ class ClassGuideTests: XCTestCase {
         ]
         req.calculateProgress(NSMutableSet(array: takenCourses), plannedCourses: NSMutableSet())
         XCTAssertEqual(req.F4xxorF12xorF32xor5300Fulfilled.satisfied, 2)
-        XCTAssert(req.taken4320or5300.completed)
+        XCTAssert(req.taken4320.completed)
         takenCourses = [
             Course(number: 4411),
             Course(number: 5430),
@@ -269,7 +269,8 @@ class ClassGuideTests: XCTestCase {
         XCTAssert(req.taken4411.completed)
         XCTAssert(req.taken5430.completed)
         XCTAssert(req.taken5412or5414.completed)
-        XCTAssert(req.taken4320or5300.completed)
+        XCTAssert(req.taken4320.completed)
+        XCTAssert(req.taken5300.completed)
         takenCourses = [
         
         ]

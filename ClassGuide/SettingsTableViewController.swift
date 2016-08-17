@@ -25,7 +25,7 @@ class SettingsTableViewController: UITableViewController, SettingsDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = UIColor.lightGrey
+        tableView.backgroundColor = UIColor.lighterGrey
         tableView.registerNib(UINib(nibName: "SettingsTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
         navigationItem.title = "Settings"
         addRevealVCButton()

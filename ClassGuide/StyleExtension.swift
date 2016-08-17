@@ -14,6 +14,8 @@ extension UIColor {
     @nonobjc static let darkGreen = UIColor(red: 0.0/255.0, green: 153.0/255.0, blue: 0.0/255.0, alpha: 1.0)
     @nonobjc static let maroon = UIColor(red: 102.0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
     @nonobjc static let lightGrey = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1.0)
+    @nonobjc static let lighterGrey = UIColor(red: 230.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1.0)
+
 }
 
 extension UIView {

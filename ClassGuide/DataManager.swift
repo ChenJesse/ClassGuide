@@ -63,6 +63,15 @@ public class DataManager: NSObject {
         
     }
     
+    public func needToFetch() -> Bool {
+        for semester in semesters {
+            if !defaults.boolForKey(semester) {
+                return true
+            }
+        }
+        return false
+    }
+    
     internal func createCourses(json: JSON, semester: String) {
         let courseJSON = json["data"]["classes"].arrayValue
         for c in courseJSON {

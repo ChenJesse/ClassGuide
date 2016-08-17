@@ -19,7 +19,8 @@ class SD: ReqSet {
     var seen: [Int] = []
     var taken5430 = RequirementItem(fulfillment: 1, description: "CS5430 (Security & Trustworthy Systems) ", type: .Optional, supported: .Supported)
     var taken5412or5414 = RequirementItem(fulfillment: 1, description: "CS5412/CS5414 (Security & Trustworthy Systems) ", type: .Optional, supported: .Supported)
-    var taken4320or5300 = RequirementItem(fulfillment: 1, description: "CS4320/CS5300 (Data-Intensive Computing) ", type: .Optional, supported: .Supported)
+    var taken4320 = RequirementItem(fulfillment: 1, description: "CS4320 (Data-Intensive Computing) ", type: .Optional, supported: .Supported)
+    var taken5300 = RequirementItem(fulfillment: 1, description: "CS5300 (Data-Intensive Computing) ", type: .Optional, supported: .Supported)
     var taken4321 = RequirementItem(fulfillment: 1, description: "CS4321 (Data-Intensive Computing) ", type: .Optional, supported: .Supported)
     var takenExtraCSF78xor4758or4300or6740 = RequirementItem(fulfillment: 1, description: "Extra CSF78x/CS4758/CS4300/CS6740 (Data-Intensive Computing) ", type: .Optional, supported: .Supported)
     var reqItems: [RequirementItem]!
@@ -31,7 +32,8 @@ class SD: ReqSet {
             taken4411,
             taken5430,
             taken5412or5414,
-            taken4320or5300,
+            taken4320,
+            taken5300,
             taken4321,
             takenExtraCSF78xor4758or4300or6740,
             RequirementItem(fulfillment: 0, description: "CS4830/CS4860/MATH3360 (Security & Trustworthy Systems) ", type: .Optional, supported: .Unsupported)
@@ -54,15 +56,15 @@ class SD: ReqSet {
             if course.courseNumber == 5412 || course.courseNumber == 5414 {
                 taken5412or5414.increment(course)
             }
-            if course.courseNumber == 4320 || course.courseNumber == 5300{
-                taken4320or5300.increment(course)
+            if course.courseNumber == 4320 {
+                taken4320.increment(course)
+            } else if course.courseNumber == 5300 {
+                taken5300.increment(course)
             }
         }
         
-        if F4xxorF12xorF32xor5300Fulfilled.completed {
-            if checkF78xor4758or4300or6740(course) {
-                takenExtraCSF78xor4758or4300or6740.increment(course)
-            }
+        if checkF78xor4758or4300or6740(course) {
+            takenExtraCSF78xor4758or4300or6740.increment(course)
         }
     }
     

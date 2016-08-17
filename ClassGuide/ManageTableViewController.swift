@@ -31,7 +31,7 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate, Course
         navigationItem.title = "Manage"
         self.editButtonItem().tintColor = .whiteColor()
         self.editButtonItem().image = UIImage(named: "editingIcon")
-        self.editButtonItem().title = ""
+        self.editButtonItem().title = " "
         navigationItem.rightBarButtonItem = self.editButtonItem()
         refreshCourses()
         addRevealVCButton()
@@ -62,6 +62,9 @@ class ManageTableViewController: UITableViewController, CoreDataDelegate, Course
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell", forIndexPath: indexPath) as! CourseTableViewCell
         let thisCourse = desiredCourses[indexPath.row]
+        cell.course = thisCourse
+        cell.parentTable = self
+        cell.coreDataDelegate = self
         cell.courseCodeLabel.text = thisCourse.subject.rawValue + "\(thisCourse.courseNumber)"
         cell.courseCodeLabel.sizeToFit()
         cell.courseTitleLabel.text = thisCourse.titleShort

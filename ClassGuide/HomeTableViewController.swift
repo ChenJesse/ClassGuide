@@ -108,12 +108,16 @@ class HomeTableViewController: UITableViewController, CoreDataDelegate, CourseSe
         dataManager = DataManager.init()
         dataManager.defaults = defaults
         fetchCoreData()
+        if dataManager.needToFetch() {
+            SwiftSpinner.show("Fetching courses")
+        }
         dataManager.fetchCourses() { () in
             self.courses = self.dataManager.courseArray
             self.processTakenAndPlannedCourses()
             self.processCourses()
             self.saveCoreData()
             self.tableView.reloadData()
+            SwiftSpinner.hide()
         }
         navigationItem.title = "CS Courses"
         navigationController?.navigationBar.backgroundColor = UIColor.lightGrey

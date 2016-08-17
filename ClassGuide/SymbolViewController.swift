@@ -63,10 +63,10 @@ extension SymbolViewController: UICollectionViewDataSource, UICollectionViewDele
         switch indexPath.row {
         case 0:
             symbolName = "mandatoryIcon"
-            description = "Requirement is mandatory"
+            description = "Requirement is mandatory for graduation (if pursuing vector)"
         case 1:
             symbolName = "optionalIcon"
-            description = "Requirement is optional"
+            description = "Requirement is optional for graduation"
         case 2:
             symbolName = "noHandIcon"
             description = "Requirement's fulfillment can't be toggled with a tap"
@@ -75,13 +75,13 @@ extension SymbolViewController: UICollectionViewDataSource, UICollectionViewDele
             description = "Requirement's fulfillment can be toggled with a tap"
         case 4:
             symbolName = "checkIcon"
-            description = "Course is marked as Taken"
+            description = "Course is marked as Taken. Toggle with a tap"
         case 5:
             symbolName = "planIcon"
-            description = "Course is marked as Plan to Take"
+            description = "Course is marked as Plan to Take. Toggle with a tap"
         case 6:
             symbolName = "questionmarkIcon"
-            description = "Course is marked as None"
+            description = "Course is marked as None. Toggle with a tap"
         case 7:
             symbolName = "fallIcon"
             description = "A fall semester"
@@ -96,7 +96,7 @@ extension SymbolViewController: UICollectionViewDataSource, UICollectionViewDele
             description = "Requirements, where you can see your progress towards completing the major and vectors"
         default:
             symbolName = "arrowIcon"
-            description = "Means that there will be a dropdown if you tap the cell"
+            description = "There will be a dropdown if you tap the cell"
         }
         
         cell.descriptionLabel.text = description

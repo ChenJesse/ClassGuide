@@ -30,7 +30,7 @@ class AI: ReqSet {
             takenF74xor4300,
             taken4300orF74xorF75xorF67xorF2xx,
             RequirementItem(fulfillment: 0, description: "LINGFxxx (Human-Language Technology) ", type: .Optional, supported: .Unsupported),
-            RequirementItem(fulfillment: 0, description: "LINGFxxx/CSF74x/CSF1110 (Human-Language Technology) ", type: .Optional, supported: .Unsupported),
+            RequirementItem(fulfillment: 0, description: "LINGFxxx/CSF74x/CSF110 (Human-Language Technology) ", type: .Optional, supported: .Unsupported),
             RequirementItem(fulfillment: 0, description: "CSF78x/CS4758/CS4850/STSCIFxxx (Machine Learning) ", type: .Optional, supported: .Unsupported)
         ]
     }
