@@ -1,5 +1,7 @@
 ## ClassGuide ##
-#### An intelligent checklist, which calculates your progress towards completing your CS + vector requirements. ####
+#### An intelligent checklist, which calculates your progress towards completing your CS + vector requirements. 
+
+####<a href=https://itunes.apple.com/us/app/classguide/id1144685716>Version 1.0 released on the App Store</a>
 
 <img src="/Screenshots/topleft.png" width="220" height="590">
 <img src="/Screenshots/topmiddle.png" width="280" height="570">
